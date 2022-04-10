@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Сайт, на котором можно разместить свою фотогалерею">
+  <meta name="author" content="Анастасия Вербицкая">
+  <meta name="keywords" content="Фотография, фото, путешествия">
+  <title>Mesto</title>
+  <link rel="icon" type="image/x-icon" href="./images/favicon.png">
+  <link href="./pages/index.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="page">
+    <div class="page__content">
+      <!-- Попап редактирования профиля -->
+      <div class="popup">
+        <div class="popup__container">
+          <div class="popup__close-icon"></div>
+          <form action="#" method="POST">
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <input type="text" name="firstname" placeholder="Жак-Ив Кусто" class="popup__element">
+            <input type="text" name="about" placeholder="Исследователь океана" class="popup__element">
+            <input type="submit" value="Сохранить" class="popup__btn">
+          </form>
+        </div>
+      </div>
+      <!-- Шапка сайта -->
+      <header class="header">
+        <div class="header__logo"></div>
+      </header>
+      <!-- Основное содержимое страницы -->
+      <main>
+        <!-- Секция profile -->
+        <section class="profile">
+          <div class="profile__info">
+            <div class="profile__image"></div>
+            <div>
+              <div class="profile__name">
+                <h1 class="profile__name-text">Жак-Ив Кусто</h1>
+                <button class="profile__name-edit"></button>
+              </div>
+              <p class="profile__desc">Исследователь океана</p>
+            </div>
+          </div>
+          <button class="profile__add-btn"></button>
+        </section>
+        <!-- Секция cards -->
+        <section class="cards">
+          <div class="card">
+            <div class="card__image-container">
+              <img src="./images/card_karachaevsk.jpg" alt="Древняя церковь в Карачаевске" class="card__image">
+            </div>
+            <div class="card__name">
+              <h3 class="card__name-text">Карачаевск</h3>
+              <button class="card__like"></button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__image-container">
+              <img src="./images/card_elbrus.jpg" alt="Вид на гору Эльбрус на рассвете" class="card__image">
+            </div>
+            <div class="card__name">
+              <h3 class="card__name-text">Гора Эльбрус</h3>
+              <button class="card__like"></button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__image-container">
+              <img src="./images/card_dombai.jpg" alt="Горы на фоне леса" class="card__image">
+            </div>
+            <div class="card__name">
+              <h3 class="card__name-text">Домбай</h3>
+              <button class="card__like"></button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__image-container">
+              <img src="./images/card_karelia.jpg" alt="Озеро, окруженное лесом" class="card__image">
+            </div>
+            <div class="card__name">
+              <h3 class="card__name-text">Карелия</h3>
+              <button class="card__like"></button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__image-container">
+              <img src="./images/card_altai.jpg" alt="Ноутбук, стоящий на парапете в доме посреди леса"
+                class="card__image">
+            </div>
+            <div class="card__name">
+              <h3 class="card__name-text">Алтай</h3>
+              <button class="card__like"></button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__image-container">
+              <img src="./images/card_kolski.jpg" alt="Заснеженные горы" class="card__image">
+            </div>
+            <div class="card__name">
+              <h3 class="card__name-text">Кольский полуостров</h3>
+              <button class="card__like"></button>
+            </div>
+          </div>
+        </section>
+      </main>
+      <!-- Подвал сайта-->
+      <footer class="footer">
+        <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+      </footer>
+    </div>
+  </div>
+
+</body>
+
+</html>
