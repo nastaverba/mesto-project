@@ -15,12 +15,11 @@
 
 <body>
   <div class="page">
-    <div class="page__content">
       <!-- Попап редактирования профиля -->
       <div class="popup">
         <div class="popup__container">
-          <div class="popup__close-icon"></div>
-          <form action="#" method="POST">
+          <button class="popup__close-icon" type="button"></button>
+          <form action="#" method="POST" name="profileInfo">
             <h2 class="popup__title">Редактировать профиль</h2>
             <input type="text" name="firstname" placeholder="Жак-Ив Кусто" class="popup__element">
             <input type="text" name="about" placeholder="Исследователь океана" class="popup__element">
@@ -29,11 +28,11 @@
         </div>
       </div>
       <!-- Шапка сайта -->
-      <header class="header">
+      <header class="header page__element">
         <div class="header__logo"></div>
       </header>
       <!-- Основное содержимое страницы -->
-      <main>
+      <main class="content page__element">
         <!-- Секция profile -->
         <section class="profile">
           <div class="profile__info">
@@ -41,12 +40,12 @@
             <div>
               <div class="profile__name">
                 <h1 class="profile__name-text">Жак-Ив Кусто</h1>
-                <button class="profile__name-edit"></button>
+                <button class="profile__name-edit" type="button"></button>
               </div>
               <p class="profile__desc">Исследователь океана</p>
             </div>
           </div>
-          <button class="profile__add-btn"></button>
+          <button class="profile__add-btn" type="button"></button>
         </section>
         <!-- Секция cards -->
         <section class="cards">
@@ -56,7 +55,7 @@
             </div>
             <div class="card__name">
               <h3 class="card__name-text">Карачаевск</h3>
-              <button class="card__like"></button>
+              <button class="card__like" type="button"></button>
             </div>
           </div>
           <div class="card">
@@ -65,7 +64,7 @@
             </div>
             <div class="card__name">
               <h3 class="card__name-text">Гора Эльбрус</h3>
-              <button class="card__like"></button>
+              <button class="card__like" type="button"></button>
             </div>
           </div>
           <div class="card">
@@ -74,7 +73,7 @@
             </div>
             <div class="card__name">
               <h3 class="card__name-text">Домбай</h3>
-              <button class="card__like"></button>
+              <button class="card__like" type="button"></button>
             </div>
           </div>
           <div class="card">
@@ -83,7 +82,7 @@
             </div>
             <div class="card__name">
               <h3 class="card__name-text">Карелия</h3>
-              <button class="card__like"></button>
+              <button class="card__like" type="button"></button>
             </div>
           </div>
           <div class="card">
@@ -93,7 +92,7 @@
             </div>
             <div class="card__name">
               <h3 class="card__name-text">Алтай</h3>
-              <button class="card__like"></button>
+              <button class="card__like" type="button"></button>
             </div>
           </div>
           <div class="card">
@@ -102,16 +101,15 @@
             </div>
             <div class="card__name">
               <h3 class="card__name-text">Кольский полуостров</h3>
-              <button class="card__like"></button>
+              <button class="card__like" type="button"></button>
             </div>
           </div>
         </section>
       </main>
       <!-- Подвал сайта-->
-      <footer class="footer">
+      <footer class="footer page__element">
         <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
       </footer>
-    </div>
   </div>
 
 </body>

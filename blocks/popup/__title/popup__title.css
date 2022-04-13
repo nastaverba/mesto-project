@@ -2,7 +2,7 @@
   margin: 34px 64px 54px 36px;
   padding: 0;
   font-size: 24px;
-  line-height: 1;
+  line-height: 29px;
   color: #000;
   font-weight: 900;
 }
@@ -11,5 +11,6 @@
   .popup__title {
     margin: 25px 22px 75px;
     font-size: 18px;
+    line-height: 22px;
   }
 }

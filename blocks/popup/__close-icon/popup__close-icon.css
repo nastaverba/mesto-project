@@ -5,10 +5,20 @@
   position: absolute;
   top: -40px;
   right: -40px;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
   background-image: url(../../../images/close-icon.svg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+  -webkit-transition-duration: 0.7s;
+  -o-transition-duration: 0.7s;
+  transition-duration: 0.7s;
+  }
+
+.popup__close-icon:hover {
+  opacity: .6;
 }
 
 @media screen and (max-width: 700px) {

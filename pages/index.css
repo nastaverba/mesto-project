@@ -1,7 +1,7 @@
 @import url(../vendor/normalize.css);
 @import url(../vendor/fonts.css);
 @import url(../blocks/page/page.css);
-@import url(../blocks/page/__content/page__content.css);
+@import url(../blocks/page/__element/page__element.css);
 
 /* Попап редактирования профиля */
 @import url(../blocks/popup/popup.css);
@@ -15,6 +15,9 @@
 /* Шапка сайта */
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
+
+/* Основное содержимое страницы */
+@import url(../blocks/content/content.css);
 
 /* Секция profile */
 @import url(../blocks/profile/profile.css);

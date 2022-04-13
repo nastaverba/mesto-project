@@ -1,5 +1,6 @@
 .profile__add-btn {
-  border: 1px solid #fff;
+  border: 2px solid #fff;
+  border-radius: 2px;
   background-color: transparent;
   cursor: pointer;
   -webkit-box-sizing: border-box;
@@ -29,5 +30,6 @@
 @media screen and (max-width: 700px) {
   .profile__add-btn {
     width: 282px;
+    background-image: url(../../../images/add-icon_small.svg);
   }
 }

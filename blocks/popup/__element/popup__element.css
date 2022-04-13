@@ -15,31 +15,31 @@
 .popup__element::-webkit-input-placeholder {
   color: #000;
   font-size: 14px;
-  line-height: 1;
+  line-height: 17px;
 }
 
 .popup__element::-moz-placeholder {
   color: #000;
   font-size: 14px;
-  line-height: 1;
+  line-height: 17px;
 }
 
 .popup__element:-ms-input-placeholder {
   color: #000;
   font-size: 14px;
-  line-height: 1;
+  line-height: 17px;
 }
 
 .popup__element::-ms-input-placeholder {
   color: #000;
   font-size: 14px;
-  line-height: 1;
+  line-height: 17px;
 }
 
 .popup__element::placeholder {
   color: #000;
   font-size: 14px;
-  line-height: 1;
+  line-height: 17px;
 }
 
 @media screen and (max-width: 700px) {
