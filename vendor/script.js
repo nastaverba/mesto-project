@@ -33,3 +33,30 @@ initialCards.forEach(function (card) {
   cardElement.querySelector('.card__name-text').textContent = card.name;
   cards.append(cardElement);
 });
+
+//Открытие попапов
+const popup_edit = document.querySelector('#edit');
+const popup_add = document.querySelector('#add');
+const addBtn = document.querySelector('.profile__add-btn');
+const editBtn = document.querySelector('.profile__name-edit');
+
+function openPopup(popupElement) {
+  popupElement.classList.add('popup_opened');
+}
+
+addBtn.addEventListener('click', function () {
+  openPopup(popup_add);
+});
+editBtn.addEventListener('click', function () {
+  openPopup(popup_edit);
+});
+
+//Закрытие попапов
+const popups = document.querySelectorAll('.popup');
+popups.forEach(function (popup) {
+  const closeBtn = popup.querySelector('.popup__close-icon');
+  function closePopup() {
+    popup.classList.remove('popup_opened');
+  }
+  closeBtn.addEventListener('click', closePopup);
+});
