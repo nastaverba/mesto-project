@@ -73,61 +73,6 @@
       </section>
       <!-- Секция cards -->
       <section class="cards">
-        <div class="card">
-          <div class="card__image-container">
-            <img src="./images/card_karachaevsk.jpg" alt="Древняя церковь в Карачаевске" class="card__image">
-          </div>
-          <div class="card__name">
-            <h3 class="card__name-text">Карачаевск</h3>
-            <button class="card__like" type="button"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__image-container">
-            <img src="./images/card_elbrus.jpg" alt="Вид на гору Эльбрус на рассвете" class="card__image">
-          </div>
-          <div class="card__name">
-            <h3 class="card__name-text">Гора Эльбрус</h3>
-            <button class="card__like" type="button"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__image-container">
-            <img src="./images/card_dombai.jpg" alt="Горы на фоне леса" class="card__image">
-          </div>
-          <div class="card__name">
-            <h3 class="card__name-text">Домбай</h3>
-            <button class="card__like" type="button"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__image-container">
-            <img src="./images/card_karelia.jpg" alt="Озеро, окруженное лесом" class="card__image">
-          </div>
-          <div class="card__name">
-            <h3 class="card__name-text">Карелия</h3>
-            <button class="card__like" type="button"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__image-container">
-            <img src="./images/card_altai.jpg" alt="Ноутбук, стоящий на парапете в доме посреди леса"
-              class="card__image">
-          </div>
-          <div class="card__name">
-            <h3 class="card__name-text">Алтай</h3>
-            <button class="card__like" type="button"></button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card__image-container">
-            <img src="./images/card_kolski.jpg" alt="Заснеженные горы" class="card__image">
-          </div>
-          <div class="card__name">
-            <h3 class="card__name-text">Кольский полуостров</h3>
-            <button class="card__like" type="button"></button>
-          </div>
-        </div>
       </section>
     </main>
     <!-- Подвал сайта-->
@@ -135,7 +80,21 @@
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
   </div>
-
+  <!-- Шаблон для карточки -->
+  <template id="card">
+    <div class="card">
+      <div class="card__image-container">
+        <button class="card__remove-icon" type="button"></button>
+        <img src="./images/card_karachaevsk.jpg" alt="Древняя церковь в Карачаевске" class="card__image">
+      </div>
+      <div class="card__name">
+        <h3 class="card__name-text">Карачаевск</h3>
+        <button class="card__like" type="button"></button>
+      </div>
+    </div>
+  </template>
+  <!-- Подключение JavaScript -->
+  <script src="./vendor/script.js"></script>
 </body>
 
 </html>
