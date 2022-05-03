@@ -13,31 +13,31 @@
 }
 
 .popup__element::-webkit-input-placeholder {
-  color: #000;
+  color: #c4c4c4;
   font-size: 14px;
   line-height: 17px;
 }
 
 .popup__element::-moz-placeholder {
-  color: #000;
+  color: #c4c4c4;
   font-size: 14px;
   line-height: 17px;
 }
 
 .popup__element:-ms-input-placeholder {
-  color: #000;
+  color: #c4c4c4;
   font-size: 14px;
   line-height: 17px;
 }
 
 .popup__element::-ms-input-placeholder {
-  color: #000;
+  color: #c4c4c4;
   font-size: 14px;
   line-height: 17px;
 }
 
 .popup__element::placeholder {
-  color: #000;
+  color: #c4c4c4;
   font-size: 14px;
   line-height: 17px;
 }

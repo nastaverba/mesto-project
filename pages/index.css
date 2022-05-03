@@ -12,6 +12,11 @@
 @import url(../blocks/popup/__element/popup__element.css);
 @import url(../blocks/popup/__btn/popup__btn.css);
 
+/* Попап с картинкой */
+@import url(../blocks/popup/__photo-container/popup__photo-container.css);
+@import url(../blocks/popup/__img/popup__img.css);
+@import url(../blocks/popup/__caption/popup__caption.css);
+
 /* Шапка сайта */
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);

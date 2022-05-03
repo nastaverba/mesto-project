@@ -15,101 +15,125 @@
 
 <body>
   <div class="page">
-      <!-- Попап редактирования профиля -->
-      <div class="popup">
-        <div class="popup__container">
-          <button class="popup__close-icon" type="button"></button>
-          <form action="#" method="POST" name="profileInfo">
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <input type="text" name="firstname" placeholder="Жак-Ив Кусто" class="popup__element">
-            <input type="text" name="about" placeholder="Исследователь океана" class="popup__element">
-            <input type="submit" value="Сохранить" class="popup__btn">
-          </form>
-        </div>
+    <!-- Попап редактирования профиля -->
+    <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close-icon" type="button"></button>
+        <form action="#" method="POST" name="profileInfo">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" name="firstname" placeholder="Жак-Ив Кусто"
+            class="popup__element popup__element_data_firstname">
+          <input type="text" name="about" placeholder="Исследователь океана"
+            class="popup__element popup__element_data_about">
+          <input type="submit" value="Сохранить" class="popup__btn">
+        </form>
       </div>
-      <!-- Шапка сайта -->
-      <header class="header page__element">
-        <div class="header__logo"></div>
-      </header>
-      <!-- Основное содержимое страницы -->
-      <main class="content page__element">
-        <!-- Секция profile -->
-        <section class="profile">
-          <div class="profile__info">
-            <div class="profile__image"></div>
-            <div>
-              <div class="profile__name">
-                <h1 class="profile__name-text">Жак-Ив Кусто</h1>
-                <button class="profile__name-edit" type="button"></button>
-              </div>
-              <p class="profile__desc">Исследователь океана</p>
+    </div>
+    <!-- Попап добавления картинки -->
+    <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close-icon" type="button"></button>
+        <form action="#" method="POST" name="addPlace">
+          <h2 class="popup__title">Новое место</h2>
+          <input type="text" name="photoName" placeholder="Название"
+            class="popup__element popup__element_data_photoname">
+          <input type="text" name="photoLink" placeholder="Ссылка на картинку"
+            class="popup__element popup__element_data_photolink">
+          <input type="submit" value="Создать" class="popup__btn">
+        </form>
+      </div>
+    </div>
+    <!-- Попап открытия изображения -->
+    <div class="popup">
+      <div class="popup__photo-container">
+        <button class="popup__close-icon" type="button"></button>
+        <img class="popup__img" src="./images/card_altai.jpg" alt="">
+        <p class="popup__caption">куку</p>
+      </div>
+    </div>
+    <!-- Шапка сайта -->
+    <header class="header page__element">
+      <div class="header__logo"></div>
+    </header>
+    <!-- Основное содержимое страницы -->
+    <main class="content page__element">
+      <!-- Секция profile -->
+      <section class="profile">
+        <div class="profile__info">
+          <div class="profile__image"></div>
+          <div>
+            <div class="profile__name">
+              <h1 class="profile__name-text">Жак-Ив Кусто</h1>
+              <button class="profile__name-edit" type="button"></button>
             </div>
+            <p class="profile__desc">Исследователь океана</p>
           </div>
-          <button class="profile__add-btn" type="button"></button>
-        </section>
-        <!-- Секция cards -->
-        <section class="cards">
-          <div class="card">
-            <div class="card__image-container">
-              <img src="./images/card_karachaevsk.jpg" alt="Древняя церковь в Карачаевске" class="card__image">
-            </div>
-            <div class="card__name">
-              <h3 class="card__name-text">Карачаевск</h3>
-              <button class="card__like" type="button"></button>
-            </div>
+        </div>
+        <button class="profile__add-btn" type="button"></button>
+      </section>
+      <!-- Секция cards -->
+      <section class="cards">
+        <div class="card">
+          <div class="card__image-container">
+            <img src="./images/card_karachaevsk.jpg" alt="Древняя церковь в Карачаевске" class="card__image">
           </div>
-          <div class="card">
-            <div class="card__image-container">
-              <img src="./images/card_elbrus.jpg" alt="Вид на гору Эльбрус на рассвете" class="card__image">
-            </div>
-            <div class="card__name">
-              <h3 class="card__name-text">Гора Эльбрус</h3>
-              <button class="card__like" type="button"></button>
-            </div>
+          <div class="card__name">
+            <h3 class="card__name-text">Карачаевск</h3>
+            <button class="card__like" type="button"></button>
           </div>
-          <div class="card">
-            <div class="card__image-container">
-              <img src="./images/card_dombai.jpg" alt="Горы на фоне леса" class="card__image">
-            </div>
-            <div class="card__name">
-              <h3 class="card__name-text">Домбай</h3>
-              <button class="card__like" type="button"></button>
-            </div>
+        </div>
+        <div class="card">
+          <div class="card__image-container">
+            <img src="./images/card_elbrus.jpg" alt="Вид на гору Эльбрус на рассвете" class="card__image">
           </div>
-          <div class="card">
-            <div class="card__image-container">
-              <img src="./images/card_karelia.jpg" alt="Озеро, окруженное лесом" class="card__image">
-            </div>
-            <div class="card__name">
-              <h3 class="card__name-text">Карелия</h3>
-              <button class="card__like" type="button"></button>
-            </div>
+          <div class="card__name">
+            <h3 class="card__name-text">Гора Эльбрус</h3>
+            <button class="card__like" type="button"></button>
           </div>
-          <div class="card">
-            <div class="card__image-container">
-              <img src="./images/card_altai.jpg" alt="Ноутбук, стоящий на парапете в доме посреди леса"
-                class="card__image">
-            </div>
-            <div class="card__name">
-              <h3 class="card__name-text">Алтай</h3>
-              <button class="card__like" type="button"></button>
-            </div>
+        </div>
+        <div class="card">
+          <div class="card__image-container">
+            <img src="./images/card_dombai.jpg" alt="Горы на фоне леса" class="card__image">
           </div>
-          <div class="card">
-            <div class="card__image-container">
-              <img src="./images/card_kolski.jpg" alt="Заснеженные горы" class="card__image">
-            </div>
-            <div class="card__name">
-              <h3 class="card__name-text">Кольский полуостров</h3>
-              <button class="card__like" type="button"></button>
-            </div>
+          <div class="card__name">
+            <h3 class="card__name-text">Домбай</h3>
+            <button class="card__like" type="button"></button>
           </div>
-        </section>
-      </main>
-      <!-- Подвал сайта-->
-      <footer class="footer page__element">
-        <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
-      </footer>
+        </div>
+        <div class="card">
+          <div class="card__image-container">
+            <img src="./images/card_karelia.jpg" alt="Озеро, окруженное лесом" class="card__image">
+          </div>
+          <div class="card__name">
+            <h3 class="card__name-text">Карелия</h3>
+            <button class="card__like" type="button"></button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__image-container">
+            <img src="./images/card_altai.jpg" alt="Ноутбук, стоящий на парапете в доме посреди леса"
+              class="card__image">
+          </div>
+          <div class="card__name">
+            <h3 class="card__name-text">Алтай</h3>
+            <button class="card__like" type="button"></button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__image-container">
+            <img src="./images/card_kolski.jpg" alt="Заснеженные горы" class="card__image">
+          </div>
+          <div class="card__name">
+            <h3 class="card__name-text">Кольский полуостров</h3>
+            <button class="card__like" type="button"></button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Подвал сайта-->
+    <footer class="footer page__element">
+      <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+    </footer>
   </div>
 
 </body>
