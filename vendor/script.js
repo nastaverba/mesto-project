@@ -60,3 +60,22 @@ popups.forEach(function (popup) {
   }
   closeBtn.addEventListener('click', closePopup);
 });
+
+//Поля формы "Редактировать профиль"
+const profileName = document.querySelector('.profile__name-text');
+const profileDesc = document.querySelector('.profile__desc');
+const formElement = document.querySelector('#profileInfo');
+const nameInput = document.querySelector('.popup__element_data_firstname');
+const jobInput = document.querySelector('.popup__element_data_about');
+nameInput.value = profileName.textContent;
+jobInput.value = profileDesc.textContent;
+
+//Редактирование имени и информации о себе
+function formSubmitHandler(evt) {
+  evt.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileDesc.textContent = jobInput.value;
+  popup_edit.classList.remove('popup_opened');
+}
+
+formElement.addEventListener('submit', formSubmitHandler);
