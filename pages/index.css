@@ -3,7 +3,7 @@
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/__element/page__element.css);
 
-/* Попап редактирования профиля */
+/* Попапы редактирования профиля и добавления картинки */
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/popup__container.css);
