@@ -42,6 +42,7 @@
 @import url(../blocks/card/__name/card__name.css);
 @import url(../blocks/card/__name-text/card__name-text.css);
 @import url(../blocks/card/__like/card__like.css);
+@import url(../blocks/card/__like/_liked/card__like_liked.css);
 @import url(../blocks/card/__remove-icon/card__remove-icon.css);
 
 /* Подвал сайта */

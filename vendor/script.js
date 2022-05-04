@@ -87,11 +87,26 @@ const photo_full_image = document.querySelector('.popup__img');
 const photo_full_name = document.querySelector('.popup__caption');
 
 for (i = 0; i < cardsAll.length; i++) {
-  let card_image = cardsAll[i].querySelector('.card__image');
-  let card_name = cardsAll[i].querySelector('.card__name-text');
+  const card_image = cardsAll[i].querySelector('.card__image');
+  const card_name = cardsAll[i].querySelector('.card__name-text');
   card_image.addEventListener('click', function () {
     photo_full.classList.add('popup_opened');
     photo_full_image.src = card_image.src;
     photo_full_name.textContent = card_name.textContent;
   })
+}
+
+//Лайк и удаление карточки (стартовые 6)
+for (i = 0; i < cardsAll.length; i++) {
+  const card = cardsAll[i];
+  const like = card.querySelector('.card__like');
+  const removeBtn = card.querySelector('.card__remove-icon');
+  function addLike() {
+    like.classList.toggle('card__like_liked');
+  }
+  like.addEventListener('click', addLike);
+  function removeCard() {
+    card.remove();
+  }
+  removeBtn.addEventListener('click', removeCard);
 }
