@@ -110,3 +110,34 @@ for (i = 0; i < cardsAll.length; i++) {
   }
   removeBtn.addEventListener('click', removeCard);
 }
+
+//Добавить карточку; удалить, лайкнуть добавленную карточку; открыть добавленную карточку
+const create_btn = document.querySelector('#create-btn');
+const photoNameInput = document.querySelector('.popup__element_data_photoname');
+const photoLinkInput = document.querySelector('.popup__element_data_photolink');
+create_btn.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  const card = cardTemplate.querySelector('.card').cloneNode(true);
+  card.querySelector('.card__name-text').textContent = photoNameInput.value;
+  card.querySelector('.card__image').src = photoLinkInput.value;
+  cards.prepend(card);
+  popup_add.classList.remove('popup_opened');
+  const like = card.querySelector('.card__like');
+  function addLike() {
+    like.classList.toggle('card__like_liked');
+  }
+  like.addEventListener('click', addLike);
+  const removeBtn = card.querySelector('.card__remove-icon');
+  function removeCard() {
+    card.remove();
+  }
+  removeBtn.addEventListener('click', removeCard);
+  let card_image = card.querySelector('.card__image');
+  let card_name = card.querySelector('.card__name-text');
+  card_image.addEventListener('click', function () {
+    photo_full.classList.add('popup_opened');
+    photo_full_image.src = card_image.src;
+    photo_full_name.textContent = card_name.textContent;
+  })
+}
+);
