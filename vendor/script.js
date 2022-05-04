@@ -79,3 +79,19 @@ function formSubmitHandler(evt) {
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
+
+//Открыть карточку (стартовые 6)
+const cardsAll = document.querySelectorAll('.card');
+const photo_full = document.querySelector('#photo-full');
+const photo_full_image = document.querySelector('.popup__img');
+const photo_full_name = document.querySelector('.popup__caption');
+
+for (i = 0; i < cardsAll.length; i++) {
+  let card_image = cardsAll[i].querySelector('.card__image');
+  let card_name = cardsAll[i].querySelector('.card__name-text');
+  card_image.addEventListener('click', function () {
+    photo_full.classList.add('popup_opened');
+    photo_full_image.src = card_image.src;
+    photo_full_name.textContent = card_name.textContent;
+  })
+}
