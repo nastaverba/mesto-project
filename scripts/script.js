@@ -36,6 +36,7 @@ const addBtn = document.querySelector('.profile__add-btn');
 const editBtn = document.querySelector('.profile__name-edit');
 
 //Попап создания карточки
+const createForm = document.querySelector('#addPlace');
 const createBtn = document.querySelector('#create-btn');
 const photoNameInput = document.querySelector('.popup__element_data_photoname');
 const photoLinkInput = document.querySelector('.popup__element_data_photolink');
@@ -93,8 +94,8 @@ function createCard(name, link) {
   }
   removeBtn.addEventListener('click', removeCard);
   //Превью карточки
-  let cardImage = card.querySelector('.card__image');
-  let cardName = card.querySelector('.card__name-text');
+  const cardImage = card.querySelector('.card__image');
+  const cardName = card.querySelector('.card__name-text');
   cardImage.addEventListener('click', function () {
     photoFull.classList.add('popup_opened');
     photoFullImage.src = cardImage.src;
@@ -111,7 +112,7 @@ function renderCard(somecard, somecontainer) {
 
 //Отрисовка исходных 6 карточек
 initialCards.forEach(function (item) {
-  let myCard = createCard(item.name, item.link);
+  const myCard = createCard(item.name, item.link);
   renderCard(myCard, cards);
 })
 
@@ -140,9 +141,9 @@ popups.forEach(function (popup) {
 formElement.addEventListener('submit', editProfile);
 
 //Добавление новой карточки
-createBtn.addEventListener('click', function (evt) {
+createForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
   renderCard(createCard(photoNameInput.value, photoLinkInput.value), cards);
-  document.querySelector('#addPlace').reset();
+  createForm.reset();
   closePopup(popupAdd);
 })
