@@ -81,12 +81,6 @@ function createCard(name, link) {
   card.querySelector('.card__name-text').textContent = name;
   card.querySelector('.card__image').src = link;
   card.querySelector('.card__image').alt = name;
-  //Лайк карточки
-  const like = card.querySelector('.card__like');
-  function addLike() {
-    like.classList.toggle('card__like_liked');
-  }
-  like.addEventListener('click', addLike);
   //Удаление карточки
   const removeBtn = card.querySelector('.card__remove-icon');
   function removeCard() {
@@ -159,3 +153,15 @@ createForm.addEventListener('submit', function (evt) {
   createForm.reset();
   closePopup(popupAdd);
 })
+
+  //Лайк карточки - один обработчик
+  function adddLike(evt) {
+    evt.target.classList.toggle('card__like_liked');
+  }
+
+  cards.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('card__like')) {
+      adddLike(evt);
+    }
+  }
+  )
