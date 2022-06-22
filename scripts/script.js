@@ -129,13 +129,25 @@ editBtn.addEventListener('click', function () {
   openPopup(popupEdit);
 });
 
-//Закрытие попапов
-popups.forEach(function (popup) {
-  const closeBtn = popup.querySelector('.popup__close-icon');
-  closeBtn.addEventListener('click', function () {
-    closePopup(popup);
-  });
-})
+  //Закрытие попапов
+  popups.forEach(function (popup) {
+    const closeBtn = popup.querySelector('.popup__close-icon');
+    closeBtn.addEventListener('click', function () {
+      closePopup(popup);
+    });
+    //Закрытие по кнопке Esc
+    document.addEventListener('keydown', function (evt) {
+      if (evt.key === 'Escape') {
+        closePopup(popup);
+      }
+    });
+    //Закрытие по нажатию на оверлей
+    popup.addEventListener('click', function (evt) {
+      if (evt.target.classList.contains('popup')) {
+        closePopup(popup);
+      }
+    });
+  })
 
 //Редактирование имени и информации о себе
 formElement.addEventListener('submit', editProfile);
