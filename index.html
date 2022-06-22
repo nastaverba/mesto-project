@@ -19,10 +19,18 @@
     <div class="popup" id="edit">
       <div class="popup__container">
         <button class="popup__close-icon" type="button"></button>
-        <form action="#" method="POST" name="profileInfo" id="profileInfo">
+        <form action="#" method="POST" name="profileInfo" id="profileInfo" class="form" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" name="firstname" placeholder="Имя" class="popup__element popup__element_data_firstname">
-          <input type="text" name="about" placeholder="О себе" class="popup__element popup__element_data_about">
+          <label class="form__field">
+            <input id="name-input" type="text" name="firstname" placeholder="Имя"
+              class="popup__element popup__element_data_firstname" minlength="2" maxlength="40" required>
+            <span class="name-input-error popup__element-error">Это поле должно быть заполнено</span>
+          </label>
+          <label class="form__field">
+            <input id="about-input" type="text" name="about" placeholder="О себе"
+              class="popup__element popup__element_data_about" minlength="2" maxlength="200" required>
+            <span class="about-input-error popup__element-error">Это поле должно быть заполнено</span>
+          </label>
           <input type="submit" value="Сохранить" class="popup__btn">
         </form>
       </div>
@@ -31,12 +39,18 @@
     <div class="popup" id="add">
       <div class="popup__container">
         <button class="popup__close-icon" type="button"></button>
-        <form action="#" method="POST" name="addPlace" id="addPlace">
+        <form action="#" method="POST" name="addPlace" id="addPlace" class="form" novalidate>
           <h2 class="popup__title">Новое место</h2>
-          <input type="text" name="photoName" placeholder="Название"
-            class="popup__element popup__element_data_photoname">
-          <input type="text" name="photoLink" placeholder="Ссылка на картинку"
-            class="popup__element popup__element_data_photolink">
+          <label class="form__field">
+            <input id="photoname-input" type="text" name="photoName" placeholder="Название"
+              class="popup__element popup__element_data_photoname" minlength="2" maxlength="30" required>
+            <span class="photoname-input-error popup__element-error">Это поле должно быть заполнено</span>
+          </label>
+          <label class="form__field">
+            <input id="photolink-input" type="url" name="photoLink" placeholder="Ссылка на картинку"
+              class="popup__element popup__element_data_photolink" required>
+            <span class="photolink-input-error popup__element-error">Это поле должно быть заполнено</span>
+          </label>
           <input type="submit" value="Создать" class="popup__btn" id="create-btn">
         </form>
       </div>

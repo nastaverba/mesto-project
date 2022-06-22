@@ -44,7 +44,7 @@ const photoLinkInput = document.querySelector('.popup__element_data_photolink');
 //Поля формы "Редактировать профиль"
 const profileName = document.querySelector('.profile__name-text');
 const profileDesc = document.querySelector('.profile__desc');
-const formElement = document.querySelector('#profileInfo');
+const profileInfo = document.querySelector('#profileInfo');
 const nameInput = document.querySelector('.popup__element_data_firstname');
 const jobInput = document.querySelector('.popup__element_data_about');
 
@@ -64,6 +64,8 @@ function openPopup(popupElement) {
 
 //Закрытие попапов
 function closePopup(popupElement) {
+  const button = popupElement.querySelector('.popup__btn');
+  button.classList.add('popup__btn_inactive');
   popupElement.classList.remove('popup_opened');
 }
 
@@ -123,28 +125,28 @@ editBtn.addEventListener('click', function () {
   openPopup(popupEdit);
 });
 
-  //Закрытие попапов
-  popups.forEach(function (popup) {
-    const closeBtn = popup.querySelector('.popup__close-icon');
-    closeBtn.addEventListener('click', function () {
+//Закрытие попапов
+popups.forEach(function (popup) {
+  const closeBtn = popup.querySelector('.popup__close-icon');
+  closeBtn.addEventListener('click', function () {
+    closePopup(popup);
+  });
+  //Закрытие по кнопке Esc
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
       closePopup(popup);
-    });
-    //Закрытие по кнопке Esc
-    document.addEventListener('keydown', function (evt) {
-      if (evt.key === 'Escape') {
-        closePopup(popup);
-      }
-    });
-    //Закрытие по нажатию на оверлей
-    popup.addEventListener('click', function (evt) {
-      if (evt.target.classList.contains('popup')) {
-        closePopup(popup);
-      }
-    });
-  })
+    }
+  });
+  //Закрытие по нажатию на оверлей
+  popup.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup')) {
+      closePopup(popup);
+    }
+  });
+})
 
 //Редактирование имени и информации о себе
-formElement.addEventListener('submit', editProfile);
+profileInfo.addEventListener('submit', editProfile);
 
 //Добавление новой карточки
 createForm.addEventListener('submit', function (evt) {
@@ -154,14 +156,89 @@ createForm.addEventListener('submit', function (evt) {
   closePopup(popupAdd);
 })
 
-  //Лайк карточки - один обработчик
-  function adddLike(evt) {
-    evt.target.classList.toggle('card__like_liked');
-  }
+//Лайк карточки - один обработчик
+function adddLike(evt) {
+  evt.target.classList.toggle('card__like_liked');
+}
 
-  cards.addEventListener('click', function (evt) {
-    if (evt.target.classList.contains('card__like')) {
-      adddLike(evt);
-    }
+cards.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('card__like')) {
+    adddLike(evt);
   }
-  )
+}
+)
+
+//Валидация форм
+
+//Функции
+//Показать ошибку
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('popup__element_type_error');
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('popup__element-error_active');
+};
+
+//Скрыть ошибку
+const hideInputError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('popup__element_type_error');
+  errorElement.textContent = '';
+  errorElement.classList.remove('popup__element-error_active');
+};
+
+//Валидация поля
+const isValid = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+
+//Активность кнопки при валидации
+//Проверка валидности полей
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+//Изменение активности кнопки
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('popup__btn_inactive');
+  } else {
+    buttonElement.classList.remove('popup__btn_inactive');
+  };
+};
+
+//Обработчики
+//Обработчики полей формы
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__element'));
+  const buttonElement = formElement.querySelector('.popup__btn');
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      isValid(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+
+//Обработчики форм
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll('.form'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+    setEventListeners(formElement);
+  });
+};
+
+enableValidation();
+
+
+

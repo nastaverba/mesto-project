@@ -9,8 +9,13 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__close-icon/popup__close-icon.css);
+@import url(../blocks/form/__field/form__field.css);
 @import url(../blocks/popup/__element/popup__element.css);
+@import url(../blocks/popup/__element/_type/popup__element_type_error.css);
+@import url(../blocks/popup/__element-error/popup__element-error.css);
+@import url(../blocks/popup/__element-error/_active/popup__element-error_active.css);
 @import url(../blocks/popup/__btn/popup__btn.css);
+@import url(../blocks/popup/__btn/_inactive/popup__btn_inactive.css);
 
 /* Попап с картинкой */
 @import url(../blocks/popup/__photo-container/popup__photo-container.css);
