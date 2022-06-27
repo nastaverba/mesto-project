@@ -9,8 +9,7 @@
   <meta name="author" content="Анастасия Вербицкая">
   <meta name="keywords" content="Фотография, фото, путешествия">
   <title>Mesto</title>
-  <link rel="icon" type="image/x-icon" href="./images/favicon.png">
-  <link href="./pages/index.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="<%=require('./images/favicon.png')%>">
 </head>
 
 <body>
@@ -59,7 +58,7 @@
     <div class="popup" id="photo-full">
       <div class="popup__photo-container">
         <button class="popup__close-icon" type="button"></button>
-        <img class="popup__img" src="./images/card_altai.jpg" alt="Полное изображение">
+        <img class="popup__img" src="<%=require('./images/card_altai.jpg')%>" alt="Полное изображение">
         <p class="popup__caption">Алтай</p>
       </div>
     </div>
@@ -97,7 +96,7 @@
     <div class="card">
       <div class="card__image-container">
         <button class="card__remove-icon" type="button"></button>
-        <img src="./images/card_karachaevsk.jpg" alt="Изображение карточки" class="card__image">
+        <img src="<%=require('./images/card_altai.jpg')%>" alt="Изображение карточки" class="card__image">
       </div>
       <div class="card__name">
         <h3 class="card__name-text">Карачаевск</h3>
@@ -105,8 +104,6 @@
       </div>
     </div>
   </template>
-  <!-- Подключение JavaScript -->
-  <script type="module" src="./scripts/script.js"></script>
 </body>
 
 </html>
