@@ -9,8 +9,7 @@
   <meta name="author" content="Анастасия Вербицкая">
   <meta name="keywords" content="Фотография, фото, путешествия">
   <title>Mesto</title>
-  <link rel="icon" type="image/x-icon" href="./images/favicon.png">
-  <link href="./pages/index.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="<%=require('./images/favicon.png')%>">
 </head>
 
 <body>
@@ -19,11 +18,19 @@
     <div class="popup" id="edit">
       <div class="popup__container">
         <button class="popup__close-icon" type="button"></button>
-        <form action="#" method="POST" name="profileInfo" id="profileInfo">
+        <form action="#" method="POST" name="profileInfo" id="profileInfo" class="form" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" name="firstname" placeholder="Имя" class="popup__element popup__element_data_firstname">
-          <input type="text" name="about" placeholder="О себе" class="popup__element popup__element_data_about">
-          <input type="submit" value="Сохранить" class="popup__btn">
+          <label class="form__field">
+            <input id="name-input" type="text" name="firstname" placeholder="Имя"
+              class="popup__element popup__element_data_firstname" minlength="2" maxlength="40" required>
+            <span class="name-input-error popup__element-error">Это поле должно быть заполнено</span>
+          </label>
+          <label class="form__field">
+            <input id="about-input" type="text" name="about" placeholder="О себе"
+              class="popup__element popup__element_data_about" minlength="2" maxlength="200" required>
+            <span class="about-input-error popup__element-error">Это поле должно быть заполнено</span>
+          </label>
+          <button type="submit" class="popup__btn">Сохранить</button>
         </form>
       </div>
     </div>
@@ -31,13 +38,19 @@
     <div class="popup" id="add">
       <div class="popup__container">
         <button class="popup__close-icon" type="button"></button>
-        <form action="#" method="POST" name="addPlace" id="addPlace">
+        <form action="#" method="POST" name="addPlace" id="addPlace" class="form" novalidate>
           <h2 class="popup__title">Новое место</h2>
-          <input type="text" name="photoName" placeholder="Название"
-            class="popup__element popup__element_data_photoname">
-          <input type="text" name="photoLink" placeholder="Ссылка на картинку"
-            class="popup__element popup__element_data_photolink">
-          <input type="submit" value="Создать" class="popup__btn" id="create-btn">
+          <label class="form__field">
+            <input id="photoname-input" type="text" name="photoName" placeholder="Название"
+              class="popup__element popup__element_data_photoname" minlength="2" maxlength="30" required>
+            <span class="photoname-input-error popup__element-error">Это поле должно быть заполнено</span>
+          </label>
+          <label class="form__field">
+            <input id="photolink-input" type="url" name="photoLink" placeholder="Ссылка на картинку"
+              class="popup__element popup__element_data_photolink" required>
+            <span class="photolink-input-error popup__element-error">Это поле должно быть заполнено</span>
+          </label>
+          <button type="submit" class="popup__btn" id="create-btn">Создать</button>
         </form>
       </div>
     </div>
@@ -45,7 +58,7 @@
     <div class="popup" id="photo-full">
       <div class="popup__photo-container">
         <button class="popup__close-icon" type="button"></button>
-        <img class="popup__img" src="./images/card_altai.jpg" alt="Полное изображение">
+        <img class="popup__img" src="<%=require('./images/card_altai.jpg')%>" alt="Полное изображение">
         <p class="popup__caption">Алтай</p>
       </div>
     </div>
@@ -83,7 +96,7 @@
     <div class="card">
       <div class="card__image-container">
         <button class="card__remove-icon" type="button"></button>
-        <img src="./images/card_karachaevsk.jpg" alt="Изображение карточки" class="card__image">
+        <img src="<%=require('./images/card_altai.jpg')%>" alt="Изображение карточки" class="card__image">
       </div>
       <div class="card__name">
         <h3 class="card__name-text">Карачаевск</h3>
@@ -91,8 +104,6 @@
       </div>
     </div>
   </template>
-  <!-- Подключение JavaScript -->
-  <script src="./scripts/script.js"></script>
 </body>
 
 </html>
