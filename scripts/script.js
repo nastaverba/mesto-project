@@ -21,16 +21,18 @@ editBtn.addEventListener('click', function () {
 
 //Закрытие попапов
 popups.forEach(function (popup) {
+  function popupEsc(evt) {
+    if (evt.key === 'Escape') {
+      closePopup(popup);
+    };
+    evt.target.removeEventListener('click', popupEsc);
+  }
   const closeBtn = popup.querySelector('.popup__close-icon');
   closeBtn.addEventListener('click', function () {
     closePopup(popup);
   });
   //Закрытие по кнопке Esc
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
-      closePopup(popup);
-    }
-  });
+  document.addEventListener('keydown', popupEsc);
   //Закрытие по нажатию на оверлей
   popup.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('popup')) {
@@ -38,6 +40,7 @@ popups.forEach(function (popup) {
     }
   });
 })
+
 
 //Редактирование имени и информации о себе
 profileInfo.addEventListener('submit', editProfile);
