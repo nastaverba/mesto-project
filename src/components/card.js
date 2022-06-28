@@ -1,6 +1,6 @@
 //Импорт
-import {initialCards, popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName} from './constants.js' ;
-import {closePopup} from './utils.js';
+import {initialCards, popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, createBtn} from './constants.js' ;
+import { openPopup, closePopup } from './modal.js';
 
 //Создание карточки
 function createCard(name, link) {
@@ -8,6 +8,16 @@ function createCard(name, link) {
   card.querySelector('.card__name-text').textContent = name;
   card.querySelector('.card__image').src = link;
   card.querySelector('.card__image').alt = name;
+  //Лайк карточки
+  function adddLike(evt) {
+    evt.target.classList.toggle('card__like_liked');
+  }
+  card.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('card__like')) {
+      adddLike(evt);
+    }
+  }
+  )
   //Удаление карточки
   const removeBtn = card.querySelector('.card__remove-icon');
   function removeCard() {
@@ -18,7 +28,7 @@ function createCard(name, link) {
   const cardImage = card.querySelector('.card__image');
   const cardName = card.querySelector('.card__name-text');
   cardImage.addEventListener('click', function () {
-    photoFull.classList.add('popup_opened');
+    openPopup(photoFull);
     photoFullImage.src = cardImage.src;
     photoFullImage.alt = cardName.textContent;
     photoFullName.textContent = cardName.textContent;
@@ -42,20 +52,12 @@ createForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
   renderCard(createCard(photoNameInput.value, photoLinkInput.value), cards);
   createForm.reset();
+  createBtn.classList.add('popup__btn_inactive');
+  createBtn.disabled = true;
+  console.log(createBtn.disabled);
   closePopup(popupAdd);
 })
 
-//Лайк карточки
-function adddLike(evt) {
-  evt.target.classList.toggle('card__like_liked');
-}
-
-cards.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('card__like')) {
-    adddLike(evt);
-  }
-}
-)
 
 //Экспорт
-export {createCard, renderCard, adddLike};
+export {createCard, renderCard};

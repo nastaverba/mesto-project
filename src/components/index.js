@@ -5,8 +5,7 @@ import {initialCards, popups, popupEdit, popupAdd, addBtn, editBtn, createForm, 
 profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName} from './constants.js' ;
 import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
 import {createCard, renderCard, adddLike} from './card.js';
-import {openPopup, editProfile} from './modal.js';
-import {closePopup} from './utils.js';
+import {openPopup, editProfile, closePopupEsc, closePopup} from './modal.js';
 
 //Обработчики
 
@@ -23,18 +22,11 @@ editBtn.addEventListener('click', function () {
 
 //Закрытие попапов
 popups.forEach(function (popup) {
-  function popupEsc(evt) {
-    if (evt.key === 'Escape') {
-      closePopup(popup);
-    };
-    evt.target.removeEventListener('click', popupEsc);
-  }
+  document.removeEventListener('keydown', closePopupEsc);
   const closeBtn = popup.querySelector('.popup__close-icon');
   closeBtn.addEventListener('click', function () {
     closePopup(popup);
   });
-  //Закрытие по кнопке Esc
-  document.addEventListener('keydown', popupEsc);
   //Закрытие по нажатию на оверлей
   popup.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('popup')) {
@@ -48,7 +40,14 @@ popups.forEach(function (popup) {
 profileInfo.addEventListener('submit', editProfile);
 
 //Валидация форм
-enableValidation();
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.popup__element',
+  submitButtonSelector: '.popup__btn',
+  inactiveButtonClass: 'popup__btn_inactive',
+  inputErrorClass: 'popup__element_type_error',
+  errorClass: 'popup__element-error_active'
+});
 
 
 
