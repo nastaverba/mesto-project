@@ -40,7 +40,14 @@ popups.forEach(function (popup) {
 profileInfo.addEventListener('submit', editProfile);
 
 //Валидация форм
-enableValidation();
+enableValidation({
+  formSelector: '.form',
+  inputSelector: '.popup__element',
+  submitButtonSelector: '.popup__btn',
+  inactiveButtonClass: 'popup__btn_inactive',
+  inputErrorClass: 'popup__element_type_error',
+  errorClass: 'popup__element-error_active'
+});
 
 
 
