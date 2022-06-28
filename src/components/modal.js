@@ -2,9 +2,18 @@
 import {popupEdit, profileName, profileDesc, nameInput, jobInput} from './constants.js' ;
 import {closePopup} from './utils.js';
 
+//Закрытие попапов по Esc
+function closePopupEsc(evt) {
+  const popup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    closePopup(popup);
+  }
+}
+
 //Открытие попапов
 function openPopup(popupElement) {
   popupElement.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEsc);
 }
 
 //Редактирование имени и информации о себе
@@ -16,4 +25,4 @@ function editProfile(evt) {
 }
 
 //Экспорт
-export {openPopup, editProfile};
+export {openPopup, editProfile, closePopupEsc};
