@@ -1,7 +1,6 @@
 //Импорт
 import {initialCards, popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, createBtn} from './constants.js' ;
-import { openPopup } from './modal.js';
-import {closePopup} from './utils.js';
+import { openPopup, closePopup } from './modal.js';
 
 //Создание карточки
 function createCard(name, link) {
