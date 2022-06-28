@@ -1,5 +1,5 @@
 //Импорт
-import {initialCards, popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName} from './constants.js' ;
+import {initialCards, popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, createBtn} from './constants.js' ;
 import {closePopup} from './utils.js';
 
 //Создание карточки
@@ -42,6 +42,9 @@ createForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
   renderCard(createCard(photoNameInput.value, photoLinkInput.value), cards);
   createForm.reset();
+  createBtn.classList.add('popup__btn_inactive');
+  createBtn.disabled = true;
+  console.log(createBtn.disabled);
   closePopup(popupAdd);
 })
 
