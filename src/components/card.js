@@ -9,6 +9,16 @@ function createCard(name, link) {
   card.querySelector('.card__name-text').textContent = name;
   card.querySelector('.card__image').src = link;
   card.querySelector('.card__image').alt = name;
+  //Лайк карточки
+  function adddLike(evt) {
+    evt.target.classList.toggle('card__like_liked');
+  }
+  card.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('card__like')) {
+      adddLike(evt);
+    }
+  }
+  )
   //Удаление карточки
   const removeBtn = card.querySelector('.card__remove-icon');
   function removeCard() {
@@ -49,17 +59,6 @@ createForm.addEventListener('submit', function (evt) {
   closePopup(popupAdd);
 })
 
-//Лайк карточки
-function adddLike(evt) {
-  evt.target.classList.toggle('card__like_liked');
-}
-
-cards.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('card__like')) {
-    adddLike(evt);
-  }
-}
-)
 
 //Экспорт
-export {createCard, renderCard, adddLike};
+export {createCard, renderCard};
