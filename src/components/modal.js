@@ -1,6 +1,10 @@
 //Импорт
 import {popupEdit, profileName, profileDesc, nameInput, jobInput} from './constants.js' ;
-import {closePopup} from './utils.js';
+
+//Закрытие попапов
+function closePopup(popupElement) {
+  popupElement.classList.remove('popup_opened');
+}
 
 //Закрытие попапов по Esc
 function closePopupEsc(evt) {
@@ -25,4 +29,4 @@ function editProfile(evt) {
 }
 
 //Экспорт
-export {openPopup, editProfile, closePopupEsc};
+export {openPopup, editProfile, closePopupEsc, closePopup};

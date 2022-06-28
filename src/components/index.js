@@ -5,8 +5,7 @@ import {initialCards, popups, popupEdit, popupAdd, addBtn, editBtn, createForm, 
 profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName} from './constants.js' ;
 import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
 import {createCard, renderCard, adddLike} from './card.js';
-import {openPopup, editProfile, closePopupEsc} from './modal.js';
-import {closePopup} from './utils.js';
+import {openPopup, editProfile, closePopupEsc, closePopup} from './modal.js';
 
 //Обработчики
 
