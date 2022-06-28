@@ -1,5 +1,6 @@
 //Импорт
 import {initialCards, popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, createBtn} from './constants.js' ;
+import { openPopup } from './modal.js';
 import {closePopup} from './utils.js';
 
 //Создание карточки
@@ -18,7 +19,7 @@ function createCard(name, link) {
   const cardImage = card.querySelector('.card__image');
   const cardName = card.querySelector('.card__name-text');
   cardImage.addEventListener('click', function () {
-    photoFull.classList.add('popup_opened');
+    openPopup(photoFull);
     photoFullImage.src = cardImage.src;
     photoFullImage.alt = cardName.textContent;
     photoFullName.textContent = cardName.textContent;
