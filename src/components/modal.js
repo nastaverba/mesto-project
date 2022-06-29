@@ -4,12 +4,13 @@ import {popupEdit, profileName, profileDesc, nameInput, jobInput} from './consta
 //Закрытие попапов
 function closePopup(popupElement) {
   popupElement.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupEsc);
 }
 
 //Закрытие попапов по Esc
 function closePopupEsc(evt) {
-  const popup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
+    const popup = document.querySelector('.popup_opened');
     closePopup(popup);
   }
 }

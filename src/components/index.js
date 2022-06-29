@@ -22,7 +22,6 @@ editBtn.addEventListener('click', function () {
 
 //Закрытие попапов
 popups.forEach(function (popup) {
-  document.removeEventListener('keydown', closePopupEsc);
   const closeBtn = popup.querySelector('.popup__close-icon');
   closeBtn.addEventListener('click', function () {
     closePopup(popup);
