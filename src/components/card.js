@@ -1,5 +1,5 @@
 //Импорт
-import {initialCards, popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, createBtn} from './constants.js' ;
+import { popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, createBtn} from './constants.js' ;
 import { openPopup, closePopup } from './modal.js';
 
 //Создание карточки
@@ -40,12 +40,6 @@ function createCard(name, link) {
 function renderCard(somecard, somecontainer) {
   somecontainer.prepend(somecard);
 }
-
-//Отрисовка исходных 6 карточек
-initialCards.forEach(function (item) {
-  const myCard = createCard(item.name, item.link);
-  renderCard(myCard, cards);
-})
 
 //Добавление новой карточки
 createForm.addEventListener('submit', function (evt) {

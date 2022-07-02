@@ -1,11 +1,35 @@
 //Импорт
 import '../pages/index.css';
 
-import {initialCards, popups, popupEdit, popupAdd, addBtn, editBtn, createForm, createBtn, photoNameInput, photoLinkInput, profileName,
+import { popups, popupEdit, popupAdd, addBtn, editBtn, createForm, createBtn, photoNameInput, photoLinkInput, profileName,
 profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName} from './constants.js' ;
 import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
 import {createCard, renderCard, adddLike} from './card.js';
 import {openPopup, editProfile, closePopupEsc, closePopup} from './modal.js';
+
+import {getInitialCards, getUserInfo} from './api.js';
+import { renderProfile } from './utils';
+
+//Загружаем карточки с сервера
+getInitialCards()
+  .then((result) => {
+    result.forEach(function (item) {
+      const myCard = createCard(item.name, item.link);
+      renderCard(myCard, cards);
+    })
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+//Загружаем данные пользователя с сервера
+  getUserInfo()
+  .then((result) => {
+    renderProfile(result.name, result.about, result.avatar);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 
 //Обработчики
 
@@ -47,6 +71,7 @@ enableValidation({
   inputErrorClass: 'popup__element_type_error',
   errorClass: 'popup__element-error_active'
 });
+
 
 
 
