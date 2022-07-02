@@ -1,3 +1,4 @@
+import { nameInput, jobInput } from "./constants";
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12'
 }
@@ -31,4 +32,13 @@ export const getUserInfo = () => {
     });
 }
 
-
+export const sendUserInfo = () => {
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: myHeaders,
+    body: JSON.stringify({
+      name: nameInput.value,
+      about: jobInput.value
+    })
+  })
+}

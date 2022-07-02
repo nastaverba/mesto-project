@@ -5,12 +5,12 @@ import { popups, popupEdit, popupAdd, addBtn, editBtn, createForm, createBtn, ph
 profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName} from './constants.js' ;
 import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
 import {createCard, renderCard, adddLike} from './card.js';
-import {openPopup, editProfile, closePopupEsc, closePopup} from './modal.js';
+import {openPopup, closePopupEsc, closePopup} from './modal.js';
 
-import {getInitialCards, getUserInfo} from './api.js';
+import {getInitialCards, getUserInfo, sendUserInfo} from './api.js';
 import { renderProfile } from './utils';
 
-//Загружаем карточки с сервера
+//Загрузка карточки с сервера
 getInitialCards()
   .then((result) => {
     result.forEach(function (item) {
@@ -22,14 +22,36 @@ getInitialCards()
     console.log(err);
   })
 
-//Загружаем данные пользователя с сервера
-  getUserInfo()
+//Загрузка данные пользователя с сервера
+getUserInfo()
   .then((result) => {
     renderProfile(result.name, result.about, result.avatar);
   })
   .catch((err) => {
     console.log(err);
   })
+
+
+//Обновление данных о пользователе
+profileInfo.addEventListener('submit', function(evt) {
+  evt.preventDefault();
+  sendUserInfo(nameInput.value, jobInput.value)
+    .then((res) => {
+      if(res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res.status);
+    })
+    .then((result) => {
+      renderProfile(result.name, result.about, result.avatar);
+    })
+    .then((result) => {
+      closePopup(popupEdit);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+});
 
 //Обработчики
 
@@ -57,10 +79,6 @@ popups.forEach(function (popup) {
     }
   });
 })
-
-
-//Редактирование имени и информации о себе
-profileInfo.addEventListener('submit', editProfile);
 
 //Валидация форм
 enableValidation({
