@@ -1,4 +1,7 @@
-import { nameInput, jobInput } from "./constants";
+//Импорт
+import { nameInput, jobInput, photoNameInput, photoLinkInput } from "./constants";
+
+//Переменные для запросов
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12'
 }
@@ -8,6 +11,7 @@ const myHeaders = {
   'Content-Type': 'application/json'
 }
 
+//Получение исходных карточек
 export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: myHeaders
@@ -20,6 +24,7 @@ export const getInitialCards = () => {
     });
 }
 
+//Получение данных о пользователе
 export const getUserInfo = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: myHeaders
@@ -32,6 +37,7 @@ export const getUserInfo = () => {
     });
 }
 
+//Обновление данных пользователя
 export const sendUserInfo = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
@@ -41,4 +47,22 @@ export const sendUserInfo = () => {
       about: jobInput.value
     })
   })
+}
+
+//Создание новой карточки
+export const addNewCard = () => {
+  return fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: myHeaders,
+    body: JSON.stringify({
+      name: photoNameInput.value,
+      link: photoLinkInput.value
+    })
+  })
+  .then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  });
 }
