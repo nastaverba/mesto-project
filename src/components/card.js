@@ -40,18 +40,9 @@ function createCard(name, link) {
 function renderCard(somecard, somecontainer) {
   somecontainer.prepend(somecard);
 }
-
-//Добавление новой карточки
-createForm.addEventListener('submit', function (evt) {
-  evt.preventDefault();
-  renderCard(createCard(photoNameInput.value, photoLinkInput.value), cards);
-  createForm.reset();
-  createBtn.classList.add('popup__btn_inactive');
-  createBtn.disabled = true;
-  console.log(createBtn.disabled);
-  closePopup(popupAdd);
-})
-
+function renderInitialCards(somecard, somecontainer) {
+  somecontainer.append(somecard);
+}
 
 //Экспорт
-export {createCard, renderCard};
+export {createCard, renderCard, renderInitialCards};
