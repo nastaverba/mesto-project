@@ -35,12 +35,6 @@ getUserInfo()
 profileInfo.addEventListener('submit', function(evt) {
   evt.preventDefault();
   sendUserInfo(nameInput.value, jobInput.value)
-    .then((res) => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res.status);
-    })
     .then((result) => {
       renderProfile(result.name, result.about, result.avatar);
     })
