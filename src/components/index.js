@@ -6,7 +6,7 @@ profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, p
 import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
 import {createCard, renderCard, renderInitialCards, adddLike} from './card.js';
 import {openPopup, closePopupEsc, closePopup} from './modal.js';
-import {myId, addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard} from './api.js';
+import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard} from './api.js';
 import { renderProfile } from './utils';
 
 //Загрузка карточки с сервера
@@ -15,17 +15,21 @@ getInitialCards()
     result.forEach(function (item) {
       const myCard = createCard(item.name, item.link, item.likes.length);
       renderInitialCards(myCard, cards);
-      if (item.owner._id === myId) {
-        const removeIcon = myCard.querySelector('.card__remove-icon');
-        removeIcon.classList.add('card__remove-icon_active');
-      }
+      getUserInfo()
+        .then((result) => {
+          if (item.owner._id === result._id) {
+            const removeIcon = myCard.querySelector('.card__remove-icon');
+            removeIcon.classList.add('card__remove-icon_active');
+          }
+        })
+
     })
   })
   .catch((err) => {
     console.log(err);
   })
 
-//Загрузка данные пользователя с сервера
+//Загрузка данных пользователя с сервера
 getUserInfo()
   .then((result) => {
     renderProfile(result.name, result.about, result.avatar);
@@ -57,19 +61,16 @@ createForm.addEventListener('submit', function (evt) {
     .then((result) => {
       renderCard(createCard(result.name, result.link), cards);
     })
-    .then((result) => {
-      console.log(result);
-    })
-    .then((result) => {
+    .then(() => {
       createForm.reset();
     })
-    .then((result) => {
+    .then(() => {
       createBtn.classList.add('popup__btn_inactive');
     })
-    .then((result) => {
+    .then(() => {
       createBtn.disabled = true;
     })
-    .then((result) => {
+    .then(() => {
       closePopup(popupAdd);
     })
     .catch((err) => {
