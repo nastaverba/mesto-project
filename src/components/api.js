@@ -11,8 +11,6 @@ export const myHeaders = {
   'Content-Type': 'application/json'
 }
 
-export const myId = 'b10a1c6c35dfac127967e93a';
-
 //Получение исходных карточек
 export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
