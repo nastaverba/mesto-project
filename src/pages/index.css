@@ -51,6 +51,7 @@
 @import url(../blocks/card/__like/card__like.css);
 @import url(../blocks/card/__like/_liked/card__like_liked.css);
 @import url(../blocks/card/__remove-icon/card__remove-icon.css);
+@import url(../blocks/card/__remove-icon/_active/card__remove-icon_active.css);
 
 /* Подвал сайта */
 @import url(../blocks/footer/footer.css);

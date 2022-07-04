@@ -6,7 +6,7 @@ profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, p
 import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
 import {createCard, renderCard, renderInitialCards, adddLike} from './card.js';
 import {openPopup, closePopupEsc, closePopup} from './modal.js';
-import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard} from './api.js';
+import {myId, addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard} from './api.js';
 import { renderProfile } from './utils';
 
 //Загрузка карточки с сервера
@@ -15,6 +15,10 @@ getInitialCards()
     result.forEach(function (item) {
       const myCard = createCard(item.name, item.link, item.likes.length);
       renderInitialCards(myCard, cards);
+      if (item.owner._id === myId) {
+        const removeIcon = myCard.querySelector('.card__remove-icon');
+        removeIcon.classList.add('card__remove-icon_active');
+      }
     })
   })
   .catch((err) => {
@@ -52,6 +56,9 @@ createForm.addEventListener('submit', function (evt) {
   addNewCard()
     .then((result) => {
       renderCard(createCard(result.name, result.link), cards);
+    })
+    .then((result) => {
+      console.log(result);
     })
     .then((result) => {
       createForm.reset();
