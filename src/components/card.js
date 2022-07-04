@@ -3,11 +3,13 @@ import { popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, car
 import { openPopup, closePopup } from './modal.js';
 
 //Создание карточки
-function createCard(name, link) {
+function createCard(name, link, likes) {
   const card = cardTemplate.querySelector('.card').cloneNode(true);
   card.querySelector('.card__name-text').textContent = name;
   card.querySelector('.card__image').src = link;
   card.querySelector('.card__image').alt = name;
+  card.querySelector('.card__like-count').textContent = likes;
+
   //Лайк карточки
   function adddLike(evt) {
     evt.target.classList.toggle('card__like_liked');

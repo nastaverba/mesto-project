@@ -6,7 +6,7 @@ const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12'
 }
 
-const myHeaders = {
+export const myHeaders = {
   authorization: 'ebed94c5-4469-48fb-a5ed-153cc27ff20d',
   'Content-Type': 'application/json'
 }
