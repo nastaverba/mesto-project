@@ -6,14 +6,14 @@ profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, p
 import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
 import {createCard, renderCard, renderInitialCards, adddLike} from './card.js';
 import {openPopup, closePopupEsc, closePopup} from './modal.js';
-import {addNewCard, getInitialCards, getUserInfo, sendUserInfo} from './api.js';
+import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard} from './api.js';
 import { renderProfile } from './utils';
 
 //Загрузка карточки с сервера
 getInitialCards()
   .then((result) => {
     result.forEach(function (item) {
-      const myCard = createCard(item.name, item.link);
+      const myCard = createCard(item.name, item.link, item.likes.length);
       renderInitialCards(myCard, cards);
     })
   })
