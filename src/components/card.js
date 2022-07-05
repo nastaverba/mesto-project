@@ -38,6 +38,7 @@ function createCard(name, link, likes) {
   return card;
 }
 
+
 //Функция, которая добавляет карточку в DOM
 function renderCard(somecard, somecontainer) {
   somecontainer.prepend(somecard);

@@ -6,23 +6,19 @@ profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, p
 import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
 import {createCard, renderCard, renderInitialCards, adddLike} from './card.js';
 import {openPopup, closePopupEsc, closePopup} from './modal.js';
-import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard} from './api.js';
+import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard, getCardsAndUser} from './api.js';
 import { renderProfile } from './utils';
 
-//Загрузка карточки с сервера
-getInitialCards()
+//Загрузка карточек
+getCardsAndUser
   .then((result) => {
-    result.forEach(function (item) {
+    result[0].forEach(function (item) {
       const myCard = createCard(item.name, item.link, item.likes.length);
+      if (item.owner._id === result[1]._id) {
+        const removeIcon = myCard.querySelector('.card__remove-icon');
+        removeIcon.classList.add('card__remove-icon_active');
+      }
       renderInitialCards(myCard, cards);
-      getUserInfo()
-        .then((result) => {
-          if (item.owner._id === result._id) {
-            const removeIcon = myCard.querySelector('.card__remove-icon');
-            removeIcon.classList.add('card__remove-icon_active');
-          }
-        })
-
     })
   })
   .catch((err) => {
@@ -46,7 +42,7 @@ profileInfo.addEventListener('submit', function(evt) {
     .then((result) => {
       renderProfile(result.name, result.about, result.avatar);
     })
-    .then((result) => {
+    .then(() => {
       closePopup(popupEdit);
     })
     .catch((err) => {
@@ -59,7 +55,7 @@ createForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
   addNewCard()
     .then((result) => {
-      renderCard(createCard(result.name, result.link), cards);
+      renderCard(createCard(result.name, result.link, result.likes), cards);
     })
     .then(() => {
       createForm.reset();
