@@ -72,3 +72,6 @@ export const addNewCard = () => {
     return Promise.reject(`Ошибка: ${res.status}`);
   });
 }
+
+export const getCardsAndUser = Promise.all([getInitialCards(), getUserInfo()]);
+
