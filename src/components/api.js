@@ -73,5 +73,32 @@ export const addNewCard = () => {
   });
 }
 
+//Получение данных о карточках и о пользователе
 export const getCardsAndUser = Promise.all([getInitialCards(), getUserInfo()]);
 
+//Постановка и удаление лайка
+export const addLikeToCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'PUT',
+    headers: myHeaders
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+}
+
+export const removeLikefromCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: 'DELETE',
+    headers: myHeaders
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+}

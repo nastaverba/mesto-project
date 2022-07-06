@@ -6,7 +6,7 @@ profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, p
 import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
 import {createCard, renderCard, renderInitialCards, adddLike} from './card.js';
 import {openPopup, closePopupEsc, closePopup} from './modal.js';
-import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard, getCardsAndUser} from './api.js';
+import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard, getCardsAndUser, addLikeToCard, removeLikefromCard} from './api.js';
 import { renderProfile } from './utils';
 
 //Загрузка карточек
@@ -14,10 +14,42 @@ getCardsAndUser
   .then((result) => {
     result[0].forEach(function (item) {
       const myCard = createCard(item.name, item.link, item.likes.length);
-      if (item.owner._id === result[1]._id) {
+      if (item.owner._id !== result[1]._id) {
         const removeIcon = myCard.querySelector('.card__remove-icon');
-        removeIcon.classList.add('card__remove-icon_active');
+        removeIcon.classList.remove('card__remove-icon_active');
       }
+      const cardLike = myCard.querySelector('.card__like');
+      if (item.likes.some((user) => user._id === result[1]._id)) {
+        cardLike.classList.add('card__like_liked');
+      }
+
+      cardLike.addEventListener('click', function() {
+        if (item.likes.every((user) => user._id !== result[1]._id)) {
+          addLikeToCard(item._id)
+            .then((result) => {
+              myCard.querySelector('.card__like-count').textContent = result.likes.length;
+            })
+            .then(() => {
+              cardLike.classList.add('card__like_liked');
+            })
+            .catch((err) => {
+              console.log(err);
+            })
+        } else {
+          removeLikefromCard(item._id)
+          .then((result) => {
+            myCard.querySelector('.card__like-count').textContent = result.likes.length;
+          })
+          .then(() => {
+            cardLike.classList.remove('card__like_liked');
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        }
+
+})
+
       renderInitialCards(myCard, cards);
     })
   })
@@ -55,7 +87,7 @@ createForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
   addNewCard()
     .then((result) => {
-      renderCard(createCard(result.name, result.link, result.likes), cards);
+      renderCard(createCard(result.name, result.link, result.likes.length), cards);
     })
     .then(() => {
       createForm.reset();
