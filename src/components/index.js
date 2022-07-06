@@ -1,12 +1,12 @@
 //Импорт
 import '../pages/index.css';
 
-import { popups, popupEdit, popupAdd, addBtn, editBtn, createForm, createBtn, photoNameInput, photoLinkInput, profileName,
-profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName} from './constants.js' ;
+import { popups, popupEdit, popupAdd, addBtn, editBtn, editAva, editAvaBtn, profileAvatar, createForm, createBtn, photoNameInput, photoLinkInput, profileName,
+profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, avaInput} from './constants.js' ;
 import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
 import {createCard, renderCard, renderInitialCards, adddLike} from './card.js';
 import {openPopup, closePopupEsc, closePopup} from './modal.js';
-import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard, getCardsAndUser, addLikeToCard, removeLikefromCard} from './api.js';
+import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard, getCardsAndUser, addLikeToCard, removeLikefromCard, sendUserAvatar} from './api.js';
 import { renderProfile } from './utils';
 
 //Загрузка карточек
@@ -82,6 +82,21 @@ profileInfo.addEventListener('submit', function(evt) {
     })
 });
 
+//Обновление аватара
+profileAvatar.addEventListener('submit', function(evt) {
+  evt.preventDefault();
+  sendUserAvatar(avaInput.value)
+    .then((result) => {
+      renderProfile(result.name, result.about, result.avatar);
+    })
+    .then(() => {
+      closePopup(editAva);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+})
+
 //Добавление новой карточки
 createForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
@@ -118,6 +133,10 @@ editBtn.addEventListener('click', function () {
   jobInput.value = profileDesc.textContent;
   openPopup(popupEdit);
 });
+
+editAvaBtn.addEventListener('click', function () {
+  openPopup(editAva);
+})
 
 //Закрытие попапов
 popups.forEach(function (popup) {
