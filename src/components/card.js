@@ -11,15 +11,15 @@ function createCard(name, link, likes) {
   card.querySelector('.card__like-count').textContent = likes;
 
   //Лайк карточки
-  function adddLike(evt) {
-    evt.target.classList.toggle('card__like_liked');
-  }
-  card.addEventListener('click', function (evt) {
-    if (evt.target.classList.contains('card__like')) {
-      adddLike(evt);
-    }
-  }
-  )
+  //function adddLike(evt) {
+    //evt.target.classList.toggle('card__like_liked');
+  //}
+  //card.addEventListener('click', function (evt) {
+    //if (evt.target.classList.contains('card__like')) {
+      //adddLike(evt);
+    //}
+  //}
+  //)
   //Удаление карточки
   const removeBtn = card.querySelector('.card__remove-icon');
   function removeCard() {
