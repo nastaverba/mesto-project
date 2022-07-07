@@ -14,6 +14,21 @@
 
 <body>
   <div class="page">
+    <!-- Попап редактирования аватара -->
+    <div class="popup" id="edit-ava">
+      <div class="popup__container">
+        <button class="popup__close-icon" type="button"></button>
+        <form action="#" method="POST" name="profileAvatar" id="profileAvatar" class="form" novalidate>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <label class="form__field">
+            <input id="avatar-input" type="url" name="avaLink" placeholder="Ссылка на аватар"
+              class="popup__element popup__element_data_avatar" required>
+            <span class="avatar-input-error popup__element-error">Это поле должно быть заполнено</span>
+          </label>
+          <button type="submit" class="popup__btn">Сохранить</button>
+        </form>
+      </div>
+    </div>
     <!-- Попап редактирования профиля -->
     <div class="popup" id="edit">
       <div class="popup__container">
@@ -71,7 +86,9 @@
       <!-- Секция profile -->
       <section class="profile">
         <div class="profile__info">
-          <div class="profile__image"></div>
+          <div class="profile__image">
+            <button class="profile__image-edit"></button>
+          </div>
           <div>
             <div class="profile__name">
               <h1 class="profile__name-text">Жак-Ив Кусто</h1>
@@ -95,12 +112,15 @@
   <template id="card">
     <div class="card">
       <div class="card__image-container">
-        <button class="card__remove-icon" type="button"></button>
+        <button class="card__remove-icon card__remove-icon_active" type="button"></button>
         <img src="<%=require('./images/card_altai.jpg')%>" alt="Изображение карточки" class="card__image">
       </div>
       <div class="card__name">
         <h3 class="card__name-text">Карачаевск</h3>
-        <button class="card__like" type="button"></button>
+        <div class="card__like-container">
+          <button class="card__like" type="button"></button>
+          <p class="card__like-count">5</p>
+        </div>
       </div>
     </div>
   </template>

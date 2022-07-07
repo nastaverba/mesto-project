@@ -32,6 +32,7 @@
 /* Секция profile */
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__image/profile__image.css);
+@import url(../blocks/profile/__image-edit/profile__image-edit.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__name-text/profile__name-text.css);
@@ -46,9 +47,12 @@
 @import url(../blocks/card/__image/card__image.css);
 @import url(../blocks/card/__name/card__name.css);
 @import url(../blocks/card/__name-text/card__name-text.css);
+@import url(../blocks/card/__like-container/card__like-container.css);
+@import url(../blocks/card/__like-count/card__like-count.css);
 @import url(../blocks/card/__like/card__like.css);
 @import url(../blocks/card/__like/_liked/card__like_liked.css);
 @import url(../blocks/card/__remove-icon/card__remove-icon.css);
+@import url(../blocks/card/__remove-icon/_active/card__remove-icon_active.css);
 
 /* Подвал сайта */
 @import url(../blocks/footer/footer.css);

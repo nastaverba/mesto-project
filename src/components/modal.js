@@ -21,13 +21,5 @@ function openPopup(popupElement) {
   document.addEventListener('keydown', closePopupEsc);
 }
 
-//Редактирование имени и информации о себе
-function editProfile(evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileDesc.textContent = jobInput.value;
-  closePopup(popupEdit);
-}
-
 //Экспорт
-export {openPopup, editProfile, closePopupEsc, closePopup};
+export {openPopup, closePopupEsc, closePopup};

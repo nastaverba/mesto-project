@@ -1,23 +1,14 @@
 //Импорт
-import {initialCards, popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, createBtn} from './constants.js' ;
+import { popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, createBtn} from './constants.js' ;
 import { openPopup, closePopup } from './modal.js';
 
 //Создание карточки
-function createCard(name, link) {
+function createCard(name, link, likes) {
   const card = cardTemplate.querySelector('.card').cloneNode(true);
   card.querySelector('.card__name-text').textContent = name;
   card.querySelector('.card__image').src = link;
   card.querySelector('.card__image').alt = name;
-  //Лайк карточки
-  function adddLike(evt) {
-    evt.target.classList.toggle('card__like_liked');
-  }
-  card.addEventListener('click', function (evt) {
-    if (evt.target.classList.contains('card__like')) {
-      adddLike(evt);
-    }
-  }
-  )
+  card.querySelector('.card__like-count').textContent = likes;
   //Удаление карточки
   const removeBtn = card.querySelector('.card__remove-icon');
   function removeCard() {
@@ -40,24 +31,9 @@ function createCard(name, link) {
 function renderCard(somecard, somecontainer) {
   somecontainer.prepend(somecard);
 }
-
-//Отрисовка исходных 6 карточек
-initialCards.forEach(function (item) {
-  const myCard = createCard(item.name, item.link);
-  renderCard(myCard, cards);
-})
-
-//Добавление новой карточки
-createForm.addEventListener('submit', function (evt) {
-  evt.preventDefault();
-  renderCard(createCard(photoNameInput.value, photoLinkInput.value), cards);
-  createForm.reset();
-  createBtn.classList.add('popup__btn_inactive');
-  createBtn.disabled = true;
-  console.log(createBtn.disabled);
-  closePopup(popupAdd);
-})
-
+function renderInitialCards(somecard, somecontainer) {
+  somecontainer.append(somecard);
+}
 
 //Экспорт
-export {createCard, renderCard};
+export {createCard, renderCard, renderInitialCards};
