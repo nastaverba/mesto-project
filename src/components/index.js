@@ -1,12 +1,14 @@
 //Импорт
 import '../pages/index.css';
 
-import { popups, popupEdit, popupAdd, addBtn, editBtn, editAva, editAvaBtn, profileAvatar, createForm, createBtn, photoNameInput, photoLinkInput, profileName,
-profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, avaInput} from './constants.js' ;
-import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
-import {createCard, renderCard, renderInitialCards, adddLike} from './card.js';
-import {openPopup, closePopupEsc, closePopup} from './modal.js';
-import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard, getCardsAndUser, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard} from './api.js';
+import {
+  popups, popupEdit, popupAdd, addBtn, editBtn, editAva, editAvaBtn, profileAvatar, createForm, createBtn, photoNameInput, photoLinkInput, profileName,
+  profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, avaInput
+} from './constants.js';
+import { showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation } from './validate.js';
+import { createCard, renderCard, renderInitialCards, adddLike } from './card.js';
+import { openPopup, closePopupEsc, closePopup } from './modal.js';
+import { addNewCard, getInitialCards, getUserInfo, sendUserInfo, getCardsAndUser, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
 import { renderProfile, renderLoading, renderLoadingForCard } from './utils';
 
 //Загрузка карточек
@@ -23,14 +25,13 @@ getCardsAndUser
         cardLike.classList.add('card__like_liked');
       }
       const removeIcon = myCard.querySelector('.card__remove-icon');
-      removeIcon.addEventListener('click', function() {
+      removeIcon.addEventListener('click', function () {
         deleteCard(item._id)
           .catch((err) => {
             console.log(err);
           })
       })
-
-      cardLike.addEventListener('click', function() {
+      cardLike.addEventListener('click', function () {
         if (item.likes.every((user) => user._id !== result[1]._id)) {
           addLikeToCard(item._id)
             .then((result) => {
@@ -44,19 +45,17 @@ getCardsAndUser
             })
         } else {
           removeLikefromCard(item._id)
-          .then((result) => {
-            myCard.querySelector('.card__like-count').textContent = result.likes.length;
-          })
-          .then(() => {
-            cardLike.classList.remove('card__like_liked');
-          })
-          .catch((err) => {
-            console.log(err);
-          })
+            .then((result) => {
+              myCard.querySelector('.card__like-count').textContent = result.likes.length;
+            })
+            .then(() => {
+              cardLike.classList.remove('card__like_liked');
+            })
+            .catch((err) => {
+              console.log(err);
+            })
         }
-
-})
-
+      })
       renderInitialCards(myCard, cards);
     })
   })
@@ -73,9 +72,8 @@ getUserInfo()
     console.log(err);
   })
 
-
 //Обновление данных о пользователе
-profileInfo.addEventListener('submit', function(evt) {
+profileInfo.addEventListener('submit', function (evt) {
   evt.preventDefault();
   renderLoading(true, profileInfo.querySelector('.popup__btn'));
   sendUserInfo(nameInput.value, jobInput.value)
@@ -88,13 +86,13 @@ profileInfo.addEventListener('submit', function(evt) {
     .catch((err) => {
       console.log(err);
     })
-  .finally(() => {
-    renderLoading(false, profileInfo.querySelector('.popup__btn'));
-  })
+    .finally(() => {
+      renderLoading(false, profileInfo.querySelector('.popup__btn'));
+    })
 });
 
 //Обновление аватара
-profileAvatar.addEventListener('submit', function(evt) {
+profileAvatar.addEventListener('submit', function (evt) {
   evt.preventDefault();
   renderLoading(true, profileAvatar.querySelector('.popup__btn'));
   sendUserAvatar(avaInput.value)
