@@ -119,3 +119,17 @@ export const removeLikefromCard = (cardId) => {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
 }
+
+//Удаление карточки
+export const deleteCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: myHeaders
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
+}
