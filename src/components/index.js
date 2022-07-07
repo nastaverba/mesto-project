@@ -6,7 +6,7 @@ profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, p
 import {showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation} from './validate.js';
 import {createCard, renderCard, renderInitialCards, adddLike} from './card.js';
 import {openPopup, closePopupEsc, closePopup} from './modal.js';
-import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard, getCardsAndUser, addLikeToCard, removeLikefromCard, sendUserAvatar} from './api.js';
+import {addNewCard, getInitialCards, getUserInfo, sendUserInfo, likeCard, unlikeCard, getCardsAndUser, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard} from './api.js';
 import { renderProfile, renderLoading, renderLoadingForCard } from './utils';
 
 //Загрузка карточек
@@ -22,6 +22,13 @@ getCardsAndUser
       if (item.likes.some((user) => user._id === result[1]._id)) {
         cardLike.classList.add('card__like_liked');
       }
+      const removeIcon = myCard.querySelector('.card__remove-icon');
+      removeIcon.addEventListener('click', function() {
+        deleteCard(item._id)
+          .catch((err) => {
+            console.log(err);
+          })
+      })
 
       cardLike.addEventListener('click', function() {
         if (item.likes.every((user) => user._id !== result[1]._id)) {
