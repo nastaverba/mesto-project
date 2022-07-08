@@ -8,7 +8,7 @@ import {
 import { showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation } from './validate.js';
 import { createCard, renderCard, renderInitialCards, adddLike } from './card.js';
 import { openPopup, closePopupEsc, closePopup } from './modal.js';
-import { addNewCard, getInitialCards, getUserInfo, sendUserInfo, getCardsAndUser, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
+import { getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getCardsAndUser, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
 import { renderProfile, renderLoading, renderLoadingForCard } from './utils';
 
 //Загрузка карточек
