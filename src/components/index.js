@@ -9,7 +9,7 @@ import { showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonS
 import { createCard, renderCard, renderInitialCards, adddLike } from './card.js';
 import { openPopup, closePopupEsc, closePopup } from './modal.js';
 import { getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getCardsAndUser, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
-import { renderProfile, renderLoading, renderLoadingForCard } from './utils';
+import { renderProfile, renderLoading } from './utils';
 
 //Загрузка карточек
 getCardsAndUser
@@ -75,7 +75,7 @@ getUserInfo()
 //Обновление данных о пользователе
 profileInfo.addEventListener('submit', function (evt) {
   evt.preventDefault();
-  renderLoading(true, profileInfo.querySelector('.popup__btn'));
+  renderLoading(profileInfo.querySelector('.popup__btn'), "Сохранение...");
   sendUserInfo(nameInput.value, jobInput.value)
     .then((result) => {
       renderProfile(result.name, result.about, result.avatar);
@@ -87,14 +87,14 @@ profileInfo.addEventListener('submit', function (evt) {
       console.log(err);
     })
     .finally(() => {
-      renderLoading(false, profileInfo.querySelector('.popup__btn'));
+      renderLoading(profileInfo.querySelector('.popup__btn'), "Сохранить");
     })
 });
 
 //Обновление аватара
 profileAvatar.addEventListener('submit', function (evt) {
   evt.preventDefault();
-  renderLoading(true, profileAvatar.querySelector('.popup__btn'));
+  renderLoading(profileAvatar.querySelector('.popup__btn'), "Сохранение...");
   sendUserAvatar(avaInput.value)
     .then((result) => {
       renderProfile(result.name, result.about, result.avatar);
@@ -106,14 +106,14 @@ profileAvatar.addEventListener('submit', function (evt) {
       console.log(err);
     })
     .finally(() => {
-      renderLoading(false, profileAvatar.querySelector('.popup__btn'));
+      renderLoading(profileAvatar.querySelector('.popup__btn'), "Сохранить");
     })
 })
 
 //Добавление новой карточки
 createForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
-  renderLoadingForCard(true, createForm.querySelector('.popup__btn'));
+  renderLoading(createForm.querySelector('.popup__btn'), "Сохранение...");
   addNewCard()
     .then((result) => {
       renderCard(createCard(result.name, result.link, result.likes.length), cards);
@@ -134,7 +134,7 @@ createForm.addEventListener('submit', function (evt) {
       console.log(err);
     })
     .finally(() => {
-      renderLoadingForCard(false, createForm.querySelector('.popup__btn'));
+      renderLoading(createForm.querySelector('.popup__btn'), "Создать");
     })
 })
 

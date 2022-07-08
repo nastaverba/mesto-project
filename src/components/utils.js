@@ -6,18 +6,6 @@ export function renderProfile(name, about, avatar) {
   profileImg.style.backgroundImage = `url(${avatar}`;
 }
 
-export function renderLoading(isLoading, formButton) {
-  if (isLoading) {
-    formButton.textContent = "Сохранение...";
-  } else {
-    formButton.textContent = "Сохранить";
-  }
-}
-
-export function renderLoadingForCard(isLoading, formButton) {
-  if (isLoading) {
-    formButton.textContent = "Сохранение...";
-  } else {
-    formButton.textContent = "Создать";
-  }
+export function renderLoading(formButton, textButton) {
+  formButton.textContent = textButton;
 }
