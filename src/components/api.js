@@ -2,6 +2,12 @@
 import { avaInput, nameInput, jobInput, photoNameInput, photoLinkInput } from "./constants";
 
 //Переменные для запросов
+export function getResponseData(res) {
+  if (!res.ok) {
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+};
+
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-12'
 }
@@ -17,10 +23,8 @@ export const getInitialCards = () => {
     headers: myHeaders
   })
     .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      getResponseData(res);
+      return res.json();
     });
 }
 
@@ -30,10 +34,8 @@ export const getUserInfo = () => {
     headers: myHeaders
   })
     .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      getResponseData(res);
+      return res.json();
     });
 }
 
@@ -48,10 +50,8 @@ export const sendUserInfo = () => {
     })
   })
   .then(res => {
-    if (res.ok) {
+    getResponseData(res);
       return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 
@@ -65,10 +65,8 @@ export const sendUserAvatar = () => {
     })
   })
   .then(res => {
-    if (res.ok) {
+    getResponseData(res);
       return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 
@@ -83,10 +81,8 @@ export const addNewCard = () => {
     })
   })
   .then(res => {
-    if (res.ok) {
+    getResponseData(res);
       return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
   });
 }
 
@@ -100,10 +96,8 @@ export const addLikeToCard = (cardId) => {
     headers: myHeaders
   })
     .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      getResponseData(res);
+      return res.json();
     });
 }
 
@@ -113,10 +107,8 @@ export const removeLikefromCard = (cardId) => {
     headers: myHeaders
   })
     .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      getResponseData(res);
+      return res.json();
     });
 }
 
@@ -127,9 +119,7 @@ export const deleteCard = (cardId) => {
     headers: myHeaders
   })
     .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      getResponseData(res);
+      return res.json();
     });
 }
