@@ -143,7 +143,7 @@ popups.forEach(function (popup) {
     closePopup(popup);
   });
   //Закрытие по нажатию на оверлей
-  popup.addEventListener('click', function (evt) {
+  popup.addEventListener('mousedown', function (evt) {
     if (evt.target.classList.contains('popup')) {
       closePopup(popup);
     }
