@@ -51,7 +51,7 @@ export const sendUserInfo = () => {
   })
   .then(res => {
     getResponseData(res);
-      return res.json();
+    return res.json();
   });
 }
 
@@ -66,7 +66,7 @@ export const sendUserAvatar = () => {
   })
   .then(res => {
     getResponseData(res);
-      return res.json();
+    return res.json();
   });
 }
 
@@ -82,12 +82,16 @@ export const addNewCard = () => {
   })
   .then(res => {
     getResponseData(res);
-      return res.json();
+    return res.json();
   });
 }
 
+
 //Получение данных о карточках и о пользователе
 export const getCardsAndUser = Promise.all([getInitialCards(), getUserInfo()]);
+
+
+//export const getOneCardAndUser = Promise.all([getUserInfo(), addNewCard]);
 
 //Постановка и удаление лайка
 export const addLikeToCard = (cardId) => {
