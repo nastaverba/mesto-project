@@ -1,6 +1,7 @@
 //Импорт
 import { popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, createBtn} from './constants.js' ;
 import { openPopup, closePopup } from './modal.js';
+import {likeCardsApi} from './index.js'
 
 //Создание карточки
 function createCard(name, link, likes) {
@@ -24,7 +25,14 @@ function createCard(name, link, likes) {
     photoFullImage.alt = cardName.textContent;
     photoFullName.textContent = cardName.textContent;
   });
+  //const cardLike = card.querySelector('.card__like');
+  //cardLike.addEventListener('click', function () {
+    //likeCardsApi();
+  //})
+
   return card;
+
+
 }
 
 //Функция, которая добавляет карточку в DOM
@@ -35,5 +43,18 @@ function renderInitialCards(somecard, somecontainer) {
   somecontainer.append(somecard);
 }
 
+
+function likeCard(result, myCard) {
+  const cardLike = myCard.querySelector('.card__like');
+  myCard.querySelector('.card__like-count').textContent = result.likes.length;
+  cardLike.classList.add('card__like_liked');
+}
+
+function unlikeCard(result, myCard) {
+  const cardLike = myCard.querySelector('.card__like');
+  myCard.querySelector('.card__like-count').textContent = result.likes.length;
+  cardLike.classList.remove('card__like_liked');
+}
+
 //Экспорт
-export {createCard, renderCard, renderInitialCards};
+export {createCard, renderCard, renderInitialCards, likeCard, unlikeCard};

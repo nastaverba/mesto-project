@@ -6,9 +6,9 @@ import {
   profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, avaInput
 } from './constants.js';
 import { showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation } from './validate.js';
-import { createCard, renderCard, renderInitialCards, adddLike } from './card.js';
+import { createCard, renderCard, renderInitialCards, adddLike, likeCard, unlikeCard } from './card.js';
 import { openPopup, closePopupEsc, closePopup } from './modal.js';
-import { getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getCardsAndUser, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
+import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getCardsAndUser, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
 import { renderProfile, renderLoading } from './utils';
 
 //Загрузка карточек
@@ -31,14 +31,12 @@ getCardsAndUser
             console.log(err);
           })
       })
-      cardLike.addEventListener('click', function () {
+
+      function handleLike() {
         if (item.likes.every((user) => user._id !== result[1]._id)) {
           addLikeToCard(item._id)
             .then((result) => {
-              myCard.querySelector('.card__like-count').textContent = result.likes.length;
-            })
-            .then(() => {
-              cardLike.classList.add('card__like_liked');
+              likeCard(result, myCard);
             })
             .catch((err) => {
               console.log(err);
@@ -46,15 +44,33 @@ getCardsAndUser
         } else {
           removeLikefromCard(item._id)
             .then((result) => {
-              myCard.querySelector('.card__like-count').textContent = result.likes.length;
-            })
-            .then(() => {
-              cardLike.classList.remove('card__like_liked');
+              unlikeCard(result, myCard);
             })
             .catch((err) => {
               console.log(err);
             })
         }
+      }
+
+      cardLike.addEventListener('click', function () {
+        handleLike();
+        //if (item.likes.every((user) => user._id !== result[1]._id)) {
+          //addLikeToCard(item._id)
+            //.then((result) => {
+              //likeCard(result, myCard);
+            //})
+            //.catch((err) => {
+              //console.log(err);
+            //})
+        //} else {
+          //removeLikefromCard(item._id)
+            //.then((result) => {
+              //unlikeCard(result, myCard);
+            //})
+            //.catch((err) => {
+              //console.log(err);
+            //})
+        //}
       })
       renderInitialCards(myCard, cards);
     })
@@ -62,6 +78,11 @@ getCardsAndUser
   .catch((err) => {
     console.log(err);
   })
+
+
+
+
+
 
 //Загрузка данных пользователя с сервера
 getUserInfo()
@@ -79,8 +100,6 @@ profileInfo.addEventListener('submit', function (evt) {
   sendUserInfo(nameInput.value, jobInput.value)
     .then((result) => {
       renderProfile(result.name, result.about, result.avatar);
-    })
-    .then(() => {
       closePopup(popupEdit);
     })
     .catch((err) => {
@@ -98,8 +117,6 @@ profileAvatar.addEventListener('submit', function (evt) {
   sendUserAvatar(avaInput.value)
     .then((result) => {
       renderProfile(result.name, result.about, result.avatar);
-    })
-    .then(() => {
       closePopup(editAva);
     })
     .catch((err) => {
@@ -116,18 +133,11 @@ createForm.addEventListener('submit', function (evt) {
   renderLoading(createForm.querySelector('.popup__btn'), "Сохранение...");
   addNewCard()
     .then((result) => {
+      console.log(result);
       renderCard(createCard(result.name, result.link, result.likes.length), cards);
-    })
-    .then(() => {
       createForm.reset();
-    })
-    .then(() => {
       createBtn.classList.add('popup__btn_inactive');
-    })
-    .then(() => {
       createBtn.disabled = true;
-    })
-    .then(() => {
       closePopup(popupAdd);
     })
     .catch((err) => {
@@ -137,6 +147,38 @@ createForm.addEventListener('submit', function (evt) {
       renderLoading(createForm.querySelector('.popup__btn'), "Создать");
     })
 })
+
+
+//function handleSingleLike(result) {
+  //console.log(result);
+  //if (result[1].likes.every((user) => user._id !== result[0]._id)) {
+    //addLikeToCard(result[1]._id)
+      //.then((result) => {
+        //likeCard(result, myCard);
+      //})
+      //.catch((err) => {
+        //console.log(err);
+      //})
+  //} else {
+    //removeLikefromCard(result[1]._id)
+      //.then((result) => {
+        //unlikeCard(result, myCard);
+      //})
+      //.catch((err) => {
+        //console.log(err);
+      //})
+  //}
+//}
+
+//export function likeCardsApi() {
+//getOneCardAndUser
+  //.then((result) => {
+    //handleSingleLike(result);
+  //})
+  //.catch((err) => {
+    //console.log(err);
+  //})
+//}
 
 //Обработчики
 
