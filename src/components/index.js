@@ -104,7 +104,7 @@ createForm.addEventListener('submit', function (evt) {
   renderLoading(createForm.querySelector('.popup__btn'), "Сохранение...");
   addNewCard()
     .then((result) => {
-      const myCard = createCard(result.name, result.link, result.likes.length, result._id, result.likes, result._id, result.owner._id);
+      const myCard = createCard(result.name, result.link, result.likes.length, result._id, result.likes, result.owner._id, result.owner._id);
       renderCard(myCard, cards);
       createForm.reset();
       createBtn.classList.add('popup__btn_inactive');
