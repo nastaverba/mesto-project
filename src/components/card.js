@@ -6,12 +6,13 @@ import { deleteThisCard, LikeThisCard } from './index.js'
 //Создание карточки
 function createCard(name, link, likes, cardId, serverLikes, serverMe, itemOwner) {
   const card = cardTemplate.querySelector('.card').cloneNode(true);
+  const cardImage = card.querySelector('.card__image');
   card.querySelector('.card__name-text').textContent = name;
-  card.querySelector('.card__image').src = link;
-  card.querySelector('.card__image').alt = name;
+  cardImage.src = link;
+  cardImage.alt = name;
   card.querySelector('.card__like-count').textContent = likes;
   //Превью карточки
-  const cardImage = card.querySelector('.card__image');
+
   const cardName = card.querySelector('.card__name-text');
   cardImage.addEventListener('click', function () {
     openPopup(photoFull);
