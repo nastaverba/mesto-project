@@ -34,4 +34,4 @@ const photoFullName = document.querySelector('.popup__caption');
 
 //Экспорт
 export { popups, popupEdit, popupAdd, addBtn, editBtn, editAva, editAvaBtn, avaInput, profileAvatar, createForm, createBtn, photoNameInput, photoLinkInput, profileName,
-profileDesc, profileImg, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName};
+profileDesc, profileImg, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName }
