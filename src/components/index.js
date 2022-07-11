@@ -8,7 +8,7 @@ import {
 import { showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation } from './validate.js';
 import { createCard, renderCard, renderInitialCards, adddLike, likeCard, unlikeCard, removeCard } from './card.js';
 import { openPopup, closePopupEsc, closePopup } from './modal.js';
-import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getCardsAndUser, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
+import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getUserandCards, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
 import { renderProfile, renderLoading } from './utils';
 
 //Функция, которая делает запрос на сервер и удаляет карточку
@@ -23,7 +23,7 @@ export function deleteThisCard(cardId, myCard) {
 }
 
 //Функция, которая делает запрос на сервер и лайкает карточку
-export function LikeThisCard(myLikes, me, cardId, myCard) {
+export function likeThisCard(myLikes, me, cardId, myCard) {
   if (myLikes.every((user) => user._id !== me)) {
     addLikeToCard(cardId)
       .then((result) => {
@@ -43,22 +43,26 @@ export function LikeThisCard(myLikes, me, cardId, myCard) {
   }
 }
 
-//Загрузка карточек
-getCardsAndUser
+//ID пользователя
+let userId = '';
+
+//Загрузка данных пользователя с сервера
+getUserInfo()
   .then((result) => {
-    result[0].forEach(function (item) {
-      const myCard = createCard(item.name, item.link, item.likes.length, item._id, item.likes, result[1]._id, item.owner._id);
-      renderInitialCards(myCard, cards);
-    })
+    userId = result._id;
+    renderProfile(result.name, result.about, result.avatar);
   })
   .catch((err) => {
     console.log(err);
   })
 
-//Загрузка данных пользователя с сервера
-getUserInfo()
+//Загрузка карточек
+getInitialCards()
   .then((result) => {
-    renderProfile(result.name, result.about, result.avatar);
+    result.forEach(function(item) {
+      const myCard = createCard(item.name, item.link, item.likes.length, item._id, item.likes, userId, item.owner._id, deleteThisCard, likeThisCard);
+      renderInitialCards(myCard, cards);
+    })
   })
   .catch((err) => {
     console.log(err);
@@ -104,7 +108,7 @@ createForm.addEventListener('submit', function (evt) {
   renderLoading(createForm.querySelector('.popup__btn'), "Сохранение...");
   addNewCard()
     .then((result) => {
-      const myCard = createCard(result.name, result.link, result.likes.length, result._id, result.likes, result.owner._id, result.owner._id);
+      const myCard = createCard(result.name, result.link, result.likes.length, result._id, result.likes, userId, result.owner._id, deleteThisCard, likeThisCard);
       renderCard(myCard, cards);
       createForm.reset();
       createBtn.classList.add('popup__btn_inactive');

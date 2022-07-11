@@ -1,10 +1,9 @@
 //Импорт
 import { popupAdd, createForm, photoNameInput, photoLinkInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, createBtn } from './constants.js';
 import { openPopup, closePopup } from './modal.js';
-import { deleteThisCard, LikeThisCard } from './index.js'
 
 //Создание карточки
-function createCard(name, link, likes, cardId, serverLikes, serverMe, itemOwner) {
+function createCard(name, link, likes, cardId, serverLikes, serverMe, itemOwner, myDeleteFunction, myLikeFunction) {
   const card = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = card.querySelector('.card__image');
   card.querySelector('.card__name-text').textContent = name;
@@ -27,12 +26,12 @@ function createCard(name, link, likes, cardId, serverLikes, serverMe, itemOwner)
   //Слушатель удаления карточки
   const removeIcon = card.querySelector('.card__remove-icon');
   removeIcon.addEventListener('click', function () {
-    deleteThisCard(cardId, card);
+    myDeleteFunction(cardId, card);
   })
   //Слушатель лайка карточки
   const cardLike = card.querySelector('.card__like');
   cardLike.addEventListener('click', function () {
-    LikeThisCard(serverLikes, serverMe, cardId, card);
+    myLikeFunction(serverLikes, serverMe, cardId, card);
   })
   //Готовая карточка
   return card;
