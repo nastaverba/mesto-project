@@ -6,6 +6,7 @@ export function getResponseData(res) {
   if (!res.ok) {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
+  return res.json();
 };
 
 const config = {
@@ -23,8 +24,7 @@ export const getInitialCards = () => {
     headers: myHeaders
   })
     .then(res => {
-      getResponseData(res);
-      return res.json();
+      return getResponseData(res);
     });
 }
 
@@ -34,8 +34,7 @@ export const getUserInfo = () => {
     headers: myHeaders
   })
     .then(res => {
-      getResponseData(res);
-      return res.json();
+      return getResponseData(res);
     });
 }
 
@@ -50,8 +49,7 @@ export const sendUserInfo = () => {
     })
   })
   .then(res => {
-    getResponseData(res);
-    return res.json();
+    return getResponseData(res);
   });
 }
 
@@ -65,8 +63,7 @@ export const sendUserAvatar = () => {
     })
   })
   .then(res => {
-    getResponseData(res);
-    return res.json();
+    return getResponseData(res);
   });
 }
 
@@ -81,17 +78,9 @@ export const addNewCard = () => {
     })
   })
   .then(res => {
-    getResponseData(res);
-    return res.json();
+    return getResponseData(res);
   });
 }
-
-
-//Получение данных о карточках и о пользователе
-export const getCardsAndUser = Promise.all([getInitialCards(), getUserInfo()]);
-
-
-//export const getOneCardAndUser = Promise.all([getUserInfo(), addNewCard]);
 
 //Постановка и удаление лайка
 export const addLikeToCard = (cardId) => {
@@ -100,8 +89,7 @@ export const addLikeToCard = (cardId) => {
     headers: myHeaders
   })
     .then(res => {
-      getResponseData(res);
-      return res.json();
+      return getResponseData(res);
     });
 }
 
@@ -111,8 +99,7 @@ export const removeLikefromCard = (cardId) => {
     headers: myHeaders
   })
     .then(res => {
-      getResponseData(res);
-      return res.json();
+      return getResponseData(res);
     });
 }
 
@@ -123,7 +110,6 @@ export const deleteCard = (cardId) => {
     headers: myHeaders
   })
     .then(res => {
-      getResponseData(res);
-      return res.json();
+      return getResponseData(res);
     });
 }
