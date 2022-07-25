@@ -8,7 +8,8 @@ import {
 import { showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation } from './validate.js';
 import { createCard, renderCard, renderInitialCards, adddLike, likeCard, unlikeCard, removeCard } from './card.js';
 import { openPopup, closePopupEsc, closePopup } from './modal.js';
-import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getUserandCards, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
+//import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getUserandCards, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
+import {api} from './api.js';
 import { renderProfile, renderLoading } from './utils';
 
 //Функция, которая делает запрос на сервер и удаляет карточку
@@ -47,7 +48,7 @@ export function likeThisCard(myLikes, me, cardId, myCard) {
 let userId = '';
 
 //Загрузка данных пользователя с сервера
-getUserInfo()
+api.getUserInfo()
   .then((result) => {
     userId = result._id;
     renderProfile(result.name, result.about, result.avatar);
@@ -57,7 +58,7 @@ getUserInfo()
   })
 
 //Загрузка карточек
-getInitialCards()
+api.getInitialCards()
   .then((result) => {
     result.forEach(function(item) {
       const myCard = createCard(item.name, item.link, item.likes.length, item._id, item.likes, userId, item.owner._id, deleteThisCard, likeThisCard);
@@ -72,7 +73,7 @@ getInitialCards()
 profileInfo.addEventListener('submit', function (evt) {
   evt.preventDefault();
   renderLoading(profileInfo.querySelector('.popup__btn'), "Сохранение...");
-  sendUserInfo(nameInput.value, jobInput.value)
+  api.sendUserInfo(nameInput.value, jobInput.value)
     .then((result) => {
       renderProfile(result.name, result.about, result.avatar);
       closePopup(popupEdit);
@@ -89,7 +90,7 @@ profileInfo.addEventListener('submit', function (evt) {
 profileAvatar.addEventListener('submit', function (evt) {
   evt.preventDefault();
   renderLoading(profileAvatar.querySelector('.popup__btn'), "Сохранение...");
-  sendUserAvatar(avaInput.value)
+  api.sendUserAvatar(avaInput.value)
     .then((result) => {
       renderProfile(result.name, result.about, result.avatar);
       closePopup(editAva);
@@ -106,7 +107,7 @@ profileAvatar.addEventListener('submit', function (evt) {
 createForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
   renderLoading(createForm.querySelector('.popup__btn'), "Сохранение...");
-  addNewCard()
+  api.addNewCard()
     .then((result) => {
       const myCard = createCard(result.name, result.link, result.likes.length, result._id, result.likes, userId, result.owner._id, deleteThisCard, likeThisCard);
       renderCard(myCard, cards);
