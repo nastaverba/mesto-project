@@ -3,9 +3,9 @@ import { avaInput, nameInput, jobInput, photoNameInput, photoLinkInput } from ".
 
 
 class Api {
-  constructor(baseUrl, headers) {
-    this.baseUrl = baseUrl;
-    this.headers = headers;
+  constructor(data) {
+    this.baseUrl = data.baseUrl;
+    this.headers = data.headers;
   }
 
   getResponseData(res) {
@@ -16,6 +16,7 @@ class Api {
   };
 
   getInitialCards() {
+    console.log(this.baseUrl);
     return fetch(`${this.baseUrl}/cards`, {
       headers: this.headers
     })
