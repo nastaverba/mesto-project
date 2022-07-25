@@ -14,21 +14,6 @@ import {
 import { openPopup, closePopup } from "./modal.js";
 import { api } from "./api.js";
 
-const CardList = [
-  {
-    image: "https://code.s3.yandex.net/web-code/card__image.jpg",
-    text: "Привет, нам срочно требуется доработать чат!",
-  },
-  {
-    image: "https://code.s3.yandex.net/web-code/card__image.jpg",
-    text: "Привет, нам срочно требуется доработать чат!",
-  },
-  {
-    image: "https://code.s3.yandex.net/web-code/card__image.jpg",
-    text: "Ответ!",
-  },
-];
-
 class Card {
   constructor(data, selector) {
     this._selector = selector;
@@ -66,9 +51,6 @@ class Card {
       });
   }
 
-
-
-
 _checkLike () {
 
   if(this._cardElement.querySelector(".card__like").classList.contains("card__like_liked")) {
@@ -77,19 +59,6 @@ _checkLike () {
    this._handleLike();
   }
 }
-
-// const checkLike = (card, cardID, likes) => (evt) => {
-//   const likeButton = card.querySelector(".element__like-button");
-//   if (likeButton.classList.contains("element__like-button_active")) {
-//     dislikeCard(likeButton, cardID, likes);
-//   } else {
-//     likeCard(likeButton, cardID, likes);
-//   }
-// };
-
-
-
-
 
   _handleLike() {
     api
@@ -131,50 +100,6 @@ let test = api.getInitialCards().then((res) => {
     cards.append(messageElement);
   });
 });
-
-function createCard(
-  name,
-  link,
-  likes,
-  cardId,
-  serverLikes,
-  serverMe,
-  itemOwner,
-  myDeleteFunction,
-  myLikeFunction
-) {
-  const card = cardTemplate.querySelector(".card").cloneNode(true);
-  const cardImage = card.querySelector(".card__image");
-  card.querySelector(".card__name-text").textContent = name;
-  cardImage.src = link;
-  cardImage.alt = name;
-  card.querySelector(".card__like-count").textContent = likes;
-  //Превью карточки
-
-  const cardName = card.querySelector(".card__name-text");
-  cardImage.addEventListener("click", function () {
-    openPopup(photoFull);
-    photoFullImage.src = cardImage.src;
-    photoFullImage.alt = cardName.textContent;
-    photoFullName.textContent = cardName.textContent;
-  });
-  //Отображение лайка карточки
-  showLike(serverLikes, serverMe, card);
-  //Отображение иконки удаления
-  showDeleteIcon(itemOwner, serverMe, card);
-  //Слушатель удаления карточки
-  const removeIcon = card.querySelector(".card__remove-icon");
-  removeIcon.addEventListener("click", function () {
-    myDeleteFunction(cardId, card);
-  });
-  //Слушатель лайка карточки
-  const cardLike = card.querySelector(".card__like");
-  cardLike.addEventListener("click", function () {
-    myLikeFunction(serverLikes, serverMe, cardId, card);
-  });
-  //Готовая карточка
-  return card;
-}
 
 //Функция, которая добавляет карточку в DOM
 function renderCard(somecard, somecontainer) {
@@ -220,7 +145,6 @@ function removeCard(myCard) {
 
 //Экспорт
 export {
-  createCard,
   renderCard,
   renderInitialCards,
   likeCard,
