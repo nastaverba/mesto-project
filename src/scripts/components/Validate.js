@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
   constructor(data,selector) {
     this.inputSelector = data.inputSelector;
     this.submitButtonSelector = data.submitButtonSelector;
@@ -19,12 +19,12 @@ class FormValidator {
 
   //Обработчики полей формы
   _setEventListeners() {
-    this.inputList = Array.from(this.selector.querySelectorAll(this.inputSelector));
-    this.buttonElement = this.selector.querySelector(this.submitButtonSelector);
+    this.inputList = Array.from(document.querySelector(this.selector).querySelectorAll(this.inputSelector));
+    this.buttonElement = document.querySelector(this.selector).querySelector(this.submitButtonSelector);
     this._toggleButtonState();
     this.inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
-        this._isValid();
+        this._isValid(inputElement);
         this._toggleButtonState();
       });
     });
@@ -50,42 +50,47 @@ _hasInvalidInput() {
 
   //Показать ошибку
 _showInputError() {
-  this.errorElement = this.selector.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add(this.inputErrorClass);
-  this.errorElement.textContent = errorMessage;
-  this.errorElement.classList.add(this.errorClass);
-  console.log('hello');
+  this.inputList.forEach((inputElement) => {
+    this.errorElement = document.querySelector(this.selector).querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add(this.inputErrorClass);
+    this.errorElement.textContent = inputElement.validationMessage;
+    this.errorElement.classList.add(this.errorClass);
+  });
 };
 
 //Скрыть ошибку
 _hideInputError() {
-  this.errorElement = document.querySelector(this.selector).querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove(obj.inputErrorClass);
-  this.errorElement.textContent = '';
-  this.errorElement.classList.remove(obj.errorClass);
+  this.inputList.forEach((inputElement) => {
+    this.errorElement = document.querySelector(this.selector).querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove(this.inputErrorClass);
+    this.errorElement.textContent = '';
+    this.errorElement.classList.remove(this.errorClass);
+  });
 };
 
 //Валидация поля
 _isValid () {
+  this.inputList.forEach((inputElement) => {
   if (!inputElement.validity.valid) {
     this._showInputError();
   } else {
     this._hideInputError();
   }
+});
 };
 
 }
-const enableValidationConfig = {
-  inputSelector: '.popup__element',
-  submitButtonSelector: '.popup__btn',
-  inactiveButtonClass: 'popup__btn_inactive',
-  inputErrorClass: 'popup__element_type_error',
-  errorClass: 'popup__element-error_active'
-}
+// const enableValidationConfig = {
+//   inputSelector: '.popup__element',
+//   submitButtonSelector: '.popup__btn',
+//   inactiveButtonClass: 'popup__btn_inactive',
+//   inputErrorClass: 'popup__element_type_error',
+//   errorClass: 'popup__element-error_active'
+// }
 
 
-const avatarValidation = new FormValidator(enableValidationConfig,"#profileAvatar");
-avatarValidation.enableValidation();
+// const avatarValidation = new FormValidator(enableValidationConfig,"#profileAvatar");
+// avatarValidation.enableValidation();
 
 
 

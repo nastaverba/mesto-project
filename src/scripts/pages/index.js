@@ -11,6 +11,20 @@ import { openPopup, closePopupEsc, closePopup } from '../components/Modal.js';
 //import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getUserandCards, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
 import {api} from '../components/Api.js';
 import { renderProfile, renderLoading } from '../utils/utils';
+import FormValidator from '../components/Validate';
+
+const enableValidationConfig = {
+  inputSelector: '.popup__element',
+  submitButtonSelector: '.popup__btn',
+  inactiveButtonClass: 'popup__btn_inactive',
+  inputErrorClass: 'popup__element_type_error',
+  errorClass: 'popup__element-error_active'
+}
+
+
+const avatarValidation = new FormValidator(enableValidationConfig,"#profileInfo");
+avatarValidation.enableValidation();
+
 
 //Функция, которая делает запрос на сервер и удаляет карточку
 export function deleteThisCard(cardId, myCard) {
