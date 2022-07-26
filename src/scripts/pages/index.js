@@ -1,16 +1,16 @@
 //Импорт
-import '../pages/index.css';
+import '../../pages/index.css';
 
 import {
-  popups, popupEdit, popupAdd, addBtn, editBtn, editAva, editAvaBtn, profileAvatar, createForm, createBtn, photoNameInput, photoLinkInput, profileName,
-  profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, avaInput
-} from './constants.js';
-import { showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation } from './validate.js';
-import { renderCard, renderInitialCards, adddLike, likeCard, unlikeCard, removeCard } from './card.js';
-import { openPopup, closePopupEsc, closePopup } from './modal.js';
+  popups, popupEdit, popupAdd, addBtn, editBtn, editAva, editAvaBtn, profileAvatar,profileName,
+  profileDesc, profileInfo, nameInput, jobInput,avaInput
+} from '../utils/constants.js';
+import { enableValidation } from '../components/Validate.js';
+import { likeCard, unlikeCard, removeCard } from '../components/Card.js';
+import { openPopup, closePopupEsc, closePopup } from '../components/Modal.js';
 //import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getUserandCards, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
-import {api} from './api.js';
-import { renderProfile, renderLoading } from './utils';
+import {api} from '../components/Api.js';
+import { renderProfile, renderLoading } from '../utils/utils';
 
 //Функция, которая делает запрос на сервер и удаляет карточку
 export function deleteThisCard(cardId, myCard) {

@@ -1,5 +1,5 @@
 //Импорт
-import { avaInput, nameInput, jobInput, photoNameInput, photoLinkInput } from "./constants";
+import { avaInput, nameInput, jobInput, photoNameInput, photoLinkInput } from "../utils/constants";
 
 
 class Api {

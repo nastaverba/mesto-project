@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   //Я поменяла точку входа
-  entry: { main: "./src/components/index.js" },
+  entry: { main: "./src/scripts/pages/index.js" },
   optimization: {
     minimize: false,
   },
