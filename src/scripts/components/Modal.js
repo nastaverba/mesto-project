@@ -1,5 +1,5 @@
 //Импорт
-import {popupEdit, profileName, profileDesc, nameInput, jobInput} from './constants.js' ;
+import {popupEdit, profileName, profileDesc, nameInput, jobInput} from '../utils/constants.js' ;
 
 //Закрытие попапов
 function closePopup(popupElement) {
