@@ -16,7 +16,7 @@ class Api {
   };
 
   getInitialCards() {
-    console.log(this.baseUrl);
+
     return fetch(`${this.baseUrl}/cards`, {
       headers: this.headers
     })
