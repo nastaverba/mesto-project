@@ -112,6 +112,21 @@
   <template id="card">
     <div class="card">
       <div class="card__image-container">
+        <img src="<%=require('./images/card_altai.jpg')%>" alt="Изображение карточки" class="card__image">
+      </div>
+      <div class="card__name">
+        <h3 class="card__name-text">Карачаевск</h3>
+        <div class="card__like-container">
+          <button class="card__like" type="button"></button>
+          <p class="card__like-count">5</p>
+        </div>
+      </div>
+    </div>
+  </template>
+  <!-- Шаблон для моей карточки -->
+  <template id="my-card">
+    <div class="card">
+      <div class="card__image-container">
         <button class="card__remove-icon card__remove-icon_active" type="button"></button>
         <img src="<%=require('./images/card_altai.jpg')%>" alt="Изображение карточки" class="card__image">
       </div>
