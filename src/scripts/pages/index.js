@@ -1,15 +1,30 @@
 //Импорт
-import '../pages/index.css';
+import '../../pages/index.css';
 
 import {
-  popups, popupEdit, popupAdd, addBtn, editBtn, editAva, editAvaBtn, profileAvatar, createForm, createBtn, photoNameInput, photoLinkInput, profileName,
-  profileDesc, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName, avaInput
-} from './constants.js';
-import { showInputError, hideInputError, isValid, hasInvalidInput, toggleButtonState, setEventListeners, enableValidation } from './validate.js';
-import { createCard, renderCard, renderInitialCards, adddLike, likeCard, unlikeCard, removeCard } from './card.js';
-import { openPopup, closePopupEsc, closePopup } from './modal.js';
-import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getUserandCards, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
-import { renderProfile, renderLoading } from './utils';
+  popups, popupEdit, popupAdd, addBtn, editBtn, editAva, editAvaBtn, profileAvatar,profileName,
+  profileDesc, profileInfo, nameInput, jobInput,avaInput
+} from '../utils/constants.js';
+//import { enableValidation } from '../components/Validate.js';
+//import { likeCard, unlikeCard, removeCard } from '../components/Card.js';
+import { openPopup, closePopupEsc, closePopup } from '../components/Modal.js';
+//import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getUserandCards, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
+import {api} from '../components/Api.js';
+import { renderProfile, renderLoading } from '../utils/utils';
+import FormValidator from '../components/Validate';
+
+const enableValidationConfig = {
+  inputSelector: '.popup__element',
+  submitButtonSelector: '.popup__btn',
+  inactiveButtonClass: 'popup__btn_inactive',
+  inputErrorClass: 'popup__element_type_error',
+  errorClass: 'popup__element-error_active'
+}
+
+
+const avatarValidation = new FormValidator(enableValidationConfig,"#addPlace");
+avatarValidation.enableValidation();
+
 
 //Функция, которая делает запрос на сервер и удаляет карточку
 export function deleteThisCard(cardId, myCard) {
@@ -47,7 +62,7 @@ export function likeThisCard(myLikes, me, cardId, myCard) {
 let userId = '';
 
 //Загрузка данных пользователя с сервера
-getUserInfo()
+api.getUserInfo()
   .then((result) => {
     userId = result._id;
     renderProfile(result.name, result.about, result.avatar);
@@ -56,23 +71,23 @@ getUserInfo()
     console.log(err);
   })
 
-//Загрузка карточек
-getInitialCards()
-  .then((result) => {
-    result.forEach(function(item) {
-      const myCard = createCard(item.name, item.link, item.likes.length, item._id, item.likes, userId, item.owner._id, deleteThisCard, likeThisCard);
-      renderInitialCards(myCard, cards);
-    })
-  })
-  .catch((err) => {
-    console.log(err);
-  })
+// //Загрузка карточек
+// api.getInitialCards()
+//   .then((result) => {
+//     result.forEach(function(item) {
+//       const myCard = createCard(item.name, item.link, item.likes.length, item._id, item.likes, userId, item.owner._id, deleteThisCard, likeThisCard);
+//       renderInitialCards(myCard, cards);
+//     })
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   })
 
 //Обновление данных о пользователе
 profileInfo.addEventListener('submit', function (evt) {
   evt.preventDefault();
   renderLoading(profileInfo.querySelector('.popup__btn'), "Сохранение...");
-  sendUserInfo(nameInput.value, jobInput.value)
+  api.sendUserInfo(nameInput.value, jobInput.value)
     .then((result) => {
       renderProfile(result.name, result.about, result.avatar);
       closePopup(popupEdit);
@@ -89,7 +104,7 @@ profileInfo.addEventListener('submit', function (evt) {
 profileAvatar.addEventListener('submit', function (evt) {
   evt.preventDefault();
   renderLoading(profileAvatar.querySelector('.popup__btn'), "Сохранение...");
-  sendUserAvatar(avaInput.value)
+  api.sendUserAvatar(avaInput.value)
     .then((result) => {
       renderProfile(result.name, result.about, result.avatar);
       closePopup(editAva);
@@ -102,26 +117,26 @@ profileAvatar.addEventListener('submit', function (evt) {
     })
 })
 
-//Добавление новой карточки
-createForm.addEventListener('submit', function (evt) {
-  evt.preventDefault();
-  renderLoading(createForm.querySelector('.popup__btn'), "Сохранение...");
-  addNewCard()
-    .then((result) => {
-      const myCard = createCard(result.name, result.link, result.likes.length, result._id, result.likes, userId, result.owner._id, deleteThisCard, likeThisCard);
-      renderCard(myCard, cards);
-      createForm.reset();
-      createBtn.classList.add('popup__btn_inactive');
-      createBtn.disabled = true;
-      closePopup(popupAdd);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      renderLoading(createForm.querySelector('.popup__btn'), "Создать");
-    })
-})
+// //Добавление новой карточки
+// createForm.addEventListener('submit', function (evt) {
+//   evt.preventDefault();
+//   renderLoading(createForm.querySelector('.popup__btn'), "Сохранение...");
+//   api.addNewCard()
+//     .then((result) => {
+//       const myCard = createCard(result.name, result.link, result.likes.length, result._id, result.likes, userId, result.owner._id, deleteThisCard, likeThisCard);
+//       renderCard(myCard, cards);
+//       createForm.reset();
+//       createBtn.classList.add('popup__btn_inactive');
+//       createBtn.disabled = true;
+//       closePopup(popupAdd);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+//     .finally(() => {
+//       renderLoading(createForm.querySelector('.popup__btn'), "Создать");
+//     })
+// })
 
 //Обработчики
 
@@ -155,14 +170,14 @@ popups.forEach(function (popup) {
 })
 
 //Валидация форм
-enableValidation({
-  formSelector: '.form',
-  inputSelector: '.popup__element',
-  submitButtonSelector: '.popup__btn',
-  inactiveButtonClass: 'popup__btn_inactive',
-  inputErrorClass: 'popup__element_type_error',
-  errorClass: 'popup__element-error_active'
-});
+// enableValidation({
+//   formSelector: '.form',
+//   inputSelector: '.popup__element',
+//   submitButtonSelector: '.popup__btn',
+//   inactiveButtonClass: 'popup__btn_inactive',
+//   inputErrorClass: 'popup__element_type_error',
+//   errorClass: 'popup__element-error_active'
+// });
 
 
 
