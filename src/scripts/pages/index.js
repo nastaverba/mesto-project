@@ -22,7 +22,7 @@ const enableValidationConfig = {
 }
 
 
-const avatarValidation = new FormValidator(enableValidationConfig,"#profileInfo");
+const avatarValidation = new FormValidator(enableValidationConfig,"#addPlace");
 avatarValidation.enableValidation();
 
 

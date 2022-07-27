@@ -1,5 +1,5 @@
 export default class FormValidator {
-  constructor(data,selector) {
+  constructor(data, selector) {
     this.inputSelector = data.inputSelector;
     this.submitButtonSelector = data.submitButtonSelector;
     this.inactiveButtonClass = data.inactiveButtonClass;
@@ -31,53 +31,50 @@ export default class FormValidator {
   };
 
   //Изменение активности кнопки
-_toggleButtonState() {
-  if (this._hasInvalidInput()) {
-    this.buttonElement.classList.add(this.inactiveButtonClass);
-    this.buttonElement.disabled = true;
-  } else {
-    this.buttonElement.classList.remove(this.inactiveButtonClass);
-    this.buttonElement.disabled = false;
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this.buttonElement.classList.add(this.inactiveButtonClass);
+      this.buttonElement.disabled = true;
+    } else {
+      this.buttonElement.classList.remove(this.inactiveButtonClass);
+      this.buttonElement.disabled = false;
+    };
   };
-};
 
-//Проверка валидности полей
-_hasInvalidInput() {
-  return this.inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
+  //Проверка валидности полей
+  _hasInvalidInput() {
+    return this.inputList.some((inputElement) => {
+      return !inputElement.validity.valid;
+    });
+  };
 
   //Показать ошибку
-_showInputError() {
-  this.inputList.forEach((inputElement) => {
+  _showInputError(inputElement) {
+    // убрала циклы, в методы добавила inputElement как аргумент
     this.errorElement = document.querySelector(this.selector).querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this.inputErrorClass);
     this.errorElement.textContent = inputElement.validationMessage;
     this.errorElement.classList.add(this.errorClass);
-  });
-};
+  };
 
-//Скрыть ошибку
-_hideInputError() {
-  this.inputList.forEach((inputElement) => {
+  //Скрыть ошибку
+  _hideInputError(inputElement) {
+    // убрала циклы, в методы добавила inputElement как аргумент
     this.errorElement = document.querySelector(this.selector).querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this.inputErrorClass);
     this.errorElement.textContent = '';
     this.errorElement.classList.remove(this.errorClass);
-  });
-};
+  };
 
-//Валидация поля
-_isValid () {
-  this.inputList.forEach((inputElement) => {
-  if (!inputElement.validity.valid) {
-    this._showInputError();
-  } else {
-    this._hideInputError();
-  }
-});
-};
+  //Валидация поля
+  _isValid(inputElement) {
+    // убрала циклы, в методы добавила inputElement как аргумент
+    if (!inputElement.validity.valid) {
+      this._showInputError(inputElement);
+    } else {
+      this._hideInputError(inputElement);
+    }
+  };
 
 }
 // const enableValidationConfig = {
