@@ -27,6 +27,13 @@ import { openPopup, closePopupEsc, closePopup } from '../components/Modal.js';
 import { api } from '../components/Api.js';
 import { FormValidator } from "../components/Validate.js";
 import { renderProfile, renderLoading } from '../utils/utils';
+import {Popup} from '../components/Popup.js';
+
+const popup1 = new Popup("#edit");
+
+popup1.setEventListeners();
+
+
 
 //Отрисовка карточек
 let test = api.getInitialCards()
@@ -145,7 +152,7 @@ profileAvatar.addEventListener('submit', function (evt) {
     })
 })
 
-// //Добавление новой карточки
+// //Добавление новой карточки (ПОКА НЕ УДАЛЯТЬ)
 // createForm.addEventListener('submit', function (evt) {
 //   evt.preventDefault();
 //   renderLoading(createForm.querySelector('.popup__btn'), "Сохранение...");
@@ -169,33 +176,36 @@ profileAvatar.addEventListener('submit', function (evt) {
 //Обработчики
 
 //Открытие попапов
-addBtn.addEventListener('click', function () {
-  openPopup(popupAdd);
-});
+// addBtn.addEventListener('click', function () {
+//   openPopup(popupAdd);
+// });
 
-editBtn.addEventListener('click', function () {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileDesc.textContent;
-  openPopup(popupEdit);
-});
+// editBtn.addEventListener('click', function () {
+//   nameInput.value = profileName.textContent;
+//   jobInput.value = profileDesc.textContent;
+//   openPopup(popupEdit);
+// });
 
-editAvaBtn.addEventListener('click', function () {
-  openPopup(editAva);
-})
+// editAvaBtn.addEventListener('click', function () {
+//   openPopup(editAva);
+// })
 
 //Закрытие попапов
-popups.forEach(function (popup) {
-  const closeBtn = popup.querySelector('.popup__close-icon');
-  closeBtn.addEventListener('click', function () {
-    closePopup(popup);
-  });
-  //Закрытие по нажатию на оверлей
-  popup.addEventListener('mousedown', function (evt) {
-    if (evt.target.classList.contains('popup')) {
-      closePopup(popup);
-    }
-  });
-})
+// popups.forEach(function (popup) {
+//   const closeBtn = popup.querySelector('.popup__close-icon');
+//   closeBtn.addEventListener('click', function () {
+//     closePopup(popup);
+//   });
+//   //Закрытие по нажатию на оверлей
+//   popup.addEventListener('mousedown', function (evt) {
+//     if (evt.target.classList.contains('popup')) {
+//       closePopup(popup);
+//     }
+//   });
+// })
+
+
+
 
 
 const test1 = new FormValidator(enableValidation, profileInfo);
