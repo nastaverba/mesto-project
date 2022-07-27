@@ -1,11 +1,7 @@
 //Импорт
-import {
-  cards
-} from "../utils/constants.js";
-import { openPopup, closePopup } from "./Modal.js";
 import { api } from "./Api.js";
 
-class Card {
+export class Card {
   constructor(data, selector) {
     this._selector = selector;
     this._image = data.link;
@@ -83,20 +79,6 @@ _checkLike () {
   }
 }
 
-
-let test = api.getInitialCards().then((res) => {
-
-  res.forEach((cardItem) => {
-    let cardTemplate = '';
-    if (cardItem.owner._id === "b10a1c6c35dfac127967e93a") {
-      cardTemplate = new Card(cardItem, "#my-card");
-    } else {
-      cardTemplate = new Card(cardItem, "#card");
-    }
-    const messageElement = cardTemplate.generate();
-    cards.append(messageElement);
-  });
-});
 
 
 

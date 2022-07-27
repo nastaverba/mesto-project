@@ -2,6 +2,7 @@
 import '../../pages/index.css';
 
 import {
+  cards,
   createForm,
   popups,
   popupEdit,
@@ -19,12 +20,38 @@ import {
   avaInput,
   enableValidation,
 } from "../utils/constants.js";
-import { likeCard, unlikeCard, removeCard } from '../components/Card.js';
+import { Card } from '../components/Card.js'
+import Section from '../components/Section.js';
 import { openPopup, closePopupEsc, closePopup } from '../components/Modal.js';
 //import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getUserandCards, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
-import {api} from '../components/Api.js';
+import { api } from '../components/Api.js';
 import { FormValidator } from "../components/Validate.js";
 import { renderProfile, renderLoading } from '../utils/utils';
+
+//Отрисовка карточек
+let test = api.getInitialCards()
+  .then((res) => {
+    const cardList = new Section({
+      items: res,
+      renderer: (cardItem) => {
+        let cardTemplate = '';
+        if (cardItem.owner._id === "b10a1c6c35dfac127967e93a") {
+          cardTemplate = new Card(cardItem, "#my-card");
+        } else {
+          cardTemplate = new Card(cardItem, "#card");
+        }
+        const cardElement = cardTemplate.generate();
+        cardList.addItem(cardElement);
+      }
+
+    }, ".cards"
+    )
+    cardList.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
 
 
 //Функция, которая делает запрос на сервер и удаляет карточку
