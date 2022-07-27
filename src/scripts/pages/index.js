@@ -2,15 +2,30 @@
 import '../../pages/index.css';
 
 import {
-  popups, popupEdit, popupAdd, addBtn, editBtn, editAva, editAvaBtn, profileAvatar,profileName,
-  profileDesc, profileInfo, nameInput, jobInput,avaInput
-} from '../utils/constants.js';
-import { enableValidation } from '../components/Validate.js';
+  createForm,
+  popups,
+  popupEdit,
+  popupAdd,
+  addBtn,
+  editBtn,
+  editAva,
+  editAvaBtn,
+  profileAvatar,
+  profileName,
+  profileDesc,
+  profileInfo,
+  nameInput,
+  jobInput,
+  avaInput,
+  enableValidation,
+} from "../utils/constants.js";
 import { likeCard, unlikeCard, removeCard } from '../components/Card.js';
 import { openPopup, closePopupEsc, closePopup } from '../components/Modal.js';
 //import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getUserandCards, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
 import {api} from '../components/Api.js';
+import { FormValidator } from "../components/Validate.js";
 import { renderProfile, renderLoading } from '../utils/utils';
+
 
 //Функция, которая делает запрос на сервер и удаляет карточку
 export function deleteThisCard(cardId, myCard) {
@@ -155,16 +170,13 @@ popups.forEach(function (popup) {
   });
 })
 
-//Валидация форм
-enableValidation({
-  formSelector: '.form',
-  inputSelector: '.popup__element',
-  submitButtonSelector: '.popup__btn',
-  inactiveButtonClass: 'popup__btn_inactive',
-  inputErrorClass: 'popup__element_type_error',
-  errorClass: 'popup__element-error_active'
-});
 
+const test1 = new FormValidator(enableValidation, profileInfo);
+const test2 = new FormValidator(enableValidation, createForm);
+const test3 = new FormValidator(enableValidation, profileAvatar);
+test1.enableValidation();
+test2.enableValidation();
+test3.enableValidation();
 
 
 

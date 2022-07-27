@@ -83,10 +83,10 @@ _checkLike () {
   }
 }
 
+
 let test = api.getInitialCards().then((res) => {
-  console.log(res);
+
   res.forEach((cardItem) => {
-    console.log(cardItem.owner._id);
     let cardTemplate = '';
     if (cardItem.owner._id === "b10a1c6c35dfac127967e93a") {
       cardTemplate = new Card(cardItem, "#my-card");
