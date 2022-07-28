@@ -29,11 +29,25 @@ import { FormValidator } from "../components/Validate.js";
 import { renderProfile, renderLoading } from '../utils/utils';
 import {Popup} from '../components/Popup.js';
 
-const popup1 = new Popup("#edit");
 
+
+const popup1 = new Popup("#edit-ava");
+editAvaBtn.addEventListener("click", () => {
+popup1.open()
+} )
 popup1.setEventListeners();
 
+const popup2 = new Popup("#add");
+addBtn.addEventListener("click", () => {
+popup2.open()
+} )
+popup2.setEventListeners();
 
+const popup3 = new Popup("#edit");
+editBtn.addEventListener("click", () => {
+popup3.open()
+} )
+popup3.setEventListeners();
 
 //Отрисовка карточек
 let test = api.getInitialCards()
