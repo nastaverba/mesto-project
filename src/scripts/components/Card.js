@@ -1,5 +1,6 @@
 //Импорт
 import { api } from "./Api.js";
+import { PopupWithImage } from "./PopupWithImage.js";
 
 export class Card {
   constructor(data, selector) {
@@ -36,6 +37,12 @@ export class Card {
       .addEventListener("click", () => {
         this._checkLike();
       });
+
+     this._cardElement.addEventListener("click", () => {
+      const photoPopup = new PopupWithImage("#photo-full", this._image, this._text);
+      photoPopup.open();
+      photoPopup.setEventListeners();
+     })
   }
 
 _checkLike () {
