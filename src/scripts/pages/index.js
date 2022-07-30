@@ -26,7 +26,31 @@ import { openPopup, closePopupEsc, closePopup } from '../components/Modal.js';
 //import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getUserandCards, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
 import { api } from '../components/Api.js';
 import { FormValidator } from "../components/Validate.js";
-import { renderProfile, renderLoading } from '../utils/utils';
+import { renderLoading } from '../utils/utils';
+import {Popup} from '../components/Popup.js';
+import UserInfo from '../components/UserInfo.js';
+
+
+
+
+
+const popup1 = new Popup("#edit-ava");
+editAvaBtn.addEventListener("click", () => {
+popup1.open()
+} )
+popup1.setEventListeners();
+
+const popup2 = new Popup("#add");
+addBtn.addEventListener("click", () => {
+popup2.open()
+} )
+popup2.setEventListeners();
+
+const popup3 = new Popup("#edit");
+editBtn.addEventListener("click", () => {
+popup3.open()
+} )
+popup3.setEventListeners();
 
 //Отрисовка карточек
 let test = api.getInitialCards()
@@ -93,23 +117,12 @@ let userId = '';
 api.getUserInfo()
   .then((result) => {
     userId = result._id;
-    renderProfile(result.name, result.about, result.avatar);
+    const myUserInfo = new UserInfo(document.querySelector('.profile__name-text'), document.querySelector('.profile__desc'), document.querySelector('.profile__image'), result.name, result.about, result.avatar);
+    myUserInfo.setUserInfo();
   })
   .catch((err) => {
     console.log(err);
   })
-
-// //Загрузка карточек
-// api.getInitialCards()
-//   .then((result) => {
-//     result.forEach(function(item) {
-//       const myCard = createCard(item.name, item.link, item.likes.length, item._id, item.likes, userId, item.owner._id, deleteThisCard, likeThisCard);
-//       renderInitialCards(myCard, cards);
-//     })
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   })
 
 //Обновление данных о пользователе
 profileInfo.addEventListener('submit', function (evt) {
@@ -117,7 +130,8 @@ profileInfo.addEventListener('submit', function (evt) {
   renderLoading(profileInfo.querySelector('.popup__btn'), "Сохранение...");
   api.sendUserInfo(nameInput.value, jobInput.value)
     .then((result) => {
-      renderProfile(result.name, result.about, result.avatar);
+      const myUserInfo = new UserInfo(document.querySelector('.profile__name-text'), document.querySelector('.profile__desc'), document.querySelector('.profile__image'), result.name, result.about, result.avatar);
+      myUserInfo.setUserInfo();
       closePopup(popupEdit);
     })
     .catch((err) => {
@@ -134,7 +148,8 @@ profileAvatar.addEventListener('submit', function (evt) {
   renderLoading(profileAvatar.querySelector('.popup__btn'), "Сохранение...");
   api.sendUserAvatar(avaInput.value)
     .then((result) => {
-      renderProfile(result.name, result.about, result.avatar);
+      const myUserInfo = new UserInfo(document.querySelector('.profile__name-text'), document.querySelector('.profile__desc'), document.querySelector('.profile__image'), result.name, result.about, result.avatar);
+      myUserInfo.setUserInfo();
       closePopup(editAva);
     })
     .catch((err) => {
@@ -145,7 +160,7 @@ profileAvatar.addEventListener('submit', function (evt) {
     })
 })
 
-// //Добавление новой карточки
+// //Добавление новой карточки (ПОКА НЕ УДАЛЯТЬ)
 // createForm.addEventListener('submit', function (evt) {
 //   evt.preventDefault();
 //   renderLoading(createForm.querySelector('.popup__btn'), "Сохранение...");
@@ -166,36 +181,8 @@ profileAvatar.addEventListener('submit', function (evt) {
 //     })
 // })
 
-//Обработчики
 
-//Открытие попапов
-addBtn.addEventListener('click', function () {
-  openPopup(popupAdd);
-});
 
-editBtn.addEventListener('click', function () {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileDesc.textContent;
-  openPopup(popupEdit);
-});
-
-editAvaBtn.addEventListener('click', function () {
-  openPopup(editAva);
-})
-
-//Закрытие попапов
-popups.forEach(function (popup) {
-  const closeBtn = popup.querySelector('.popup__close-icon');
-  closeBtn.addEventListener('click', function () {
-    closePopup(popup);
-  });
-  //Закрытие по нажатию на оверлей
-  popup.addEventListener('mousedown', function (evt) {
-    if (evt.target.classList.contains('popup')) {
-      closePopup(popup);
-    }
-  });
-})
 
 
 const test1 = new FormValidator(enableValidation, profileInfo);
