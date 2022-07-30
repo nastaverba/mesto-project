@@ -2,15 +2,40 @@
 import '../../pages/index.css';
 
 import {
+<<<<<<< HEAD
   popups, popupEdit, popupAdd, addBtn, editBtn, editAva, editAvaBtn, profileAvatar,profileName,
   profileDesc, profileInfo, nameInput, jobInput,avaInput
 } from '../utils/constants.js';
 //import { enableValidation } from '../components/Validate.js';
 //import { likeCard, unlikeCard, removeCard } from '../components/Card.js';
+=======
+  cards,
+  createForm,
+  popups,
+  popupEdit,
+  popupAdd,
+  addBtn,
+  editBtn,
+  editAva,
+  editAvaBtn,
+  profileAvatar,
+  profileName,
+  profileDesc,
+  profileInfo,
+  nameInput,
+  jobInput,
+  avaInput,
+  enableValidation,
+} from "../utils/constants.js";
+import { Card } from '../components/Card.js'
+import Section from '../components/Section.js';
+>>>>>>> ca7611b58b91437e626f2b4e79c5227ac54ff43e
 import { openPopup, closePopupEsc, closePopup } from '../components/Modal.js';
 //import { getOneCardAndUser, getResponseData, addNewCard, getInitialCards, getUserInfo, sendUserInfo, getUserandCards, addLikeToCard, removeLikefromCard, sendUserAvatar, deleteCard } from './api.js';
-import {api} from '../components/Api.js';
+import { api } from '../components/Api.js';
+import { FormValidator } from "../components/Validate.js";
 import { renderProfile, renderLoading } from '../utils/utils';
+<<<<<<< HEAD
 import FormValidator from '../components/Validate';
 
 const enableValidationConfig = {
@@ -24,6 +49,54 @@ const enableValidationConfig = {
 
 const avatarValidation = new FormValidator(enableValidationConfig,"#addPlace");
 avatarValidation.enableValidation();
+=======
+import {Popup} from '../components/Popup.js';
+
+
+
+const popup1 = new Popup("#edit-ava");
+editAvaBtn.addEventListener("click", () => {
+popup1.open()
+} )
+popup1.setEventListeners();
+
+const popup2 = new Popup("#add");
+addBtn.addEventListener("click", () => {
+popup2.open()
+} )
+popup2.setEventListeners();
+
+const popup3 = new Popup("#edit");
+editBtn.addEventListener("click", () => {
+popup3.open()
+} )
+popup3.setEventListeners();
+
+//Отрисовка карточек
+let test = api.getInitialCards()
+  .then((res) => {
+    const cardList = new Section({
+      items: res,
+      renderer: (cardItem) => {
+        let cardTemplate = '';
+        if (cardItem.owner._id === "b10a1c6c35dfac127967e93a") {
+          cardTemplate = new Card(cardItem, "#my-card");
+        } else {
+          cardTemplate = new Card(cardItem, "#card");
+        }
+        const cardElement = cardTemplate.generate();
+        cardList.addItem(cardElement);
+      }
+
+    }, ".cards"
+    )
+    cardList.renderItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+
+>>>>>>> ca7611b58b91437e626f2b4e79c5227ac54ff43e
 
 
 //Функция, которая делает запрос на сервер и удаляет карточку
@@ -117,7 +190,7 @@ profileAvatar.addEventListener('submit', function (evt) {
     })
 })
 
-// //Добавление новой карточки
+// //Добавление новой карточки (ПОКА НЕ УДАЛЯТЬ)
 // createForm.addEventListener('submit', function (evt) {
 //   evt.preventDefault();
 //   renderLoading(createForm.querySelector('.popup__btn'), "Сохранение...");
@@ -141,21 +214,22 @@ profileAvatar.addEventListener('submit', function (evt) {
 //Обработчики
 
 //Открытие попапов
-addBtn.addEventListener('click', function () {
-  openPopup(popupAdd);
-});
+// addBtn.addEventListener('click', function () {
+//   openPopup(popupAdd);
+// });
 
-editBtn.addEventListener('click', function () {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileDesc.textContent;
-  openPopup(popupEdit);
-});
+// editBtn.addEventListener('click', function () {
+//   nameInput.value = profileName.textContent;
+//   jobInput.value = profileDesc.textContent;
+//   openPopup(popupEdit);
+// });
 
-editAvaBtn.addEventListener('click', function () {
-  openPopup(editAva);
-})
+// editAvaBtn.addEventListener('click', function () {
+//   openPopup(editAva);
+// })
 
 //Закрытие попапов
+<<<<<<< HEAD
 popups.forEach(function (popup) {
   const closeBtn = popup.querySelector('.popup__close-icon');
   closeBtn.addEventListener('click', function () {
@@ -178,7 +252,31 @@ popups.forEach(function (popup) {
 //   inputErrorClass: 'popup__element_type_error',
 //   errorClass: 'popup__element-error_active'
 // });
+=======
+// popups.forEach(function (popup) {
+//   const closeBtn = popup.querySelector('.popup__close-icon');
+//   closeBtn.addEventListener('click', function () {
+//     closePopup(popup);
+//   });
+//   //Закрытие по нажатию на оверлей
+//   popup.addEventListener('mousedown', function (evt) {
+//     if (evt.target.classList.contains('popup')) {
+//       closePopup(popup);
+//     }
+//   });
+// })
+>>>>>>> ca7611b58b91437e626f2b4e79c5227ac54ff43e
 
+
+
+
+
+const test1 = new FormValidator(enableValidation, profileInfo);
+const test2 = new FormValidator(enableValidation, createForm);
+const test3 = new FormValidator(enableValidation, profileAvatar);
+test1.enableValidation();
+test2.enableValidation();
+test3.enableValidation();
 
 
 

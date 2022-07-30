@@ -1,11 +1,8 @@
 //Импорт
-import {
-  cards
-} from "../utils/constants.js";
-import { openPopup, closePopup } from "./Modal.js";
 import { api } from "./Api.js";
+import { PopupWithImage } from "./PopupWithImage.js";
 
-class Card {
+export class Card {
   constructor(data, selector) {
     this._selector = selector;
     this._image = data.link;
@@ -40,6 +37,12 @@ class Card {
       .addEventListener("click", () => {
         this._checkLike();
       });
+
+     this._cardElement.addEventListener("click", () => {
+      const photoPopup = new PopupWithImage("#photo-full", this._image, this._text);
+      photoPopup.open();
+      photoPopup.setEventListeners();
+     })
   }
 
 _checkLike () {
@@ -83,20 +86,6 @@ _checkLike () {
   }
 }
 
-let test = api.getInitialCards().then((res) => {
-  console.log(res);
-  res.forEach((cardItem) => {
-    console.log(cardItem.owner._id);
-    let cardTemplate = '';
-    if (cardItem.owner._id === "b10a1c6c35dfac127967e93a") {
-      cardTemplate = new Card(cardItem, "#my-card");
-    } else {
-      cardTemplate = new Card(cardItem, "#card");
-    }
-    const messageElement = cardTemplate.generate();
-    cards.append(messageElement);
-  });
-});
 
 
 
