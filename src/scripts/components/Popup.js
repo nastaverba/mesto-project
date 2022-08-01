@@ -21,10 +21,6 @@ export class Popup {
   }
 
   setEventListeners() {
-    // const addBtn = document.querySelector('.profile__add-btn');
-    // addBtn.addEventListener('click', () => {
-    //   this.open();
-    // });
     const closeBtn = this._selector.querySelector(".popup__close-icon");
     closeBtn.addEventListener("click", () => {
       this.close();

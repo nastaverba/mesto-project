@@ -6,7 +6,8 @@ export class Card {
   constructor(data, selector) {
     this._selector = selector;
     this._image = data.link;
-    (this._text = data.name), (this.likes = data.likes);
+    this._text = data.name,
+    this.likes = data.likes;
     this.cardId = data._id;
   }
 
@@ -22,12 +23,9 @@ export class Card {
     this._cardElement = this._getElement();
     this._setEventListeners();
     this._checkUserLike();
-    this
     this._cardElement.querySelector(".card__image").src = this._image;
-    this._cardElement.querySelector(".card__name-text").textContent =
-      this._text;
-    this._cardElement.querySelector(".card__like-count").textContent =
-      this.likes.length;
+    this._cardElement.querySelector(".card__name-text").textContent = this._text;
+    this._cardElement.querySelector(".card__like-count").textContent = this.likes.length;
     return this._cardElement;
   }
 
