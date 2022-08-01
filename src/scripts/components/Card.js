@@ -38,21 +38,30 @@ export class Card {
         this._checkLike();
       });
 
-     this._cardElement.addEventListener("click", () => {
-      const photoPopup = new PopupWithImage("#photo-full", this._image, this._text);
-      photoPopup.open();
-      photoPopup.setEventListeners();
-     })
+    this._cardElement
+      .querySelector(".card__remove-icon")
+      .addEventListener("click", (evt) => {
+        evt.stopPropagation();
+        this._deleteCard();
+      })
+
+    this._cardElement
+      .querySelector(".card__image-container")
+      .addEventListener("click", () => {
+        const photoPopup = new PopupWithImage("#photo-full", this._image, this._text);
+        photoPopup.open();
+        photoPopup.setEventListeners();
+      })
   }
 
-_checkLike () {
+  _checkLike() {
 
-  if(this._cardElement.querySelector(".card__like").classList.contains("card__like_liked")) {
-    this._handleDislike();
-  }else{
-   this._handleLike();
+    if (this._cardElement.querySelector(".card__like").classList.contains("card__like_liked")) {
+      this._handleDislike();
+    } else {
+      this._handleLike();
+    }
   }
-}
 
   _handleLike() {
     api
@@ -69,11 +78,11 @@ _checkLike () {
 
   _handleDislike() {
     api.removeLikefromCard(this.cardId)
-    .then((res) => {
-      this._cardElement.querySelector(".card__like-count").textContent = res.likes.length;
-      this._cardElement.querySelector(".card__like").classList.remove("card__like_liked");
-    })
-    .catch((error) => alert(error.message));
+      .then((res) => {
+        this._cardElement.querySelector(".card__like-count").textContent = res.likes.length;
+        this._cardElement.querySelector(".card__like").classList.remove("card__like_liked");
+      })
+      .catch((error) => alert(error.message));
 
   }
 
@@ -83,6 +92,14 @@ _checkLike () {
         .querySelector(".card__like")
         .classList.add("card__like_liked");
     }
+  }
+
+  _deleteCard() {
+    api.deleteCard(this.cardId)
+      .then(() => {
+        this._cardElement.remove();
+      })
+      .catch((error) => alert(error.message));
   }
 }
 
