@@ -68,6 +68,120 @@ addBtn.addEventListener("click", () => {
 })
 
 
+
+
+editBtn.addEventListener("click", () => {
+  const myTest1 = new PopupWithForm("#edit", {
+    formSubmitCallback: () => {
+        api.sendUserInfo()
+        .then((result) => {
+          renderLoading(document.querySelector("#create-btn"), "Сохранение...");
+           const myUserInfo = new UserInfo(document.querySelector('.profile__name-text'), document.querySelector('.profile__desc'), document.querySelector('.profile__image'), result.name, result.about, result.avatar);
+          myUserInfo.setUserInfo();
+
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          renderLoading(document.querySelector(".popup__btn"), "Сохранить");
+        });
+    },
+  });
+  myTest1.open();
+  myTest1.setEventListeners();
+});
+
+
+editAvaBtn.addEventListener("click", () => {
+  const myTest2 = new PopupWithForm("#edit-ava", {
+    formSubmitCallback: () => {
+      api.
+        sendUserAvatar()
+          .then((result) => {
+            const myUserInfo = new UserInfo(
+              document.querySelector(".profile__name-text"),
+              document.querySelector(".profile__desc"),
+              document.querySelector(".profile__image"),
+              result.name,
+              result.about,
+              result.avatar
+            );
+            myUserInfo.setUserInfo();
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            renderLoading(document.querySelector(".popup__btn"), "Сохранить");
+          });
+    },
+  });
+  myTest2.open();
+  myTest2.setEventListeners();
+});
+
+
+
+
+
+// profileAvatar.addEventListener("submit", function (evt) {
+//   evt.preventDefault();
+//   renderLoading(profileAvatar.querySelector(".popup__btn"), "Сохранение...");
+//   api
+//     .sendUserAvatar(avaInput.value)
+//     .then((result) => {
+//       const myUserInfo = new UserInfo(
+//         document.querySelector(".profile__name-text"),
+//         document.querySelector(".profile__desc"),
+//         document.querySelector(".profile__image"),
+//         result.name,
+//         result.about,
+//         result.avatar
+//       );
+//       myUserInfo.setUserInfo();
+//       closePopup(editAva);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+//     .finally(() => {
+//       renderLoading(profileAvatar.querySelector(".popup__btn"), "Сохранить");
+//     });
+// });
+
+
+
+
+
+
+
+
+// //Обновление данных о пользователе
+// profileInfo.addEventListener('submit', function (evt) {
+//   evt.preventDefault();
+//   renderLoading(profileInfo.querySelector('.popup__btn'), "Сохранение...");
+
+//     .then((result) => {
+
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+//     .finally(() => {
+//       renderLoading(profileInfo.querySelector('.popup__btn'), "Сохранить");
+//     })
+// });
+
+
+
+
+
+
+
+
+
+
 const popup1 = new Popup("#edit-ava");
 editAvaBtn.addEventListener("click", () => {
   popup1.open()
@@ -79,6 +193,17 @@ editBtn.addEventListener("click", () => {
   popup3.open()
 })
 popup3.setEventListeners();
+
+
+
+
+
+
+
+
+
+
+
 
 //Отрисовка карточек
 let test = api.getInitialCards()
@@ -119,41 +244,10 @@ api.getUserInfo()
     console.log(err);
   })
 
-//Обновление данных о пользователе
-profileInfo.addEventListener('submit', function (evt) {
-  evt.preventDefault();
-  renderLoading(profileInfo.querySelector('.popup__btn'), "Сохранение...");
-  api.sendUserInfo(nameInput.value, jobInput.value)
-    .then((result) => {
-      const myUserInfo = new UserInfo(document.querySelector('.profile__name-text'), document.querySelector('.profile__desc'), document.querySelector('.profile__image'), result.name, result.about, result.avatar);
-      myUserInfo.setUserInfo();
-      closePopup(popupEdit);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      renderLoading(profileInfo.querySelector('.popup__btn'), "Сохранить");
-    })
-});
+
 
 //Обновление аватара
-profileAvatar.addEventListener('submit', function (evt) {
-  evt.preventDefault();
-  renderLoading(profileAvatar.querySelector('.popup__btn'), "Сохранение...");
-  api.sendUserAvatar(avaInput.value)
-    .then((result) => {
-      const myUserInfo = new UserInfo(document.querySelector('.profile__name-text'), document.querySelector('.profile__desc'), document.querySelector('.profile__image'), result.name, result.about, result.avatar);
-      myUserInfo.setUserInfo();
-      closePopup(editAva);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      renderLoading(profileAvatar.querySelector('.popup__btn'), "Сохранить");
-    })
-})
+
 
 //Валидация форм
 const test1 = new FormValidator(enableValidation, profileInfo);
