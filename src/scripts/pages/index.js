@@ -40,8 +40,8 @@ addBtn.addEventListener("click", () => {
           );
           cardList.renderItems();
         })
-        .catch((err) => {
-          console.log(err);
+        .then(function () {
+          popupAddCard.close();
         })
         .finally(() => {
           renderLoading(document.querySelector("#create-btn"), "Создать");
@@ -69,8 +69,8 @@ editBtn.addEventListener("click", () => {
           );
           myUserInfo.setUserInfo();
         })
-        .catch((err) => {
-          console.log(err);
+        .then(function () {
+          editPopup.close();
         })
         .finally(() => {
           renderLoading(document.querySelector(".popup__btn"), "Сохранить");
@@ -98,8 +98,8 @@ editAvaBtn.addEventListener("click", () => {
           );
           myUserInfo.setUserInfo();
         })
-        .catch((err) => {
-          console.log(err);
+        .then(function () {
+          popupNewAvatar.close();
         })
         .finally(() => {
           renderLoading(document.querySelector(".popup__btn"), "Сохранить");
@@ -134,9 +134,6 @@ api.getInitialCards()
     );
     cardList.renderItems();
   })
-  .catch((err) => {
-    console.log(err);
-  });
 
 //ID пользователя
 let userId = "";
@@ -156,9 +153,7 @@ api
     );
     myUserInfo.setUserInfo();
   })
-  .catch((err) => {
-    console.log(err);
-  });
+
 
 //Обновление аватара
 

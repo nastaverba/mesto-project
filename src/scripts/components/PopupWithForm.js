@@ -22,7 +22,7 @@ export class PopupWithForm extends Popup {
     this.form.reset();
     this.button.classList.add('popup__btn_inactive');
     this.button.disabled = true;
-    this.close();
+
   }
 
   setEventListeners() {
