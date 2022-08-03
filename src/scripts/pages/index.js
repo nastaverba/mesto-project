@@ -9,6 +9,10 @@ import {
   profileAvatar,
   profileInfo,
   enableValidation,
+  profileName,
+  profileDesc,
+  nameInput,
+  jobInput,
 } from "../utils/constants.js";
 import { Card } from "../components/Card.js";
 import Section from "../components/Section.js";
@@ -53,6 +57,9 @@ addBtn.addEventListener("click", () => {
 });
 
 editBtn.addEventListener("click", () => {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileDesc.textContent;
+
   const editPopup = new PopupWithForm("#edit", {
     formSubmitCallback: () => {
       api

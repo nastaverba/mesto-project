@@ -10,6 +10,8 @@ export class PopupWithForm extends Popup {
     this.button = this.form.querySelector('.popup__btn');
   }
 
+
+  
   _getInputValues() {
     const inputs = Array.from(this.form.querySelectorAll('.popup__element'));
     const newInputs = inputs.map((input) => input.value);
