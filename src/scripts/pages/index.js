@@ -134,6 +134,29 @@ api.getInitialCards()
             cardTemplate = new Card(cardItem, "#card");
           }
           const cardElement = cardTemplate.generate();
+          cardElement.querySelector(".card__like").addEventListener("click", function() {
+          if (cardElement.querySelector(".card__like").classList.contains("card__like_liked")) {
+            api
+            .addLikeToCard(cardItem._id)
+            .then((res) => {
+                cardTemplate._handleLike(res);
+
+
+            })
+
+          } else {
+
+
+                api.removeLikefromCard(cardItem._id)
+            .then((res) => {
+              console.log(res);
+            //   cardElement.querySelector(".card__like-count").textContent = res.likes.length;
+            })
+
+
+          }
+        })
+
           cardList.addItem(cardElement);
         },
       },

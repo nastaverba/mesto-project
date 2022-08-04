@@ -61,27 +61,16 @@ export class Card {
     }
   }
 
-  _handleLike() {
-    api
-      .addLikeToCard(this.cardId)
-      .then((res) => {
-        this._cardElement.querySelector(".card__like-count").textContent =
-          res.likes.length;
-        this._cardElement
-          .querySelector(".card__like")
-          .classList.add("card__like_liked");
-      })
-      .catch((error) => alert(error.message));
+  _handleLike(res) {
+    this._cardElement.querySelector(".card__like-count").textContent = res.likes.length;
+    this._cardElement
+      .querySelector(".card__like")
+      .classList.add("card__like_liked");
   }
 
-  _handleDislike() {
-    api.removeLikefromCard(this.cardId)
-      .then((res) => {
-        this._cardElement.querySelector(".card__like-count").textContent = res.likes.length;
-        this._cardElement.querySelector(".card__like").classList.remove("card__like_liked");
-      })
-      .catch((error) => alert(error.message));
-
+  _handleDislike(res) {
+    this._cardElement.querySelector(".card__like-count").textContent = res.likes.length;
+    this._cardElement.querySelector(".card__like").classList.remove("card__like_liked");
   }
 
   _checkUserLike() {
