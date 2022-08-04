@@ -37,6 +37,32 @@ addBtn.addEventListener("click", () => {
                 let cardTemplate = "";
                 cardTemplate = new Card(cardItem, "#my-card");
                 const cardElement = cardTemplate.generate();
+
+                cardElement
+                  .querySelector(".card__like")
+                  .addEventListener("click", function () {
+                    if (
+                      cardElement
+                        .querySelector(".card__like")
+                        .classList.contains("card__like_liked")
+                    ) {
+                      api.removeLikefromCard(cardItem._id).then((data) => {
+                        cardTemplate.handleDislike(data);
+                      });
+                    } else {
+                      api.addLikeToCard(cardItem._id).then((data) => {
+                        cardTemplate.handleLike(data);
+                      });
+                    }
+                  });
+                cardElement
+                  .querySelector(".card__remove-icon")
+                  .addEventListener("click", function () {
+                    api.deleteCard(cardItem._id).then(() => {
+                      cardTemplate.deleteCard();
+                    });
+                  });
+
                 cardList.addItem(cardElement);
               },
             },
@@ -117,50 +143,71 @@ editAvaBtn.addEventListener("click", () => {
   popupNewAvatar.setEventListeners();
 });
 
-
-
-
 //Отрисовка карточек
-api.getInitialCards()
-  .then((res) => {
-    const cardList = new Section(
-      {
-        items: res,
-        renderer: (cardItem) => {
-          let cardTemplate = "";
-          if (cardItem.owner._id === "b10a1c6c35dfac127967e93a") {
-            cardTemplate = new Card(cardItem, "#my-card");
-          } else {
-            cardTemplate = new Card(cardItem, "#card");
-          }
-          const cardElement = cardTemplate.generate();
-          cardList.addItem(cardElement);
-        },
+api.getInitialCards().then((res) => {
+  const cardList = new Section(
+    {
+      items: res,
+      renderer: (cardItem) => {
+        let cardTemplate = "";
+        if (cardItem.owner._id === "b10a1c6c35dfac127967e93a") {
+          cardTemplate = new Card(cardItem, "#my-card");
+        } else {
+          cardTemplate = new Card(cardItem, "#card");
+        }
+        const cardElement = cardTemplate.generate();
+
+        cardElement
+          .querySelector(".card__like")
+          .addEventListener("click", function () {
+            if (
+              cardElement
+                .querySelector(".card__like")
+                .classList.contains("card__like_liked")
+            ) {
+              api.removeLikefromCard(cardItem._id).then((data) => {
+                cardTemplate.handleDislike(data);
+              });
+            } else {
+              api.addLikeToCard(cardItem._id).then((data) => {
+                cardTemplate.handleLike(data);
+              });
+            }
+          });
+          cardElement
+            .querySelector(".card__remove-icon")
+            .addEventListener("click", function () {
+              api.deleteCard(cardItem._id).then(() => {
+                cardTemplate.deleteCard();
+              });
+            });
+
+
+
+        cardList.addItem(cardElement);
       },
-      ".cards"
-    );
-    cardList.renderItems();
-  })
+    },
+    ".cards"
+  );
+  cardList.renderItems();
+});
 
 //ID пользователя
 let userId = "";
 
 //Загрузка данных пользователя с сервера
-api
-  .getUserInfo()
-  .then((result) => {
-    userId = result._id;
-    const myUserInfo = new UserInfo(
-      document.querySelector(".profile__name-text"),
-      document.querySelector(".profile__desc"),
-      document.querySelector(".profile__image"),
-      result.name,
-      result.about,
-      result.avatar
-    );
-    myUserInfo.setUserInfo();
-  })
-
+api.getUserInfo().then((result) => {
+  userId = result._id;
+  const myUserInfo = new UserInfo(
+    document.querySelector(".profile__name-text"),
+    document.querySelector(".profile__desc"),
+    document.querySelector(".profile__image"),
+    result.name,
+    result.about,
+    result.avatar
+  );
+  myUserInfo.setUserInfo();
+});
 
 //Обновление аватара
 
