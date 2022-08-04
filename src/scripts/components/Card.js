@@ -1,14 +1,12 @@
-//Импорт
-import { api } from "./Api.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 
 export class Card {
   constructor(data, selector) {
+    this._data = data;
     this._selector = selector;
     this._image = data.link;
-    this._text = data.name,
     this.likes = data.likes;
-    this.cardId = data._id;
+    (this._text = data.name), (this.cardId = data._id);
   }
 
   _getElement() {
@@ -23,54 +21,52 @@ export class Card {
     this._cardElement = this._getElement();
     this._setEventListeners();
     this._checkUserLike();
+    this.handleLike(this._data)
+    this.handleDislike(this._data);
     this._cardElement.querySelector(".card__image").src = this._image;
-    this._cardElement.querySelector(".card__name-text").textContent = this._text;
-    this._cardElement.querySelector(".card__like-count").textContent = this.likes.length;
+    this._cardElement.querySelector(".card__name-text").textContent =
+      this._text;
+    this._cardElement.querySelector(".card__like-count").textContent =
+      this.likes.length;
     return this._cardElement;
   }
 
   _setEventListeners() {
     this._cardElement
-      .querySelector(".card__like")
-      .addEventListener("click", () => {
-        this._checkLike();
-      });
-
-    this._cardElement
       .querySelector(".card__remove-icon")
       .addEventListener("click", (evt) => {
         evt.stopPropagation();
-        this._deleteCard();
-      })
+      });
 
     this._cardElement
       .querySelector(".card__image-container")
       .addEventListener("click", () => {
-        const photoPopup = new PopupWithImage("#photo-full", this._image, this._text);
+        const photoPopup = new PopupWithImage(
+          "#photo-full",
+          this._image,
+          this._text
+        );
         photoPopup.open();
         photoPopup.setEventListeners();
-      })
+      });
   }
 
-  _checkLike() {
-
-    if (this._cardElement.querySelector(".card__like").classList.contains("card__like_liked")) {
-      this._handleDislike();
-    } else {
-      this._handleLike();
-    }
-  }
-
-  _handleLike(res) {
-    this._cardElement.querySelector(".card__like-count").textContent = res.likes.length;
+  handleLike(data) {
+    this._likes = data.likes;
+    this._cardElement.querySelector(".card__like-count").textContent =
+      this._likes.length;
     this._cardElement
       .querySelector(".card__like")
-      .classList.add("card__like_liked");
+      .classList.toggle("card__like_liked");
   }
 
-  _handleDislike(res) {
-    this._cardElement.querySelector(".card__like-count").textContent = res.likes.length;
-    this._cardElement.querySelector(".card__like").classList.remove("card__like_liked");
+  handleDislike(data) {
+    this._likes = data.likes;
+    this._cardElement.querySelector(".card__like-count").textContent =
+      this._likes.length;
+    this._cardElement
+      .querySelector(".card__like")
+      .classList.remove("card__like_liked");
   }
 
   _checkUserLike() {
@@ -81,21 +77,7 @@ export class Card {
     }
   }
 
-  _deleteCard() {
-    api.deleteCard(this.cardId)
-      .then(() => {
-        this._cardElement.remove();
-      })
-      .catch((error) => alert(error.message));
+  deleteCard() {
+    this._cardElement.remove();
   }
 }
-
-
-
-
-
-
-
-
-
-
