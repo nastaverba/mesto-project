@@ -26,11 +26,11 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 
 addBtn.addEventListener("click", () => {
   const popupAddCard = new PopupWithForm("#add", {
-    formSubmitCallback: () => {
+    formSubmitCallback: (data) => {
+      renderLoading(document.querySelector("#create-btn"), "Сохранение...");
       api
-        .addNewCard()
+        .addNewCard(data)
         .then((result) => {
-          renderLoading(document.querySelector("#create-btn"), "Сохранение...");
           const cardList = new Section(
             {
               items: new Array(result),
