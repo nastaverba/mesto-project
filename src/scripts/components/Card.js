@@ -21,8 +21,6 @@ export class Card {
     this._cardElement = this._getElement();
     this._setEventListeners();
     this._checkUserLike();
-    this.handleLike(this._data)
-    this.handleDislike(this._data);
     this._cardElement.querySelector(".card__image").src = this._image;
     this._cardElement.querySelector(".card__name-text").textContent =
       this._text;
@@ -57,7 +55,7 @@ export class Card {
       this._likes.length;
     this._cardElement
       .querySelector(".card__like")
-      .classList.toggle("card__like_liked");
+      .classList.add("card__like_liked");
   }
 
   handleDislike(data) {
@@ -71,6 +69,8 @@ export class Card {
 
   _checkUserLike() {
     if (this.likes.find((item) => item._id === "b10a1c6c35dfac127967e93a")) {
+      console.log(this._cardElement
+        .querySelector(".card__like"))
       this._cardElement
         .querySelector(".card__like")
         .classList.add("card__like_liked");

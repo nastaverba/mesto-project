@@ -11,6 +11,7 @@ import {
   enableValidation,
   profileName,
   profileDesc,
+  profileImg,
   nameInput,
   jobInput,
 } from "../utils/constants.js";
@@ -90,17 +91,8 @@ editBtn.addEventListener("click", () => {
     formSubmitCallback: () => {
       api
         .sendUserInfo()
-        .then((result) => {
+        .then(() => {
           renderLoading(document.querySelector(".popup__btn"), "Сохранение...");
-          const myUserInfo = new UserInfo(
-            document.querySelector(".profile__name-text"),
-            document.querySelector(".profile__desc"),
-            document.querySelector(".profile__image"),
-            result.name,
-            result.about,
-            result.avatar
-          );
-          myUserInfo.setUserInfo();
         })
         .then(function () {
           editPopup.close();
@@ -109,7 +101,7 @@ editBtn.addEventListener("click", () => {
           renderLoading(document.querySelector(".popup__btn"), "Сохранить");
         });
     },
-  });
+  }, [profileName, profileDesc]);
   editPopup.open();
   editPopup.setEventListeners();
 });
@@ -119,17 +111,8 @@ editAvaBtn.addEventListener("click", () => {
     formSubmitCallback: () => {
       api
         .sendUserAvatar()
-        .then((result) => {
+        .then(() => {
           renderLoading(document.querySelector(".popup__btn"), "Сохранение");
-          const myUserInfo = new UserInfo(
-            document.querySelector(".profile__name-text"),
-            document.querySelector(".profile__desc"),
-            document.querySelector(".profile__image"),
-            result.name,
-            result.about,
-            result.avatar
-          );
-          myUserInfo.setUserInfo();
         })
         .then(function () {
           popupNewAvatar.close();
@@ -138,7 +121,7 @@ editAvaBtn.addEventListener("click", () => {
           renderLoading(document.querySelector(".popup__btn"), "Сохранить");
         });
     },
-  });
+  }, [profileImg]);
   popupNewAvatar.open();
   popupNewAvatar.setEventListeners();
 });
