@@ -34,13 +34,15 @@ class Api {
     });
   }
 
-  sendUserInfo () {
+  sendUserInfo (data) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        name: nameInput.value,
-        about: jobInput.value
+        // name: nameInput.value,
+        // about: jobInput.value
+        name: data.firstname,
+        about:data.about
       })
     })
     .then(res => {
@@ -48,12 +50,13 @@ class Api {
     });
   }
 
-  sendUserAvatar() {
+  sendUserAvatar(data) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        avatar: avaInput.value
+        // avatar: avaInput.value
+        avatar: data.avaLink
       })
     })
     .then(res => {
