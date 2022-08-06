@@ -33,6 +33,14 @@ api.getUserInfo().then((result) => {
   userInfo.setUserInfo(result);
 });
 
+//Валидация форм
+const formProfileInfo = new FormValidator(enableValidation, profileInfo);
+const formCreateCard = new FormValidator(enableValidation, createForm);
+const formProfileAvatar = new FormValidator(enableValidation, profileAvatar);
+formProfileInfo.enableValidation();
+formCreateCard.enableValidation();
+formProfileAvatar.enableValidation();
+
 
 
 addBtn.addEventListener("click", () => {
@@ -89,7 +97,8 @@ addBtn.addEventListener("click", () => {
           renderLoading(document.querySelector("#create-btn"), "Создать");
         });
     },
-  }, []);
+  });
+  formCreateCard.disableButton();
   popupAddCard.open();
   popupAddCard.setEventListeners();
 });
@@ -120,7 +129,8 @@ editBtn.addEventListener("click", () => {
           renderLoading(document.querySelector(".popup__btn"), "Сохранить");
         });
     },
-  }, [profileName, profileDesc]);
+  });
+  formProfileInfo.disableButton();
   editPopup.open();
   editPopup.setEventListeners();
 });
@@ -139,7 +149,8 @@ editAvaBtn.addEventListener("click", () => {
           renderLoading(document.querySelector(".popup__btn"), "Сохранить");
         });
     },
-  }, [profileImg]);
+  });
+  formProfileAvatar.disableButton();
   popupNewAvatar.open();
   popupNewAvatar.setEventListeners();
 });
@@ -199,10 +210,4 @@ api.getInitialCards().then((res) => {
 
 //Обновление аватара
 
-//Валидация форм
-const formProfileInfo = new FormValidator(enableValidation, profileInfo);
-const formCreateCard = new FormValidator(enableValidation, createForm);
-const formProfileAvatar = new FormValidator(enableValidation, profileAvatar);
-formProfileInfo.enableValidation();
-formCreateCard.enableValidation();
-formProfileAvatar.enableValidation();
+
