@@ -11,6 +11,7 @@ import {
   enableValidation,
   profileName,
   profileDesc,
+  profileImg,
   nameInput,
   jobInput,
 } from "../utils/constants.js";
@@ -25,11 +26,11 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 
 addBtn.addEventListener("click", () => {
   const popupAddCard = new PopupWithForm("#add", {
-    formSubmitCallback: () => {
+    formSubmitCallback: (data) => {
+      renderLoading(document.querySelector("#create-btn"), "Сохранение...");
       api
-        .addNewCard()
+        .addNewCard(data)
         .then((result) => {
-          renderLoading(document.querySelector("#create-btn"), "Сохранение...");
           const cardList = new Section(
             {
               items: new Array(result),
@@ -77,9 +78,15 @@ addBtn.addEventListener("click", () => {
           renderLoading(document.querySelector("#create-btn"), "Создать");
         });
     },
-  });
+  }, []);
   popupAddCard.open();
   popupAddCard.setEventListeners();
+});
+
+const userInfo = new UserInfo({
+  username: '.profile__name-text',
+  job: '.profile__desc',
+  avatar: '.profile__image'
 });
 
 editBtn.addEventListener("click", () => {
@@ -87,58 +94,41 @@ editBtn.addEventListener("click", () => {
   jobInput.value = profileDesc.textContent;
 
   const editPopup = new PopupWithForm("#edit", {
-    formSubmitCallback: () => {
+    formSubmitCallback: (data) => {
+      renderLoading(document.querySelector(".popup__btn"), "Сохранение...");
       api
-        .sendUserInfo()
-        .then((result) => {
-          renderLoading(document.querySelector(".popup__btn"), "Сохранение...");
-          const myUserInfo = new UserInfo(
-            document.querySelector(".profile__name-text"),
-            document.querySelector(".profile__desc"),
-            document.querySelector(".profile__image"),
-            result.name,
-            result.about,
-            result.avatar
-          );
-          myUserInfo.setUserInfo();
-        })
-        .then(function () {
+        .sendUserInfo(data)
+        .then((data) => {
+
+
+
+          userInfo.setUserInfo(data);
           editPopup.close();
         })
         .finally(() => {
           renderLoading(document.querySelector(".popup__btn"), "Сохранить");
         });
     },
-  });
+  }, [profileName, profileDesc]);
   editPopup.open();
   editPopup.setEventListeners();
 });
 
 editAvaBtn.addEventListener("click", () => {
   const popupNewAvatar = new PopupWithForm("#edit-ava", {
-    formSubmitCallback: () => {
+    formSubmitCallback: (data) => {
+      renderLoading(document.querySelector(".popup__btn"), "Сохранение");
       api
-        .sendUserAvatar()
-        .then((result) => {
-          renderLoading(document.querySelector(".popup__btn"), "Сохранение");
-          const myUserInfo = new UserInfo(
-            document.querySelector(".profile__name-text"),
-            document.querySelector(".profile__desc"),
-            document.querySelector(".profile__image"),
-            result.name,
-            result.about,
-            result.avatar
-          );
-          myUserInfo.setUserInfo();
-        })
-        .then(function () {
+        .sendUserAvatar(data)
+        .then((data) => {
+          profileImg.style.backgroundImage = `url(${data.avatar}`;
           popupNewAvatar.close();
         })
         .finally(() => {
           renderLoading(document.querySelector(".popup__btn"), "Сохранить");
         });
     },
-  });
+  }, [profileImg]);
   popupNewAvatar.open();
   popupNewAvatar.setEventListeners();
 });
@@ -198,15 +188,15 @@ let userId = "";
 //Загрузка данных пользователя с сервера
 api.getUserInfo().then((result) => {
   userId = result._id;
-  const myUserInfo = new UserInfo(
-    document.querySelector(".profile__name-text"),
-    document.querySelector(".profile__desc"),
-    document.querySelector(".profile__image"),
-    result.name,
-    result.about,
-    result.avatar
-  );
-  myUserInfo.setUserInfo();
+  // const myUserInfo = new UserInfo(
+  //   document.querySelector(".profile__name-text"),
+  //   document.querySelector(".profile__desc"),
+  //   document.querySelector(".profile__image"),
+  //   result.name,
+  //   result.about,
+  //   result.avatar
+  // );
+  userInfo.setUserInfo(result);
 });
 
 //Обновление аватара

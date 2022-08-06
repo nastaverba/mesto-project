@@ -1,7 +1,3 @@
-//Импорт
-import { avaInput, nameInput, jobInput, photoNameInput, photoLinkInput } from "../utils/constants";
-
-
 class Api {
   constructor(data) {
     this.baseUrl = data.baseUrl;
@@ -34,13 +30,13 @@ class Api {
     });
   }
 
-  sendUserInfo () {
+  sendUserInfo (data) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        name: nameInput.value,
-        about: jobInput.value
+        name: data.firstname,
+        about:data.about
       })
     })
     .then(res => {
@@ -48,12 +44,12 @@ class Api {
     });
   }
 
-  sendUserAvatar() {
+  sendUserAvatar(data) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        avatar: avaInput.value
+        avatar: data.avaLink
       })
     })
     .then(res => {
@@ -61,13 +57,14 @@ class Api {
     });
   }
 
-  addNewCard () {
+  addNewCard (data) {
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
       headers: this.headers,
       body: JSON.stringify({
-        name: photoNameInput.value,
-        link: photoLinkInput.value
+        name: data.photoName,
+        link: data.photoLink
+
       })
     })
     .then(res => {
