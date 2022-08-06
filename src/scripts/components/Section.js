@@ -12,11 +12,7 @@ export default class Section {
   }
 
   addItem(element) {
-    if (this._initialArray.length === 1) {
-      this._container.prepend(element);
-    } else {
-      this._container.append(element);
-    }
+    this._container.prepend(element);
   }
 }
 

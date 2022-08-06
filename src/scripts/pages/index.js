@@ -33,6 +33,54 @@ api.getUserInfo().then((result) => {
   userInfo.setUserInfo(result);
 });
 
+let cardList = "";
+
+//Отрисовка карточек
+api.getInitialCards().then((res) => {
+  cardList = new Section(
+    {
+      items: res.reverse(),
+      renderer: (cardItem) => {
+        let cardTemplate = "";
+        if (cardItem.owner._id === userId) {
+          cardTemplate = new Card(cardItem, "#my-card", userId);
+        } else {
+          cardTemplate = new Card(cardItem, "#card", userId);
+        }
+        const cardElement = cardTemplate.generate();
+
+        cardElement
+          .querySelector(".card__like")
+          .addEventListener("click", function () {
+            if (
+              cardElement
+                .querySelector(".card__like")
+                .classList.contains("card__like_liked")
+            ) {
+              api.removeLikefromCard(cardItem._id).then((data) => {
+                cardTemplate.handleDislike(data);
+              });
+            } else {
+              api.addLikeToCard(cardItem._id).then((data) => {
+                cardTemplate.handleLike(data);
+              });
+            }
+          });
+        cardElement
+          .querySelector(".card__remove-icon")
+          .addEventListener("click", function () {
+            api.deleteCard(cardItem._id).then(() => {
+              cardTemplate.deleteCard();
+            });
+          });
+        cardList.addItem(cardElement);
+      },
+    },
+    ".cards"
+  );
+  cardList.renderItems();
+});
+
 //Инфо о пользователе
 const userInfo = new UserInfo({
   username: '.profile__name-text',
@@ -56,45 +104,35 @@ const popupAddCard = new PopupWithForm("#add", {
     renderLoading(document.querySelector("#create-btn"), "Сохранение...");
     api
       .addNewCard(data)
-      .then((result) => {
-        const cardList = new Section(
-          {
-            items: new Array(result),
-            renderer: (cardItem) => {
-              let cardTemplate = "";
-              cardTemplate = new Card(cardItem, "#my-card", userId);
-              const cardElement = cardTemplate.generate();
+      .then((data) => {
+        let cardTemplate = "";
+        cardTemplate = new Card(data, "#my-card", userId);
+        const cardElement = cardTemplate.generate();
+        cardElement
+          .querySelector(".card__like")
+          .addEventListener("click", function () {
+            if (
               cardElement
                 .querySelector(".card__like")
-                .addEventListener("click", function () {
-                  if (
-                    cardElement
-                      .querySelector(".card__like")
-                      .classList.contains("card__like_liked")
-                  ) {
-                    api.removeLikefromCard(cardItem._id).then((data) => {
-                      cardTemplate.handleDislike(data);
-                    });
-                  } else {
-                    api.addLikeToCard(cardItem._id).then((data) => {
-                      cardTemplate.handleLike(data);
-                    });
-                  }
-                });
-              cardElement
-                .querySelector(".card__remove-icon")
-                .addEventListener("click", function () {
-                  api.deleteCard(cardItem._id).then(() => {
-                    cardTemplate.deleteCard();
-                  });
-                });
-
-              cardList.addItem(cardElement);
-            },
-          },
-          ".cards"
-        );
-        cardList.renderItems();
+                .classList.contains("card__like_liked")
+            ) {
+              api.removeLikefromCard(data._id).then((data) => {
+                cardTemplate.handleDislike(data);
+              });
+            } else {
+              api.addLikeToCard(data._id).then((data) => {
+                cardTemplate.handleLike(data);
+              });
+            }
+          });
+        cardElement
+          .querySelector(".card__remove-icon")
+          .addEventListener("click", function () {
+            api.deleteCard(data._id).then(() => {
+              cardTemplate.deleteCard();
+            });
+          });
+        cardList.addItem(cardElement);
       })
       .then(function () {
         popupAddCard.close();
@@ -137,6 +175,8 @@ const popupNewAvatar = new PopupWithForm("#edit-ava", {
   },
 });
 
+
+
 addBtn.addEventListener("click", () => {
   formCreateCard.disableButton();
   popupAddCard.open();
@@ -157,54 +197,7 @@ editAvaBtn.addEventListener("click", () => {
   popupNewAvatar.setEventListeners();
 });
 
-//Отрисовка карточек
-api.getInitialCards().then((res) => {
-  const cardList = new Section(
-    {
-      items: res,
-      renderer: (cardItem) => {
-        let cardTemplate = "";
-        if (cardItem.owner._id === userId) {
-          cardTemplate = new Card(cardItem, "#my-card", userId);
-        } else {
-          cardTemplate = new Card(cardItem, "#card", userId);
-        }
-        const cardElement = cardTemplate.generate();
 
-        cardElement
-          .querySelector(".card__like")
-          .addEventListener("click", function () {
-            if (
-              cardElement
-                .querySelector(".card__like")
-                .classList.contains("card__like_liked")
-            ) {
-              api.removeLikefromCard(cardItem._id).then((data) => {
-                cardTemplate.handleDislike(data);
-              });
-            } else {
-              api.addLikeToCard(cardItem._id).then((data) => {
-                cardTemplate.handleLike(data);
-              });
-            }
-          });
-          cardElement
-            .querySelector(".card__remove-icon")
-            .addEventListener("click", function () {
-              api.deleteCard(cardItem._id).then(() => {
-                cardTemplate.deleteCard();
-              });
-            });
-
-
-
-        cardList.addItem(cardElement);
-      },
-    },
-    ".cards"
-  );
-  cardList.renderItems();
-});
 
 
 
