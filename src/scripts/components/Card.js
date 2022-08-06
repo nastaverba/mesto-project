@@ -7,6 +7,7 @@ export class Card {
     this._selector = selector;
     this._image = data.link;
     this.likes = data.likes;
+    this.ownerId = data.owner._id;
     (this._text = data.name), (this.cardId = data._id);
   }
 
@@ -22,6 +23,7 @@ export class Card {
     this._cardElement = this._getElement();
     this._setEventListeners();
     this._checkUserLike();
+    this._checkUserId();
     this._cardElement.querySelector(".card__image").src = this._image;
     this._cardElement.querySelector(".card__name-text").textContent =
       this._text;
@@ -47,10 +49,12 @@ export class Card {
         );
         photoPopup.open();
         photoPopup.setEventListeners();
+
       });
   }
 
   handleLike(data) {
+
     this._likes = data.likes;
     this._cardElement.querySelector(".card__like-count").textContent =
       this._likes.length;
@@ -60,6 +64,7 @@ export class Card {
   }
 
   handleDislike(data) {
+
     this._likes = data.likes;
     this._cardElement.querySelector(".card__like-count").textContent =
       this._likes.length;
@@ -73,6 +78,15 @@ export class Card {
       this._cardElement
         .querySelector(".card__like")
         .classList.add("card__like_liked");
+    }
+  }
+
+
+  _checkUserId() {
+    if (this.ownerId !== this._userId) {
+      this._cardElement
+        .querySelector(".card__remove-icon")
+        .classList.remove("card__remove-icon_active");
     }
   }
 

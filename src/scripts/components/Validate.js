@@ -29,7 +29,6 @@ export class FormValidator {
 
   _isValid(inputElement) {
     this._inputElement = inputElement;
-
     if (!this._inputElement.validity.valid) {
       this._showInputError();
     } else {

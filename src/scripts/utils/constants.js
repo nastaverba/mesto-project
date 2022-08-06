@@ -26,7 +26,6 @@ const nameInput = document.querySelector('.popup__element_data_firstname');
 const jobInput = document.querySelector('.popup__element_data_about');
 
 //Карточки
-const cardTemplate = document.querySelector('#card').content;
 const cards = document.querySelector('.cards');
 const photoFull = document.querySelector('#photo-full');
 const photoFullImage = document.querySelector('.popup__img');
@@ -65,7 +64,6 @@ export {
   profileInfo,
   nameInput,
   jobInput,
-  cardTemplate,
   cards,
   photoFull,
   photoFullImage,
