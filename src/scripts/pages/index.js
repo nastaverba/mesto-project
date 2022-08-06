@@ -1,6 +1,4 @@
-//Импорт
 import "../../pages/index.css";
-
 import {
   createForm,
   addBtn,
@@ -20,33 +18,21 @@ import Section from "../components/Section.js";
 import { api } from "../components/Api.js";
 import { FormValidator } from "../components/Validate.js";
 import { renderLoading } from "../utils/utils";
-import { Popup } from "../components/Popup.js";
 import UserInfo from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
-
-//ID пользователя
 let userId = "";
-
-//Загрузка данных пользователя с сервера
-api.getUserInfo().then((result) => {
-  userId = result._id;
-  userInfo.setUserInfo(result);
-});
-
 let cardList = "";
 
-//Отрисовка карточек
-api.getInitialCards().then((res) => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+.then(([userData, cards]) => {
+  userId = userData._id;
+  userInfo.setUserInfo(userData);
   cardList = new Section(
     {
-      items: res.reverse(),
+      items: cards.reverse(),
       renderer: (cardItem) => {
         let cardTemplate = "";
-        if (cardItem.owner._id === userId) {
-          cardTemplate = new Card(cardItem, "#my-card", userId);
-        } else {
-          cardTemplate = new Card(cardItem, "#card", userId);
-        }
+        cardTemplate = new Card(cardItem, "#my-card", userId);
         const cardElement = cardTemplate.generate();
 
         cardElement
@@ -83,11 +69,10 @@ api.getInitialCards().then((res) => {
 
 //Инфо о пользователе
 const userInfo = new UserInfo({
-  username: '.profile__name-text',
-  job: '.profile__desc',
-  avatar: '.profile__image'
+  username: ".profile__name-text",
+  job: ".profile__desc",
+  avatar: ".profile__image",
 });
-
 
 //Валидация форм
 const formProfileInfo = new FormValidator(enableValidation, profileInfo);
@@ -175,8 +160,6 @@ const popupNewAvatar = new PopupWithForm("#edit-ava", {
   },
 });
 
-
-
 addBtn.addEventListener("click", () => {
   formCreateCard.disableButton();
   popupAddCard.open();
@@ -197,12 +180,4 @@ editAvaBtn.addEventListener("click", () => {
   popupNewAvatar.setEventListeners();
 });
 
-
-
-
-
-
-
 //Обновление аватара
-
-
