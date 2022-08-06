@@ -1,7 +1,8 @@
 import { PopupWithImage } from "./PopupWithImage.js";
 
 export class Card {
-  constructor(data, selector) {
+  constructor(data, selector, userId) {
+    this._userId = userId;
     this._data = data;
     this._selector = selector;
     this._image = data.link;
@@ -68,9 +69,7 @@ export class Card {
   }
 
   _checkUserLike() {
-    if (this.likes.find((item) => item._id === "b10a1c6c35dfac127967e93a")) {
-      console.log(this._cardElement
-        .querySelector(".card__like"))
+    if (this.likes.find((item) => item._id === this._userId)) {
       this._cardElement
         .querySelector(".card__like")
         .classList.add("card__like_liked");
