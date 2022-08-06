@@ -33,6 +33,14 @@ api.getUserInfo().then((result) => {
   userInfo.setUserInfo(result);
 });
 
+//Инфо о пользователе
+const userInfo = new UserInfo({
+  username: '.profile__name-text',
+  job: '.profile__desc',
+  avatar: '.profile__image'
+});
+
+
 //Валидация форм
 const formProfileInfo = new FormValidator(enableValidation, profileInfo);
 const formCreateCard = new FormValidator(enableValidation, createForm);
@@ -41,115 +49,109 @@ formProfileInfo.enableValidation();
 formCreateCard.enableValidation();
 formProfileAvatar.enableValidation();
 
+//Попапы с формами
+//Добавление карточки
+const popupAddCard = new PopupWithForm("#add", {
+  formSubmitCallback: (data) => {
+    renderLoading(document.querySelector("#create-btn"), "Сохранение...");
+    api
+      .addNewCard(data)
+      .then((result) => {
+        const cardList = new Section(
+          {
+            items: new Array(result),
+            renderer: (cardItem) => {
+              let cardTemplate = "";
+              cardTemplate = new Card(cardItem, "#my-card", userId);
+              const cardElement = cardTemplate.generate();
+              cardElement
+                .querySelector(".card__like")
+                .addEventListener("click", function () {
+                  if (
+                    cardElement
+                      .querySelector(".card__like")
+                      .classList.contains("card__like_liked")
+                  ) {
+                    api.removeLikefromCard(cardItem._id).then((data) => {
+                      cardTemplate.handleDislike(data);
+                    });
+                  } else {
+                    api.addLikeToCard(cardItem._id).then((data) => {
+                      cardTemplate.handleLike(data);
+                    });
+                  }
+                });
+              cardElement
+                .querySelector(".card__remove-icon")
+                .addEventListener("click", function () {
+                  api.deleteCard(cardItem._id).then(() => {
+                    cardTemplate.deleteCard();
+                  });
+                });
 
+              cardList.addItem(cardElement);
+            },
+          },
+          ".cards"
+        );
+        cardList.renderItems();
+      })
+      .then(function () {
+        popupAddCard.close();
+      })
+      .finally(() => {
+        renderLoading(document.querySelector("#create-btn"), "Создать");
+      });
+  },
+});
+
+//Редактирование профиля
+const editPopup = new PopupWithForm("#edit", {
+  formSubmitCallback: (data) => {
+    renderLoading(document.querySelector(".popup__btn"), "Сохранение...");
+    api
+      .sendUserInfo(data)
+      .then((data) => {
+        userInfo.setUserInfo(data);
+        editPopup.close();
+      })
+      .finally(() => {
+        renderLoading(document.querySelector(".popup__btn"), "Сохранить");
+      });
+  },
+});
+
+//Редактирование аватара
+const popupNewAvatar = new PopupWithForm("#edit-ava", {
+  formSubmitCallback: (data) => {
+    renderLoading(document.querySelector(".popup__btn"), "Сохранение");
+    api
+      .sendUserAvatar(data)
+      .then((data) => {
+        profileImg.style.backgroundImage = `url(${data.avatar}`;
+        popupNewAvatar.close();
+      })
+      .finally(() => {
+        renderLoading(document.querySelector(".popup__btn"), "Сохранить");
+      });
+  },
+});
 
 addBtn.addEventListener("click", () => {
-  const popupAddCard = new PopupWithForm("#add", {
-    formSubmitCallback: (data) => {
-      renderLoading(document.querySelector("#create-btn"), "Сохранение...");
-      api
-        .addNewCard(data)
-        .then((result) => {
-          const cardList = new Section(
-            {
-              items: new Array(result),
-              renderer: (cardItem) => {
-                let cardTemplate = "";
-                cardTemplate = new Card(cardItem, "#my-card", userId);
-                const cardElement = cardTemplate.generate();
-
-                cardElement
-                  .querySelector(".card__like")
-                  .addEventListener("click", function () {
-                    if (
-                      cardElement
-                        .querySelector(".card__like")
-                        .classList.contains("card__like_liked")
-                    ) {
-                      api.removeLikefromCard(cardItem._id).then((data) => {
-                        cardTemplate.handleDislike(data);
-                      });
-                    } else {
-                      api.addLikeToCard(cardItem._id).then((data) => {
-                        cardTemplate.handleLike(data);
-                      });
-                    }
-                  });
-                cardElement
-                  .querySelector(".card__remove-icon")
-                  .addEventListener("click", function () {
-                    api.deleteCard(cardItem._id).then(() => {
-                      cardTemplate.deleteCard();
-                    });
-                  });
-
-                cardList.addItem(cardElement);
-              },
-            },
-            ".cards"
-          );
-          cardList.renderItems();
-        })
-        .then(function () {
-          popupAddCard.close();
-        })
-        .finally(() => {
-          renderLoading(document.querySelector("#create-btn"), "Создать");
-        });
-    },
-  });
   formCreateCard.disableButton();
   popupAddCard.open();
   popupAddCard.setEventListeners();
 });
 
-const userInfo = new UserInfo({
-  username: '.profile__name-text',
-  job: '.profile__desc',
-  avatar: '.profile__image'
-});
-
 editBtn.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDesc.textContent;
-
-  const editPopup = new PopupWithForm("#edit", {
-    formSubmitCallback: (data) => {
-      renderLoading(document.querySelector(".popup__btn"), "Сохранение...");
-      api
-        .sendUserInfo(data)
-        .then((data) => {
-
-
-
-          userInfo.setUserInfo(data);
-          editPopup.close();
-        })
-        .finally(() => {
-          renderLoading(document.querySelector(".popup__btn"), "Сохранить");
-        });
-    },
-  });
   formProfileInfo.disableButton();
   editPopup.open();
   editPopup.setEventListeners();
 });
 
 editAvaBtn.addEventListener("click", () => {
-  const popupNewAvatar = new PopupWithForm("#edit-ava", {
-    formSubmitCallback: (data) => {
-      renderLoading(document.querySelector(".popup__btn"), "Сохранение");
-      api
-        .sendUserAvatar(data)
-        .then((data) => {
-          profileImg.style.backgroundImage = `url(${data.avatar}`;
-          popupNewAvatar.close();
-        })
-        .finally(() => {
-          renderLoading(document.querySelector(".popup__btn"), "Сохранить");
-        });
-    },
-  });
   formProfileAvatar.disableButton();
   popupNewAvatar.open();
   popupNewAvatar.setEventListeners();
