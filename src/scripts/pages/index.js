@@ -136,6 +136,9 @@ const editPopup = new PopupWithForm("#edit", {
       .sendUserInfo(data)
       .then((data) => {
         userInfo.setUserInfo(data);
+
+      })
+      .then(() => {
         editPopup.close();
       })
       .finally(() => {
@@ -152,6 +155,8 @@ const popupNewAvatar = new PopupWithForm("#edit-ava", {
       .sendUserAvatar(data)
       .then((data) => {
         profileImg.style.backgroundImage = `url(${data.avatar}`;
+      })
+      .then(() => {
         popupNewAvatar.close();
       })
       .finally(() => {
@@ -179,5 +184,3 @@ editAvaBtn.addEventListener("click", () => {
   popupNewAvatar.open();
   popupNewAvatar.setEventListeners();
 });
-
-//Обновление аватара
