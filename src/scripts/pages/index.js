@@ -20,8 +20,12 @@ import { FormValidator } from "../components/Validate.js";
 import { renderLoading, createCard } from "../utils/utils";
 import UserInfo from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import {  PopupWithImage} from "../components/PopupWithImage";
 let userId = "";
 let cardList = "";
+
+
+export const photoPopup = new PopupWithImage("#photo-full");
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
 .then(([userData, cards]) => {
@@ -36,7 +40,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     },
     ".cards"
   );
-  cardList.renderItems();
+    cardList.renderItems();
 });
 
 //Инфо о пользователе
@@ -109,6 +113,9 @@ const popupNewAvatar = new PopupWithForm("#edit-ava", {
       });
   },
 });
+
+
+
 
 addBtn.addEventListener("click", () => {
   formCreateCard.disableButton();

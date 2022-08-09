@@ -1,7 +1,9 @@
 import { PopupWithImage } from "./PopupWithImage.js";
 
+
 export class Card {
-  constructor(data, selector, userId) {
+  constructor(data, selector, userId, { handleCardClick }) {
+    this._handleCardClick = handleCardClick;
     this._userId = userId;
     this._data = data;
     this._selector = selector;
@@ -40,21 +42,15 @@ export class Card {
       });
 
     this._cardElement
-      .querySelector(".card__image-container")
+      .querySelector(".card__image")
       .addEventListener("click", () => {
-        const photoPopup = new PopupWithImage(
-          "#photo-full",
-          this._image,
-          this._text
-        );
-        photoPopup.open();
-        photoPopup.setEventListeners();
-
+        this._handleCardClick(this._text, this._image);
       });
+
+
   }
 
   handleLike(data) {
-
     this._likes = data.likes;
     this._cardElement.querySelector(".card__like-count").textContent =
       this._likes.length;
@@ -64,7 +60,6 @@ export class Card {
   }
 
   handleDislike(data) {
-
     this._likes = data.likes;
     this._cardElement.querySelector(".card__like-count").textContent =
       this._likes.length;
@@ -73,6 +68,9 @@ export class Card {
       .classList.remove("card__like_liked");
   }
 
+
+
+
   _checkUserLike() {
     if (this.likes.find((item) => item._id === this._userId)) {
       this._cardElement
@@ -80,7 +78,6 @@ export class Card {
         .classList.add("card__like_liked");
     }
   }
-
 
   _checkUserId() {
     if (this.ownerId !== this._userId) {

@@ -4,9 +4,10 @@ export class Popup {
     this._handleEscClose = this._handleEscClose.bind(this);
   }
 
-  open() {
+  open(name, link) {
     this._selector.classList.add("popup_opened");
     document.addEventListener("keydown", this._handleEscClose);
+
   }
 
   close() {
