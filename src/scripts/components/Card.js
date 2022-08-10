@@ -2,7 +2,7 @@ import { PopupWithImage } from "./PopupWithImage.js";
 
 
 export class Card {
-  constructor(data, selector, userId, { handleCardClick }) {
+  constructor(data, selector, userId, { handleCardClick }, { deleteFunction }, { likeFunction }, { dislikeFunction }) {
     this._handleCardClick = handleCardClick;
     this._userId = userId;
     this._data = data;
@@ -11,6 +11,9 @@ export class Card {
     this.likes = data.likes;
     this.ownerId = data.owner._id;
     (this._text = data.name), (this.cardId = data._id);
+    this.deleteFunction = deleteFunction;
+    this.likeFunction = likeFunction;
+    this.dislikeFunction = dislikeFunction;
   }
 
   _getElement() {
@@ -32,13 +35,30 @@ export class Card {
     this._cardElement.querySelector(".card__like-count").textContent =
       this.likes.length;
     return this._cardElement;
+
   }
 
   _setEventListeners() {
+
     this._cardElement
       .querySelector(".card__remove-icon")
       .addEventListener("click", (evt) => {
         evt.stopPropagation();
+        this.deleteFunction();
+      });
+
+    this._cardElement
+      .querySelector(".card__like")
+      .addEventListener("click", () => {
+        if (
+          this._cardElement
+            .querySelector(".card__like")
+            .classList.contains("card__like_liked")
+        ) {
+          this.dislikeFunction();
+        } else {
+          this.likeFunction();
+        }
       });
 
     this._cardElement
@@ -46,8 +66,6 @@ export class Card {
       .addEventListener("click", () => {
         this._handleCardClick(this._text, this._image);
       });
-
-
   }
 
   handleLike(data) {
