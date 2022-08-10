@@ -1,7 +1,9 @@
 import { PopupWithImage } from "./PopupWithImage.js";
 
+
 export class Card {
-  constructor(data, selector, userId) {
+  constructor(data, selector, userId, { handleCardClick }, { deleteFunction }, { likeFunction }, { dislikeFunction }) {
+    this._handleCardClick = handleCardClick;
     this._userId = userId;
     this._data = data;
     this._selector = selector;
@@ -9,6 +11,9 @@ export class Card {
     this.likes = data.likes;
     this.ownerId = data.owner._id;
     (this._text = data.name), (this.cardId = data._id);
+    this.deleteFunction = deleteFunction;
+    this.likeFunction = likeFunction;
+    this.dislikeFunction = dislikeFunction;
   }
 
   _getElement() {
@@ -30,31 +35,40 @@ export class Card {
     this._cardElement.querySelector(".card__like-count").textContent =
       this.likes.length;
     return this._cardElement;
+
   }
 
   _setEventListeners() {
+
     this._cardElement
       .querySelector(".card__remove-icon")
       .addEventListener("click", (evt) => {
         evt.stopPropagation();
+        this.deleteFunction();
       });
 
     this._cardElement
-      .querySelector(".card__image-container")
+      .querySelector(".card__like")
       .addEventListener("click", () => {
-        const photoPopup = new PopupWithImage(
-          "#photo-full",
-          this._image,
-          this._text
-        );
-        photoPopup.open();
-        photoPopup.setEventListeners();
+        if (
+          this._cardElement
+            .querySelector(".card__like")
+            .classList.contains("card__like_liked")
+        ) {
+          this.dislikeFunction();
+        } else {
+          this.likeFunction();
+        }
+      });
 
+    this._cardElement
+      .querySelector(".card__image")
+      .addEventListener("click", () => {
+        this._handleCardClick(this._text, this._image);
       });
   }
 
   handleLike(data) {
-
     this._likes = data.likes;
     this._cardElement.querySelector(".card__like-count").textContent =
       this._likes.length;
@@ -64,7 +78,6 @@ export class Card {
   }
 
   handleDislike(data) {
-
     this._likes = data.likes;
     this._cardElement.querySelector(".card__like-count").textContent =
       this._likes.length;
@@ -73,6 +86,9 @@ export class Card {
       .classList.remove("card__like_liked");
   }
 
+
+
+
   _checkUserLike() {
     if (this.likes.find((item) => item._id === this._userId)) {
       this._cardElement
@@ -80,7 +96,6 @@ export class Card {
         .classList.add("card__like_liked");
     }
   }
-
 
   _checkUserId() {
     if (this.ownerId !== this._userId) {

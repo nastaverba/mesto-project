@@ -17,11 +17,15 @@ import { Card } from "../components/Card.js";
 import Section from "../components/Section.js";
 import { api } from "../components/Api.js";
 import { FormValidator } from "../components/Validate.js";
-import { renderLoading } from "../utils/utils";
+import { renderLoading, createCard } from "../utils/utils";
 import UserInfo from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import {  PopupWithImage} from "../components/PopupWithImage";
 let userId = "";
 let cardList = "";
+
+
+export const photoPopup = new PopupWithImage("#photo-full");
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
 .then(([userData, cards]) => {
@@ -31,40 +35,12 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     {
       items: cards.reverse(),
       renderer: (cardItem) => {
-        let cardTemplate = "";
-        cardTemplate = new Card(cardItem, "#my-card", userId);
-        const cardElement = cardTemplate.generate();
-
-        cardElement
-          .querySelector(".card__like")
-          .addEventListener("click", function () {
-            if (
-              cardElement
-                .querySelector(".card__like")
-                .classList.contains("card__like_liked")
-            ) {
-              api.removeLikefromCard(cardItem._id).then((data) => {
-                cardTemplate.handleDislike(data);
-              });
-            } else {
-              api.addLikeToCard(cardItem._id).then((data) => {
-                cardTemplate.handleLike(data);
-              });
-            }
-          });
-        cardElement
-          .querySelector(".card__remove-icon")
-          .addEventListener("click", function () {
-            api.deleteCard(cardItem._id).then(() => {
-              cardTemplate.deleteCard();
-            });
-          });
-        cardList.addItem(cardElement);
+        cardList.addItem(createCard(cardItem, "#my-card", userId));
       },
     },
     ".cards"
   );
-  cardList.renderItems();
+    cardList.renderItems();
 });
 
 //Инфо о пользователе
@@ -90,34 +66,7 @@ const popupAddCard = new PopupWithForm("#add", {
     api
       .addNewCard(data)
       .then((data) => {
-        let cardTemplate = "";
-        cardTemplate = new Card(data, "#my-card", userId);
-        const cardElement = cardTemplate.generate();
-        cardElement
-          .querySelector(".card__like")
-          .addEventListener("click", function () {
-            if (
-              cardElement
-                .querySelector(".card__like")
-                .classList.contains("card__like_liked")
-            ) {
-              api.removeLikefromCard(data._id).then((data) => {
-                cardTemplate.handleDislike(data);
-              });
-            } else {
-              api.addLikeToCard(data._id).then((data) => {
-                cardTemplate.handleLike(data);
-              });
-            }
-          });
-        cardElement
-          .querySelector(".card__remove-icon")
-          .addEventListener("click", function () {
-            api.deleteCard(data._id).then(() => {
-              cardTemplate.deleteCard();
-            });
-          });
-        cardList.addItem(cardElement);
+        cardList.addItem(createCard(data, "#my-card", userId))
       })
       .then(function () {
         popupAddCard.close();
@@ -164,6 +113,9 @@ const popupNewAvatar = new PopupWithForm("#edit-ava", {
       });
   },
 });
+
+
+
 
 addBtn.addEventListener("click", () => {
   formCreateCard.disableButton();
