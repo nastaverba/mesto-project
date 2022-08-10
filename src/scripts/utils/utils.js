@@ -13,6 +13,7 @@ export function createCard(cardItem, cardSelector, userId) {
   cardTemplate = new Card(cardItem, cardSelector, userId, {
     handleCardClick: (name, link) => {
       photoPopup.open(name, link);
+      photoPopup.setEventListeners();
     },
   }, {
     deleteFunction: () => {
