@@ -7,8 +7,6 @@ import {
   profileAvatar,
   profileInfo,
   enableValidation,
-  profileName,
-  profileDesc,
   profileImg,
   nameInput,
   jobInput,
