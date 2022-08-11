@@ -20,7 +20,7 @@ import { FormValidator } from "../components/Validate.js";
 import { renderLoading } from "../utils/utils";
 import UserInfo from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
-import {  PopupWithImage} from "../components/PopupWithImage";
+import { PopupWithImage } from "../components/PopupWithImage";
 let userId = "";
 let cardList = "";
 
@@ -38,45 +38,57 @@ function createCard(cardItem, cardSelector, userId) {
       api.deleteCard(cardItem._id)
         .then(() => {
           cardTemplate.deleteCard();
-        },
-        );
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     }
   },
     {
       likeFunction: () => {
-        api.addLikeToCard(cardItem._id).then((data) => {
-          cardTemplate.handleLike(data);
-        });;
+        api.addLikeToCard(cardItem._id)
+          .then((data) => {
+            cardTemplate.handleLike(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
       }
     },
     {
       dislikeFunction: () => {
-        api.removeLikefromCard(cardItem._id).then((data) => {
-          cardTemplate.handleDislike(data);
-        });
+        api.removeLikefromCard(cardItem._id)
+          .then((data) => {
+            cardTemplate.handleDislike(data);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
       }
     }
-
   );
   const cardElement = cardTemplate.generate();
   return cardElement;
 }
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-.then(([userData, cards]) => {
-  userId = userData._id;
-  userInfo.setUserInfo(userData);
-  cardList = new Section(
-    {
-      items: cards.reverse(),
-      renderer: (cardItem) => {
-        cardList.addItem(createCard(cardItem, "#my-card", userId));
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    userInfo.setUserInfo(userData);
+    cardList = new Section(
+      {
+        items: cards.reverse(),
+        renderer: (cardItem) => {
+          cardList.addItem(createCard(cardItem, "#my-card", userId));
+        },
       },
-    },
-    ".cards"
-  );
+      ".cards"
+    );
     cardList.renderItems();
-});
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 //Инфо о пользователе
 const userInfo = new UserInfo({
@@ -106,6 +118,9 @@ const popupAddCard = new PopupWithForm("#add", {
       .then(function () {
         popupAddCard.close();
       })
+      .catch((err) => {
+        console.log(err);
+      })
       .finally(() => {
         renderLoading(document.querySelector("#create-btn"), "Создать");
       });
@@ -125,6 +140,9 @@ const editPopup = new PopupWithForm("#edit", {
       .then(() => {
         editPopup.close();
       })
+      .catch((err) => {
+        console.log(err);
+      })
       .finally(() => {
         renderLoading(document.querySelector(".popup__btn"), "Сохранить");
       });
@@ -142,6 +160,9 @@ const popupNewAvatar = new PopupWithForm("#edit-ava", {
       })
       .then(() => {
         popupNewAvatar.close();
+      })
+      .catch((err) => {
+        console.log(err);
       })
       .finally(() => {
         renderLoading(document.querySelector(".popup__btn"), "Сохранить");
