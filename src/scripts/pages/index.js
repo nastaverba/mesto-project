@@ -17,15 +17,50 @@ import { Card } from "../components/Card.js";
 import Section from "../components/Section.js";
 import { api } from "../components/Api.js";
 import { FormValidator } from "../components/Validate.js";
-import { renderLoading, createCard } from "../utils/utils";
+import { renderLoading } from "../utils/utils";
 import UserInfo from "../components/UserInfo.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import {  PopupWithImage} from "../components/PopupWithImage";
 let userId = "";
 let cardList = "";
 
+const photoPopup = new PopupWithImage("#photo-full");
 
-export const photoPopup = new PopupWithImage("#photo-full");
+function createCard(cardItem, cardSelector, userId) {
+  let cardTemplate = "";
+  cardTemplate = new Card(cardItem, cardSelector, userId, {
+    handleCardClick: (name, link) => {
+      photoPopup.open(name, link);
+      photoPopup.setEventListeners();
+    },
+  }, {
+    deleteFunction: () => {
+      api.deleteCard(cardItem._id)
+        .then(() => {
+          cardTemplate.deleteCard();
+        },
+        );
+    }
+  },
+    {
+      likeFunction: () => {
+        api.addLikeToCard(cardItem._id).then((data) => {
+          cardTemplate.handleLike(data);
+        });;
+      }
+    },
+    {
+      dislikeFunction: () => {
+        api.removeLikefromCard(cardItem._id).then((data) => {
+          cardTemplate.handleDislike(data);
+        });
+      }
+    }
+
+  );
+  const cardElement = cardTemplate.generate();
+  return cardElement;
+}
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
 .then(([userData, cards]) => {
