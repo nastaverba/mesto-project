@@ -182,8 +182,8 @@ addBtn.addEventListener("click", () => {
 });
 
 editBtn.addEventListener("click", () => {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileDesc.textContent;
+  nameInput.value = userInfo.getUserInfo().username;
+  jobInput.value = userInfo.getUserInfo().job;
   formProfileInfo.disableButton();
   editPopup.open();
 });
