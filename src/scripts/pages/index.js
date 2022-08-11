@@ -25,13 +25,13 @@ let userId = "";
 let cardList = "";
 
 const photoPopup = new PopupWithImage("#photo-full");
+photoPopup.setEventListeners();
 
 function createCard(cardItem, cardSelector, userId) {
   let cardTemplate = "";
   cardTemplate = new Card(cardItem, cardSelector, userId, {
     handleCardClick: (name, link) => {
       photoPopup.open(name, link);
-      photoPopup.setEventListeners();
     },
   }, {
     deleteFunction: () => {
@@ -126,6 +126,7 @@ const popupAddCard = new PopupWithForm("#add", {
       });
   },
 });
+popupAddCard.setEventListeners();
 
 //Редактирование профиля
 const editPopup = new PopupWithForm("#edit", {
@@ -148,6 +149,7 @@ const editPopup = new PopupWithForm("#edit", {
       });
   },
 });
+editPopup.setEventListeners();
 
 //Редактирование аватара
 const popupNewAvatar = new PopupWithForm("#edit-ava", {
@@ -169,6 +171,7 @@ const popupNewAvatar = new PopupWithForm("#edit-ava", {
       });
   },
 });
+popupNewAvatar.setEventListeners();
 
 
 
@@ -176,7 +179,6 @@ const popupNewAvatar = new PopupWithForm("#edit-ava", {
 addBtn.addEventListener("click", () => {
   formCreateCard.disableButton();
   popupAddCard.open();
-  popupAddCard.setEventListeners();
 });
 
 editBtn.addEventListener("click", () => {
@@ -184,11 +186,9 @@ editBtn.addEventListener("click", () => {
   jobInput.value = profileDesc.textContent;
   formProfileInfo.disableButton();
   editPopup.open();
-  editPopup.setEventListeners();
 });
 
 editAvaBtn.addEventListener("click", () => {
   formProfileAvatar.disableButton();
   popupNewAvatar.open();
-  popupNewAvatar.setEventListeners();
 });
