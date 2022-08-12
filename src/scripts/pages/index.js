@@ -180,8 +180,9 @@ addBtn.addEventListener("click", () => {
 });
 
 editBtn.addEventListener("click", () => {
-  nameInput.value = userInfo.getUserInfo().username;
-  jobInput.value = userInfo.getUserInfo().job;
+  const myUserInfo = userInfo.getUserInfo();
+  nameInput.value = myUserInfo.username;
+  jobInput.value = myUserInfo.job;
   formProfileInfo.disableButton();
   editPopup.open();
 });
