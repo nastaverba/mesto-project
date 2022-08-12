@@ -15,7 +15,7 @@
 <body>
   <div class="page">
     <!-- Попап редактирования аватара -->
-    <div class="popup" id="edit-ava">
+    <div class="popup popup_type_form" id="edit-ava">
       <div class="popup__container">
         <button class="popup__close-icon" type="button"></button>
         <form action="#" method="POST" name="profileAvatar" id="profileAvatar" class="form" novalidate>
@@ -30,7 +30,7 @@
       </div>
     </div>
     <!-- Попап редактирования профиля -->
-    <div class="popup" id="edit">
+    <div class="popup popup_type_form" id="edit">
       <div class="popup__container">
         <button class="popup__close-icon" type="button"></button>
         <form action="#" method="POST" name="profileInfo" id="profileInfo" class="form" novalidate>
@@ -50,7 +50,7 @@
       </div>
     </div>
     <!-- Попап добавления картинки -->
-    <div class="popup" id="add">
+    <div class="popup popup_type_form" id="add">
       <div class="popup__container">
         <button class="popup__close-icon" type="button"></button>
         <form action="#" method="POST" name="addPlace" id="addPlace" class="form" novalidate>
@@ -70,7 +70,7 @@
       </div>
     </div>
     <!-- Попап открытия изображения -->
-    <div class="popup" id="photo-full">
+    <div class="popup popup_type_image" id="photo-full">
       <div class="popup__photo-container">
         <button class="popup__close-icon" type="button"></button>
         <img class="popup__img" src="<%=require('./images/card_altai.jpg')%>" alt="Полное изображение">
@@ -108,8 +108,8 @@
       <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
     </footer>
   </div>
-  <!-- Шаблон для карточки -->
-  <template id="card">
+  <!-- Шаблон для моей карточки -->
+  <template id="my-card">
     <div class="card">
       <div class="card__image-container">
         <button class="card__remove-icon card__remove-icon_active" type="button"></button>

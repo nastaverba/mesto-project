@@ -26,12 +26,47 @@ const nameInput = document.querySelector('.popup__element_data_firstname');
 const jobInput = document.querySelector('.popup__element_data_about');
 
 //Карточки
-const cardTemplate = document.querySelector('#card').content;
 const cards = document.querySelector('.cards');
 const photoFull = document.querySelector('#photo-full');
 const photoFullImage = document.querySelector('.popup__img');
 const photoFullName = document.querySelector('.popup__caption');
 
+
+const enableValidation = {
+  formSelector: ".form",
+  inputSelector: ".popup__element",
+  submitButtonSelector: ".popup__btn",
+  inactiveButtonClass: "popup__btn_inactive",
+  inputErrorClass: "popup__element_type_error",
+  errorClass: "popup__element-error_active",
+};
+
+
+
 //Экспорт
-export { popups, popupEdit, popupAdd, addBtn, editBtn, editAva, editAvaBtn, avaInput, profileAvatar, createForm, createBtn, photoNameInput, photoLinkInput, profileName,
-profileDesc, profileImg, profileInfo, nameInput, jobInput, cardTemplate, cards, photoFull, photoFullImage, photoFullName }
+export {
+  popups,
+  popupEdit,
+  popupAdd,
+  addBtn,
+  editBtn,
+  editAva,
+  editAvaBtn,
+  avaInput,
+  profileAvatar,
+  createForm,
+  createBtn,
+  photoNameInput,
+  photoLinkInput,
+  profileName,
+  profileDesc,
+  profileImg,
+  profileInfo,
+  nameInput,
+  jobInput,
+  cards,
+  photoFull,
+  photoFullImage,
+  photoFullName,
+  enableValidation,
+};
